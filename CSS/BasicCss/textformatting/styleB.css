@@ -1,0 +1,17 @@
+h1
+{
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-weight: bolder;
+
+}
+*{
+    background-color: rgb(209, 220, 18);
+}
+h2{
+    font-family: serif;
+    font-variant: small-caps;
+}
+p{
+    font-size: x-large;
+    font-variant: small-caps;
+}
