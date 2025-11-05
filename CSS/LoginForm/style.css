@@ -9,6 +9,11 @@ body
   padding: 20px;
   background-color: white;
   border-radius: 10px;
+  input{
+    border: 0;
+    background-color: transparent;
+    outline: 0;
+  }
 }
 hr{
     width:300px
@@ -51,4 +56,9 @@ button{
 {
     border: 0;
 }
+h2 span{
+    border-bottom: 3px solid blue;
+    
+}
+
 
