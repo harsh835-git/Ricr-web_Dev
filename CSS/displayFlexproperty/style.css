@@ -1,0 +1,17 @@
+#maindiv{
+    width: 1000px;
+    height: 700px;
+    border: 3px solid red;
+    background-color: blanchedalmond;
+    display: flex;
+    /* gap: 5px; */
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.subDiv{
+    width: 60px;
+    height: 60px;
+    border: 2px dotted pink;
+    background-color: aquamarine;
+}
