@@ -2,11 +2,10 @@
     margin: 0;
     padding: 0;
 }
-
 #Navbar {
   border: 1px solid #000;
   background-color: blue;
-  color: aliceblue;
+  color: rgb(105, 174, 235);
   display: flex;
   justify-content:space-between;
   padding: 2px 5px;
