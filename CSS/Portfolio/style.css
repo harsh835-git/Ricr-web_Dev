@@ -1,0 +1,676 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0px;
+}
+
+#navbar h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1e1e1e;
+}
+
+#nav-items {
+  display: flex;
+  gap: 25px;
+}
+
+#nav-items span {
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+}
+
+#nav-items span:hover {
+  color: #007bff;
+}
+
+/* ---- Navbar Buttons ---- */
+#nav-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+#nav-buttons button {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#b1 {
+  background: none;
+  border: 1px solid #000;
+}
+
+#b2 {
+  background-color: black;
+  color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+#b2:hover {
+  background-color: #333;
+}
+
+#intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 80px;
+  background-color: #ffffff;
+  font-family: "Poppins", sans-serif;
+}
+
+#introText {
+  h1 {
+    font-size: 42px;
+    color: #000000;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  p {
+    width: 450px;
+    color: #b8bcc6;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+}
+
+#emailSection p {
+  margin-bottom: 6px;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+#emailInput {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+#userEmail {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#offerButton {
+  background-color: #111827;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s, transform 0.2s;
+}
+.terms {
+  color: #c0c3ca;
+  font-size: 14px;
+}
+
+#profilePic {
+  width: 700px;
+  height: 600px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+#clients {
+  text-align: center;
+  p {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+  .subdiv {
+    display: inline;
+    margin: 10px;
+    padding: 10px;
+  }
+}
+
+#skills {
+  #ps1 {
+    margin-top: 90px;
+    text-align: center;
+  }
+  #ps2 {
+    text-align: center;
+    color: #a3a4a8;
+    font-size: larger;
+    margin-bottom: 100px;
+  }
+  h1 {
+    text-align: center;
+  }
+}
+#maindivskillsgrid {
+  width: 1000px;
+  height: 600px;
+  display: grid;
+  grid-template-columns: 500px 500px 500px;
+  justify-items: center;
+  align-items: end;
+
+b{
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+  button {
+    text-align: center;
+    height: 50px;
+    width: 50px;
+    font-size: xx-large;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    background-color: black;
+    color: white;
+    bottom: 20px;
+    right: 20px;
+
+  }
+}
+.skillsgrid {
+  margin: 50px;
+
+  width: 250px;
+  height: 200px;
+}
+
+#MyProjects{
+    h1{
+        margin-top: 50px;
+        text-align: center;
+        font-weight: bolder;
+    }
+    #pm1{
+        text-align: center;
+        font-size: large;
+        color: #91959d;
+    }
+}
+
+#maindivmyprojectgrid{
+    width: 1500px;
+  height: 600px;
+  display: grid;
+  grid-template-columns: 375px 370px 375px 370px;
+  justify-items: center;
+  align-items: end;
+
+  b{
+    font-size: x-large;
+    font-weight: bolder;
+}
+p{
+    color: #868b96 ;
+}
+#seeDetails{
+    background-color: #212121;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+}
+.myprojectgridgrid {
+  margin: 50px;
+  width: 250px;
+  height: 200px;
+}
+
+
+/* ===== My Resume Section ===== */
+#myresume {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 80px 100px;
+  background-color: #fff;
+  gap: 60px;
+}
+
+/* ===== Left Column ===== */
+#myresume > h1 {
+  font-size: 42px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+#myresume > p {
+  color: #b6b4b4;
+  font-size: 16px;
+  line-height: 1.7;
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+
+#myresume > #viewmore {
+  background:white;
+  border: none;
+  color: #111;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+#myresume > #viewmore:hover {
+
+  color: #ffffff;
+  width: 10px;
+  height: 20px;
+}
+
+/* ===== Right Column ===== */
+#myresume > div {
+    margin: 50px ;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Each Row: Icon + Text */
+#myresume > div > div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  
+}
+
+/* Icon Button */
+#myresume > div > div > button {
+  
+  background-color: #111;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  cursor: default;
+}
+
+/* Text beside icon */
+#myresume > div > div > p {
+  color: #777;
+  font-size: 16px;
+  margin: 0;
+  
+}
+
+
+/* ===== What Clients Say Section ===== */
+#whtaClientsSay {
+  text-align: center;
+  padding: 80px 100px;
+  background-color: #fff;
+}
+
+/* Heading */
+#whtaClientsSay > h1 {
+  font-size: 38px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+/* Paragraph */
+#whtaClientsSay > p {
+  font-size: 18px;
+  color: #999;
+  line-height: 1.7;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+
+/* ===== What Clients Say Section ===== */
+#whtaClientsSay {
+  padding: 80px 100px;
+  background: #fff;
+}
+
+/* Heading + intro */
+#whtaClientsSay > h1 {
+  text-align: center;
+  font-size: 38px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 20px;
+}
+#whtaClientsSay > p {
+  text-align: center;
+  color: #999;
+  line-height: 1.6;
+  font-size: 18px;
+  margin-bottom: 120px;
+}
+
+/* Two columns (text + image) */
+#whtaClientsSay > .clientsay:first-of-type {
+  display: inline-block;
+  width: 50%;
+  vertical-align: top;
+}
+#whtaClientsSay > .clientsay:last-of-type {
+  display: inline-block;
+  width: 40%;
+  text-align: right;
+}
+
+/* Left column text */
+#whtaClientsSay > .clientsay:first-of-type > h1 {
+  font-size: 32px;
+  color: #222;
+  margin-bottom: 20px;
+}
+#whtaClientsSay > .clientsay:first-of-type > p {
+  color: #888;
+  font-size: 18px;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+#whtaClientsSay > .clientsay:first-of-type > h4:first-of-type {
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 8px;
+}
+#whtaClientsSay > .clientsay:first-of-type > h4:last-of-type {
+  color: #aaa;
+  font-weight: 400;
+  margin-bottom: 25px;
+}
+
+/* Profile icons */
+#whtaClientsSay > .clientsay:first-of-type > button {
+  border: none;
+  background: transparent;
+  margin-right: 10px;
+  cursor: pointer;
+}
+#whtaClientsSay > .clientsay:first-of-type > button > img {
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  object-fit: cover;
+  transition: 0.3s;
+}
+#whtaClientsSay > .clientsay:first-of-type > button:hover > img {
+  transform: scale(1.05);
+}
+
+/* Divider */
+#whtaClientsSay > .clientsay:first-of-type > hr {
+  display: inline-block;
+  width: 1px;
+  height: 40px;
+  background: #ddd;
+  border: none;
+  margin: 0 5px;
+}
+
+/* Right column image */
+#whtaClientsSay > .clientsay:last-of-type > img {
+  width: 400px;
+  height: 400px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+
+
+/* ===== Popular Clients Section ===== */
+#popularClients {
+  text-align: center;
+  padding: 100px 80px 60px;
+  background: #fff;
+}
+
+/* Headings */
+#popularClients > #p1 {
+  color: #999;
+  font-size: 16px;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+#popularClients > #p2 {
+  color: #222;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  line-height: 1.3;
+}
+
+/* Logos row */
+#popularClients > .subdiv {
+  display: inline-block;
+  margin: 0 25px;
+  vertical-align: middle;
+}
+#popularClients > .subdiv > img {
+  width: 130px;
+  opacity: 0.7;
+  filter: grayscale(100%);
+  transition: 0.3s;
+}
+#popularClients > .subdiv > img:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+/* ===== Contact Us Section ===== */
+#Contactus {
+  text-align: center;
+  padding: 100px 50px 120px;
+  background: #fff;
+}
+#Contactus > h1 {
+  color: #222;
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+#Contactus > p {
+  color: #999;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+
+/* ===== Contact Section ===== */
+#D1, #D2 {
+  display: inline-block;
+  vertical-align: top;
+  padding: 50px;
+  border-radius: 12px;
+  margin: 40px 20px;
+  box-sizing: border-box;
+}
+
+#D1 {
+  width: 40%;
+  height: 600px;
+  background: #1e1e1e;
+  color: #fff;
+}
+#D1 > h1 {
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 15px;
+  text-align: start;
+}
+#D1 > p {
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1.8;
+  text-align: start;
+}
+
+/* Right Form Section */
+#D2 {
+  width: 50%;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+#D2 > span {
+  font-size: 15px;
+  font-weight: 600;
+  color: #5457fd;
+  text-align: start;
+}
+#D2 > input,
+#D2 > textarea {
+  width: 90%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  margin-bottom: 10px;
+  background: transparent;
+}
+#D2 > hr {
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 25px;
+}
+
+/* Radio options */
+#D2 > #radio {
+  margin-top: 20px;
+}
+#D2 > #radio > input {
+  margin-right: 6px;
+}
+#D2 > #radio > label {
+  margin-right: 20px;
+  color: #666;
+  font-size: 15px;
+}
+
+/* Message Area */
+#D2 > #radio > span {
+  display: block;
+  align-items: start;
+  margin-top: 25px;
+  font-weight: 600;
+  color: #444;
+}
+#D2 > #radio > span > textarea {
+  width: 100%;
+  height: 100px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin-top: 10px;
+  outline: none;
+  resize: none;
+}
+
+/* Send Button */
+#D2 > #radio > button {
+  margin-top: 25px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  background: #1e1e1e;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+#D2 > #radio > button:hover {
+  background: #333;
+  transform: scale(1.03);
+}
+
+/* ===== Footer ===== */
+#footer {
+  background: #fff;
+  padding: 30px 60px;
+  font-family: "Poppins", sans-serif;
+  color: #555;
+}
+
+#footer > hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin-bottom: 20px;
+}
+
+/* Layout */
+#footer > #footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Left text */
+#footer > #footer-content > p {
+  flex: 1;
+  font-size: 14px;
+  color: #777;
+}
+
+/* Center navigation */
+#footer > #footer-content > #footer-links {
+  display: flex;
+  gap: 25px;
+  flex: 1;
+  justify-content: center;
+}
+#footer > #footer-content > #footer-links > a {
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: 0.3s;
+}
+#footer > #footer-content > #footer-links > a:hover {
+  color: #000;
+}
+
+/* Subscribe button */
+#footer > #footer-content > #subscribe {
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#footer > #footer-content > #subscribe:hover {
+  background: #333;
+  transform: scale(1.05);
+}
