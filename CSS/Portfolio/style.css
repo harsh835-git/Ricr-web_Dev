@@ -235,6 +235,9 @@ b{
   grid-template-columns: 375px 370px 375px 370px;
   justify-items: center;
   align-items: end;
+  margin-left: 90px;
+  
+  
 
   b{
     font-size: x-large;
@@ -271,73 +274,90 @@ p{
 }
 
 /* ===== Left Column ===== */
-#myresume > h1 {
-  font-size: 42px;
+/* === My Resume Section === */
+#myresume {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 100px 150px;
+  background: #fff;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+/* Left Side */
+.resume-left {
+  margin-top: 50px;
+  width: 45%;
+}
+
+.resume-left h1 {
+  font-size: 48px;
   font-weight: 700;
-  color: #222;
+  color: #2b2b2b;
   margin-bottom: 20px;
 }
 
-#myresume > p {
-  color: #b6b4b4;
-  font-size: 16px;
-  line-height: 1.7;
-  max-width: 400px;
-  margin-bottom: 20px;
+.resume-left p {
+  font-size: 18px;
+  color: #8d8d8d;
+  line-height: 1.8;
+  margin-bottom: 30px;
 }
 
-#myresume > #viewmore {
+.viewmore {
   background: none;
   border: none;
-  color: #111;
+  color: #1f1f1f;
   font-weight: 700;
   font-size: 15px;
+  letter-spacing: 0.5px;
   cursor: pointer;
-}
-
-#myresume > #viewmore:hover {
-
-  color: #ffffff;
-  width: 10px;
-  height: 20px;
-}
-
-/* ===== Right Column ===== */
-#myresume > div {
-    margin: 50px ;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-/* Each Row: Icon + Text */
-#myresume > div > div {
   display: flex;
   align-items: center;
-  gap: 15px;
-  
+  gap: 5px;
+  transition: transform 0.3s ease;
 }
 
-/* Icon Button */
-#myresume > div > div > button {
-  
-  background-color: #111;
+.viewmore:hover {
+  transform: translateX(5px);
+}
+
+/* Right Side */
+.resume-right {
+   margin-top: 50px;
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+/* Each Item */
+.resume-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.resume-icon {
+  background: #1e1e1e;
   color: #fff;
-  border: none;
+  font-size: 22px;
+  width: 50px;
+  height: 50px;
   border-radius: 10px;
-  padding: 12px;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  cursor: default;
 }
 
-/* Text beside icon */
-#myresume > div > div > p {
-  color: #777;
-  font-size: 16px;
-  margin: 0;
-  
+.resume-item p {
+  font-size: 17px;
+  color: #999;
+  font-weight: 500;
 }
+
 
 
 /* ===== What Clients Say Section ===== */
@@ -528,6 +548,7 @@ p{
   border-radius: 12px;
   margin: 40px 20px;
   box-sizing: border-box;
+  text-align: left;
 }
 
 #D1 {
@@ -554,14 +575,16 @@ p{
   width: 50%;
   background: #fff;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  
 }
 #D2 > span {
   font-size: 15px;
   font-weight: 600;
-  color: #000276;
-  text-align: start;
+  color: #191ce1;
+  
+  
 }
-#D2 > input{ text-align: center;
+#D2 > input{ 
   margin: 5px;
     padding-top: 10px;
 
@@ -579,9 +602,8 @@ p{
   border: 0;
   border-bottom: 1px solid #ccc;
   margin-bottom: 25px;
-  
-  
 }
+
 
 /* Radio options */
 #D2 > #radio {
@@ -628,6 +650,9 @@ p{
 #D2 > #radio > button:hover {
   background: #333;
   transform: scale(1.03);
+}
+.form{
+  text-align: left;
 }
 
 /* ===== Footer ===== */
