@@ -65,6 +65,9 @@
 #b2:hover {
   background-color: #333;
 }
+#b1:hover {
+  background-color: #ab9a9a;
+}
 
 #intro {
   display: flex;
@@ -156,13 +159,17 @@
 #skills {
   #ps1 {
     margin-top: 90px;
+    margin-bottom: 30px;
     text-align: center;
+    font-weight: 800;
   }
   #ps2 {
     text-align: center;
     color: #a3a4a8;
     font-size: larger;
     margin-bottom: 100px;
+    margin-top: 30px;
+    font-weight: 500;
   }
   h1 {
     text-align: center;
@@ -215,6 +222,9 @@ b{
         text-align: center;
         font-size: large;
         color: #91959d;
+        margin-top: 40px;
+        font-weight: 400;
+        
     }
 }
 
@@ -277,7 +287,7 @@ p{
 }
 
 #myresume > #viewmore {
-  background:white;
+  background: none;
   border: none;
   color: #111;
   font-weight: 700;
@@ -522,7 +532,7 @@ p{
 
 #D1 {
   width: 40%;
-  height: 600px;
+  height: 675px;
   background: #1e1e1e;
   color: #fff;
 }
@@ -548,11 +558,15 @@ p{
 #D2 > span {
   font-size: 15px;
   font-weight: 600;
-  color: #5457fd;
+  color: #000276;
   text-align: start;
 }
-#D2 > input,
-#D2 > textarea {
+#D2 > input{ text-align: center;
+  margin: 5px;
+    padding-top: 10px;
+
+}
+#D2 > input,textarea {
   width: 90%;
   border: none;
   outline: none;
@@ -561,9 +575,12 @@ p{
   background: transparent;
 }
 #D2 > hr {
+  
   border: 0;
   border-bottom: 1px solid #ccc;
   margin-bottom: 25px;
+  
+  
 }
 
 /* Radio options */
