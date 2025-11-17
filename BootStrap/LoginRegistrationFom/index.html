@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login-ResistrationForm</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
+    <div id="main" class="bg-primary w-75 my-5 py-lg-5 d-flex justify-content-center border-bottom border-5 rounded-3 ">
+      <div id="LoginForm" class=" m-auto px-4 rounded " style="background-color: white;">
+        <h2 class="my-5"><b><u class="">Lo</u>gin</b></h2>
+        <div class="d-flex justify-content-center align-content-center my-4 border-bottom">
+          <span class="fs-2 opacity-50 "><i class="bi bi-envelope"></i></span>
+          <input type="text" id="LoginEmail" class="form-control opacity-75" style="background-color: white; border: none;" placeholder="Enter your email">
+        </div>
+        <div class="d-flex justify-content-center align-content-center my-4 border-bottom">
+          <span class="fs-2 opacity-50 "><i class="bi bi-lock"></i></span>
+          <input
+            type="text"
+            id=""
+            class="form-control opacity-75"
+            style="background-color: white; border: none;"
+            placeholder="Confirm a password"
+          />
+          <span class="fs-2 opacity-50 "><i class="bi bi-eye"></i></span>
+        </div>
+        <div class="d-flex justify-content-between my-3">
+          <div><input type="checkbox" class="mx-1" /><span>Remember me</span></div>
+          <div>
+            <a
+              href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+            ></a
+            ><span class="text-primary"><b>Forgot password?</b></span>
+          </div>
+        </div>
+        <button class="form-control bg-primary text-light my-5 py-3">Login Now</button>
+        <div class="d-flex justify-content-center m-5">
+            <p class="d-inline-block">Don't have an account?<p class="text-primary">Signup now</p></p>
+        </div>
+      </div>
+      <div id="RegistrationForm" class=" m-auto px-4 rounded d-grid align-content-between py-5  " style="background-color: white;">
+        <h2 class=""><b><u>Re</u>gistration</b></h2>
+        <div class="d-flex justify-content-center align-content-center my-3 border-bottom"> 
+            <span class="fs-2 opacity-50"><i class="bi bi-person"></i></span>
+            <input type="text" name="name" id="name" class="form-control opacity-75 " placeholder="Enter your name" style="border: none;">
+        </div>
+        <div class="d-flex justify-content-center align-content-center my-3 border-bottom"> 
+            <span class="fs-2 opacity-50"><i class="bi bi-envelope"></i></span>
+            <input type="text" name="name" id="name" class="form-control opacity-75" placeholder="Enter your email" style="border: none;">
+        </div>
+        <div class="d-flex justify-content-center align-content-center my-3 border-bottom"> 
+            <span class="fs-2 opacity-50"><i class="bi bi-lock"></i></span>
+            <input type="text" name="name" id="name" class="form-control opacity-75" placeholder="Create a password" style="border: none;">
+        </div>
+        <div class="d-flex justify-content-center align-content-center my-3 border-bottom"> 
+            <span class="fs-2 opacity-50"><i class="bi bi-lock"></i></span>
+            <input type="text" name="name" id="name" class="form-control opacity-75f" placeholder="Confirm a password" style="border: none;">
+            <span class="fs-2 opacity-50"><i class="bi bi-eye"></i></span>
+        </div>
+        <div>
+            <input type="checkbox" class="me-2 " ><span>I accept all terms & conditions</span>
+        </div>
+        <div class="mt-5">
+            <button class="form-control bg-primary text-light h-100 my-2 py-2">Register Now</button>
+        </div>
+        <div class="d-flex justify-content-center m-5">
+            <p class="d-inline-block">Already have an account?<p class="text-primary">Login now</p></p>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
