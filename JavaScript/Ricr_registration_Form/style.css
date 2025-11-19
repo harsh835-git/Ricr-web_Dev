@@ -1,0 +1,49 @@
+body {
+        background: #e9f7ff;
+      }
+      .form-box {
+        background: #dff3ff;
+        margin: 0 100;
+        border-radius: 20px;
+        margin-top: 150px;
+       
+      }
+.mult {
+    margin: auto;
+}
+.back {
+    background-color: #125785;
+}
+#btnst{
+    background-color: #125785;
+    box-shadow: skyblue;
+    
+}
+.button {
+    width: 30px;
+    height: 30px;
+    border-radius: 25;
+}
+.myclass {
+    text-align: center;
+    width: 30px;
+    height: 20px;
+    
+   
+}
+.myclass button {
+    background-color: black;
+    color: white;
+    width: 80px;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 50px;
+}
+.footer {
+    padding-top: 80px;
+}
+.pops {
+    position: sticky;
+    top: 0px;
+    background-color: white;
+}

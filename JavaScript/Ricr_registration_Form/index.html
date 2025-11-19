@@ -3,110 +3,214 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ricr_registration-form</title>
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./style.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
   </head>
+
   <body>
-    <div id="Navbar">
-      <img src="Ricr logo.png" alt="Ricr_logo" id="RicrPic" />
-      <div id="Nav-items">
-        <span class="Items"> Home</span>
-        <span class="Items"> About</span>
-        <span class="Items"> Courses</span>
-        <span class="Items"> IDE</span>
-        <span class="Items"> ContactUs</span>
+    <!-- NAV -->
+    <div class="container my-4 d-flex justify-content-between align-items-center mx-auto pops">
+      <div>
+        <img src="Ricr logo.png" style="width: 150px; height: 60px" />
       </div>
-      <div id="btn">
-        <span id="contact" class="nav">&#128241; +918889991736</span>
-        <span id="contact" class="nav"><button>Student Login</button></span>
+
+      <div class="d-flex gap-4"> 
+        <span>Home</span>
+        <span>About</span>
+        <span>Courses</span>
+        <span>IDE</span>
+        <span>Contact Us</span>
+      </div>
+
+      <div class="d-flex align-items-center gap-3">
+        <span><i class="bi bi-telephone-fill"></i></span>
+        <span>+918889991736</span>
+        <button class="btn btn-primary" id="btnst">Student Login</button>
       </div>
     </div>
 
-    <div id="main">
-      <div id="form">
+    <!-- FORM -->
+  <div class="mutl">
+    <div class="container form-box py-5" style="padding: 0 200px;">
+
+      <div class="text-center">
         <h1>Enquiry Form</h1>
         <p>
           Have questions or need assistance? Fill out the form below to connect
           with our team and explore your opportunities.
         </p>
-        <div class="inputs">
-          <label for="Person Name">Person Name*</label>
-          <input
-            type="text"
-            id="PersonName"
-            name="Person Name"
-            placeholder="Person Name"
-          />
-        </div>
-        <div class="inputs">
-          <label for="Contact Number">Contact Number*</label>
-          <input
-            type="number"
-            id="ContactNumber"
-            name="Contact Number"
-            placeholder="Contact Number"
-          />
-        </div>
-        <div class="inputs">
-          <label for="Email">Email*</label>
-          <input type="email" id="Email" name="Email" placeholder="Email" />
-        </div>
-        <div class="inputs">
-          <label for="Qualification">Qualification*</label>
-          <input
-            type="text"
-            id="Qualification"
-            name="Qualification"
-            placeholder="Qualification"
-          />
-        </div>
-        <div class="inputs">
-          <label for="College/School Name">College/School Name*</label>
-          <input
-            type="text"
-            id="College/School Name"
-            name="College/School Name"
-            placeholder="College/School Name"
-          />
-        </div>
-        <div class="inputs">
-          <label for="Year">Year*</label>
-          <select name="Year" id="Year">
-            <option value="Year">Year</option>
-            <option value="First_Year">First Year</option>
-            <option value="Second_Year">Second Year</option>
-            <option value="Third_Year">Third Year</option>
-            <option value="Fourth_Year">Fourth Year</option>
-            <option value="Passout">Passout</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <div class="inputs">
-          <label for="Branch">Branch*</label>
-          <input type="text" id="Branch" name="Branch" placeholder="Branch" />
-        </div>
-        <div class="inputs">
-          <label for="Interested">Interested in Which Course*</label>
-          <select name="Interested in Which Course" id="Interest">
-            <option value="Interest">Interest</option>
-            <option value="Full_Stack_Web_Development">
-              Full Stack Web Development - Placement Oriented
-            </option>
-            <option value="Data_Science_with_Python">
-              Data Science with Python - Placement Oriented
-            </option>
-            <option value="Data_Analytics_with_Python">
-              Data Analytics with Python - Placement Oriented
-            </option>
-            <option value="Business_Analyst">Business Analyst</option>
-            <option value="Java_Programming">Java Programming</option>
-            <option value="Python_Programming">Python Programming</option>
-            <option value="C/C++ Programming">C/C++ Programming</option>
-            <option value="Other">Other</option>
-          </select>
+      </div>
 
-        
+      <div class="row g-4 py-2">
+        <div class="col-md-6">
+          <label class="py-2">Person Name*</label>
+          <input type="text" class="form-control" id="PersonName" placeholder="Person Name"/>
+        </div>
+
+        <div class="col-md-6">
+          <label class="py-2">Contact Number*</label>
+          <input type="number" class="form-control" id="ContactNumber" placeholder="Contact Number" />
         </div>
       </div>
+
+      <div class="row g-4 py-2">
+        <div class="col-md-8">
+          <label class="py-2">Email*</label>
+          <input type="text" class="form-control" id="Email" placeholder="Email" />
+        </div>
+
+        <div class="col-md-4">
+          <label class="py-2">Qualification*</label>
+          <input type="text" class="form-control" id="Qualification" placeholder="Qualification"/>
+        </div>
+      </div>
+
+      <div class="row g-4 py-2">
+        <div class="col-12">
+          <label class="py-2">College/School Name*</label>
+          <input type="text" class="form-control" id="College" placeholder="College/School Name">
+        </div>
+      </div>
+
+      <div class="row g-4 py-2">
+        <div class="col-md-6">
+          <label class="py-2">Course Selection*</label>
+          <select class="form-select" id="select-year">
+            <option selected>Year</option>
+            <option value="1">First Year</option>
+            <option value="2">Second Year</option>
+            <option value="3">Third Year</option>
+            <option value="4">Forth Year</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="py-2">Branch*</label>
+          <input type="text" class="form-control" id="Branch" />
+        </div>
+      </div>
+
+      <!-- Course Interest + Source Section -->
+      <div class="row py-3">
+        <div class="col-md-6">
+                <p class="fw-bold">Interested in Which Course*</p>
+
+                <label><input type="checkbox" id="c1" /> Full Stack Web Development</label><br />
+                <label><input type="checkbox" id="c2" /> Data Science with Python</label><br />
+                <label><input type="checkbox" id="c3" /> Data Analytics with Python</label><br />
+                <label><input type="checkbox" id="c4" /> Business Analyst</label><br />
+                <label><input type="checkbox" id="c5" /> Java Programming</label><br />
+                <label><input type="checkbox" id="c6" /> Python Programming</label><br />
+                <label><input type="checkbox" id="c7" /> C/C++ Programming</label><br />
+                <label><input type="checkbox" id="c8" /> Other</label>
+          </div>
+
+        <div class="col-md-6 my-2 ">
+          <p class="fw-bold">Source of Information</p>
+          <p class="text-muted" style="margin-top:-10px;">
+            (Only choose 'Received call from institute' if you actually got a call from us)*
+          </p>
+
+          <div class="row g-3 mb-3">
+            <div class="col-12 py-2">
+              <label class="py-2">Source Of Information*</label>
+              <select class="form-select" id="info">
+                <option selected>Select</option>
+                <option>News Paper/Print Media</option>
+                <option>Friends/Relative</option>
+                <option>Social Media</option>
+                <option>Workshop Seminar</option>
+                <option>Friends</option>
+                >
+                <option>Recieved Call From institute</option>
+                <option>Other</option
+              </select>
+            </div>
+
+            <div class="col-12 ">
+              <label class="py-2">Name of Executive (If Any)</label>
+              <input type="text" class="form-control"/>
+            </div>
+          </div>
+
+          
+        </div>
+        <div class="align-items-center myclass "><button onclick="ricrform()">Submit</button></div>
+
+      </div>
     </div>
+
+  </div>  
+
+    <div class="container  my-5 align-items-center align-content-center back">
+      <div class="row footer" style="height: 580px; margin-bottom: 0;">
+        <div class="col-md-6 my-5 text-white px-5"><img src="Ricr logo.png" style="width: 200px; height: 30px; color: white;">
+           <p class="my-4 px-5">RICR is a subsidiary of Raj Digital<br>
+              Private Limited. It is a premier coding<br>
+              and robotics institute, empowering<br>
+              students with cutting-edge education<br>
+              and real-world skills for a tech-driven<br>
+              future.
+           </p>
+
+        </div>
+        <div class="col-md-2 my-5 text-white "><h3>Other Links</h3>
+            <div class="py-2">Courses</div>
+            <div class="py-2">Host a Workshop</div>
+            <div class="py-2">Community Ambassador</div>
+            <div class="py-2">Work With Us</div>
+            <div class="py-2"></div>
+        </div>
+        <div class="col-md-2 my-5 text-white "><h3>Quick Links</h3>
+            <div class="py-2">Other Links</div>
+            <hr style="width: 50%;">
+            <div class="py-2">Policies</div>
+            
+            <div class="py-2">Terms of Service</div>
+            <div class="py-2">Privacy Policy</div>
+        </div>
+  
+       <div class="col-md-2 my-5 text-white "><h3>Information</h3>
+            <div class="py-2"><span></span>Minal Mall, 4th Floor, Minal Residency, JK Road,<br>
+             Bhopal Pincode (462023)
+            </div>
+            
+            <div class="py-2"><span></span>contact@ricr.in</div>
+            
+            <div class="py-2 ">+91 8889991736</div>
+            <div class="py-2 d-flex gap-3 ">
+              <div><i class="bi bi-facebook"></i></div>
+              <div><i class="bi bi-instagram"></i></div>
+              <div><i class="bi bi-whatsapp"></i></div>
+              <div><i class="bi bi-linkedin"></i></div>
+              
+            </div>
+        </div>
+       <hr style="color: white;">
+   <div class="container d-flex justify-content-between">
+       <div style="color: white; padding-bottom: 12px">© 2024 - Raj Digital Private Limited | All Rights Reserved</div>
+        <div style="color: white; padding-bottom: 12px;" >Sitemap</div>
+   </div>
+
+      </div>
+    </div>
+   
+
+
+    <script src="./index.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script>
   </body>
 </html>
