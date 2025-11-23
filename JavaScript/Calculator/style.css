@@ -65,9 +65,19 @@
 
 /* Equal button */
 #btnEqual {
-  background-color: rgb(255, 93, 48);
+  background-color: rgb(243, 58, 7);
   color: white;
   height: 45px;
   font-weight: bold;
   border: 2px solid #000;
+}
+
+.inputButton:hover {
+  background-color: rgb(185, 175, 175);
+}
+#btnEqual:hover {
+  background-color: rgb(245, 65, 65);
+}
+#btnClear:hover {
+  background-color: rgb(242, 47, 47);
 }
