@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="bulb">Bulb</div>
+    <button id="on" style="background-color: yellow;" onclick="on()">On</button>
+    <button id="off" style="background-color: white;" onclick="off()">Off</button>
+    <button id="red" style="background-color: red;" onclick="red()">red</button>
+    <button id="blue" style="background-color: blue;" onclick="blue()">blue</button>
+    <button id="green" style="background-color: green;" onclick="green()">green</button>
+
+    <input type="color" placeholder="color" id="color" >
+
+    <br>
+    <hr>
+    <div id="smartbulb">Smart Bulb</div>
+    <br>
+    <button onclick="SB_control()" id="SB_btn">On</button>
+
+    <button onclick="SB_control2()">On/Off</button>
+
+    <script src="script.js"></script>
+  </body>
+</html>

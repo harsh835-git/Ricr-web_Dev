@@ -10,47 +10,48 @@
     <div id="main">
       <div id="cal">
         <div id="screen">
-          <input type="number" id="inputScreen" readonly />
+          <input type="text" id="inputScreen" name="inputScreen" placeholder="0" readonly />
         </div>
       </div>
 
       <div id="table">
         <table>
           <tr>
-            <td><button id="btn7" class="inputButton">7</button></td>
-            <td><button id="btn8" class="inputButton">8</button></td>
-            <td><button id="btn9" class="inputButton">9</button></td>
-            <td><button id="btnDivide" class="inputButton">/</button></td>
+            <td><button id="btn7" class="inputButton" onclick="input('7')">7</button></td>
+            <td><button id="btn8" class="inputButton" onclick="input('8')">8</button></td>
+            <td><button id="btn9" class="inputButton" onclick="input('9')">9</button></td>
+            <td><button id="btnDivide" class="inputButton" onclick="input('/')">/</button></td>
           </tr>
 
           <tr>
-            <td><button id="btn4" class="inputButton">4</button></td>
-            <td><button id="btn5" class="inputButton">5</button></td>
-            <td><button id="btn6" class="inputButton">6</button></td>
-            <td><button id="btnMultiply" class="inputButton">*</button></td>
+            <td><button id="btn4" class="inputButton" onclick="input('4')">4</button></td>
+            <td><button id="btn5" class="inputButton" onclick="input('5')">5</button></td>
+            <td><button id="btn6" class="inputButton"onclick="input('6')">6</button></td>
+            <td><button id="btnMultiply" class="inputButton" onclick="input('*')">*</button></td>
           </tr>
 
           <tr>
-            <td><button id="btn1" class="inputButton">1</button></td>
-            <td><button id="btn2" class="inputButton">2</button></td>
-            <td><button id="btn3" class="inputButton">3</button></td>
-            <td><button id="btnMinus" class="inputButton">-</button></td>
+            <td><button id="btn1" class="inputButton" onclick="input('1')">1</button></td>
+            <td><button id="btn2" class="inputButton" onclick="input('2')">2</button></td>
+            <td><button id="btn3" class="inputButton" onclick="input('3')">3</button></td>
+            <td><button id="btnMinus" class="inputButton" onclick="input('-')">-</button></td>
           </tr>
 
           <tr>
-            <td><button id="btnDot" class="inputButton">.</button></td>
-            <td><button id="btn0" class="inputButton">0</button></td>
-            <td><button id="btnPlus" class="inputButton">+</button></td>
-            <td><button id="btnClear" class="inputButton">C</button></td>
+            <td><button id="btnDot" class="inputButton" onclick="input('.')">.</button></td>
+            <td><button id="btn0" class="inputButton" onclick="input('0')">0</button></td>
+            <td><button id="btnPlus" class="inputButton " onclick="input('+')">+</button></td>
+            <td><button id="btnClear" class="inputButton" onclick="input('C')">C</button></td>
           </tr>
 
           <tr>
             <th colspan="4" style="background-color: black">
-              <button id="btnEqual" class="inputButton">=</button>
+              <button id="btnEqual" class="inputButton" onclick="input('=')">=</button>
             </th>
           </tr>
         </table>
       </div>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>

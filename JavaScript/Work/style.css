@@ -1,0 +1,9 @@
+#outer{
+    width: 750px;
+    height:250px;
+    border: 1px solid #000;
+}
+#inner{
+    margin: 15px;
+    border: 1px solid #000;
+}
