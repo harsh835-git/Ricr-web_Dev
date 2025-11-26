@@ -6,8 +6,6 @@ function changecolorB(colorB) {
     document.getElementById("inner").style.backgroundColor = colorB;
 }
 
-
-
 const usercolorH = document.getElementById("colorH");
 
 usercolorH.addEventListener("change", () => changecolorH(usercolorH.value));
