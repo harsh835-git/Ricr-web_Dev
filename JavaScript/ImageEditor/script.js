@@ -1,50 +1,114 @@
-const img = document.getElementById("image").src;
+let b = 1,
+  c = 1,
+  g = 0,
+  s = 0,
+  i = 0;
 
+const img = document.getElementById("image");
 
-if(img==="http://127.0.0.1:5500/JavaScript/photoEditingTool/index.html"){
-    document.getElementById("mage").style.display="none";
-}
-else{
-    document.getElementById(uploadLabel).style.display="none";
-}
+console.log(img.src);
 
-function uploadImage(){
-    const file = document.getElementById("upload").files[0];
-
-    const fileURL = URL.createObjectURL(file);
-    
-    document.getElementById("Image").src=fileURL;
-    document.getElementById("Image").style.display="block";
-    document.getElementById("uploadLabel").style.display="none";
-}
-function changeBrightness(){
-    const value =  document.getElementById("Brightness").value;
-    document.getElementById("Image").style.filter=`brightness(${value*2/100})`
+if (img.src === "http://127.0.0.1:5500/JavaScript/ImageEditor/index.html") {
+  document.getElementById("image").style.display = "none";
 }
 
+function uploadImage() {
+  const file = document.getElementById("Upload").files[0];
+  const fileURL = URL.createObjectURL(file);
 
-function changeContrast(){
-    const value =  document.getElementById("Contrast").value;
-    document.getElementById("Image").style.filter=`contrast(${value*2/100})`
+  document.getElementById("image").src = fileURL;
+  document.getElementById("image").style.display = "block";
+  document.getElementById("uploadLabel").style.display = "none";
+  applyFilter();
 }
 
-function changeGrayScale(){
-    const value =  document.getElementById("GrayScale").value;
-    document.getElementById("Image").style.filter=`grayScale(${value}%)`
+function applyFilter() {
+  document.getElementById("image").style.filter = ` brightness(${b}) 
+                                                    contrast(${c}) 
+                                                    grayscale(${g}%) 
+                                                    sepia(${s}%)
+                                                    invert(${i}%)`;
 }
 
-function changeSepia(){
-    const value =  document.getElementById("sepia").value;
-    document.getElementById("Image").style.filter=`sepia(${value*2/100})`
+function changeBrightness() {
+  const value = document.getElementById("Brightness").value;
+  b = (value * 2) / 100;
+  applyFilter();
 }
 
-function changeSaturation(){
-    const value =  document.getElementById("Saturation").value;
-    document.getElementById("Image").style.filter=`saturate(${value*2/100})`
+function changeContrast() {
+  const value = document.getElementById("Contrast").value;
+  c = (value * 2) / 100;
+  applyFilter();
 }
 
+function changeGrayscale() {
+  const value = document.getElementById("Grayscale").value;
+  g = value;
+  applyFilter();
+}
 
-function changeInvert(){
-    const value =  document.getElementById("invert").value;
-    document.getElementById("Image").style.filter=`invert(${value*2/100})`
+function changeSepia() {
+  const value = document.getElementById("Sepia").value;
+  s = value;
+  applyFilter();
+}
+
+function changeInvert() {
+  const value = document.getElementById("Invert").value;
+  i = value;
+  applyFilter();
+}
+
+function reset() {
+  b = 1;
+  c = 1;
+  g = 0;
+  s = 0;
+  i = 0;
+
+  applyFilter();
+  document.getElementById("Brightness").value = "50";
+  document.getElementById("Contrast").value = "50";
+  document.getElementById("Sepia").value = "0";
+  document.getElementById("Invert").value = "0";
+  document.getElementById("Grayscale").value = "0";
+}
+
+function download() {
+  if (img.src === "http://127.0.0.1:5500/JavaScript/ImageEditor/index.html") {
+    alert("Please Uplaod the Image First");
+    return;
+  }
+
+  if (!img.complete) {
+    alert("Image Upload is in Progress.  Please wait....");
+    return;
+  }
+
+  const canvas = document.createElement("canvas");
+
+  const ctx = canvas.getContext("2d");
+
+  //fetch the original width and height of the image
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+
+  const filter = getComputedStyle(img).filter;
+
+  ctx.filter = filter === "none" ? "none" : filter;
+
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+  const dataURL = canvas.toDataURL("image/png");
+
+  const anchorTag = document.createElement("a");
+
+  anchorTag.href = dataURL;
+
+  anchorTag.download = "editedImage.png";
+
+  document.body.appendChild(anchorTag);
+  anchorTag.click();
+  document.body.removeChild(anchorTag);
 }
