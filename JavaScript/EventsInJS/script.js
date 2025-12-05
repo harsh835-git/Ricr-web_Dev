@@ -41,6 +41,42 @@ function SB_control() {
     }
 }
 
-function SB_control2(){
+function SB_control2() {
     document.getElementById("smartbulb").classList.toggle("on");
+}
+
+function fillColor(Rcolor) {
+    document.getElementById("Rainbowbulb").style.backgroundColor = Rcolor;
+}
+document.getElementById("c1").addEventListener("mouseenter"), () => {
+    fillColor("red")
+}
+
+document.getElementById("c1").addEventListener("mouseenter"), () => {
+    fillColor("yellow")
+}
+
+document.getElementById("c1").addEventListener("mouseenter"), () => {
+    fillColor("green")
+}
+
+document.getElementById("c1").addEventListener("mouseenter"), () => {
+    fillColor("blue")
+}
+
+document.getElementById("c1").addEventListener("mouseenter"), () => {
+    fillColor("violet")
+}
+
+document.getElementById("c1").addEventListener("mouseenter"), () => {
+    fillColor("pink")
+}
+
+document.getElementById("c1").addEventListener("mouseenter"), () => {
+    fillColor("cyan")
+}
+
+
+document.getElementById("c1").addEventListener("mouseleave"), () => {
+    fillColor("white")
 }

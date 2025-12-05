@@ -32,3 +32,23 @@ button{
     background-color: yellow;
 
 }
+#Rainbowbulb{
+    height: 50px;
+    width: 50px;
+    padding: 50px;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    
+
+}
+.Rcolor{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid #000;
+    text-align: center;
+    cursor: pointer;
+    
+}

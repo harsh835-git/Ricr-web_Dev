@@ -4,22 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div id="Rainbowbulb">Bulb</div>
+    <br /><br /><br />
+
+    <div id="rainbowColor">
+      <div id="c1" class="Rcolor" style="background-color: red">C1</div>
+      <div id="c1" class="Rcolor" style="background-color: yellow">C2</div>
+      <div id="c1" class="Rcolor" style="background-color: green">C3</div>
+      <div id="c1" class="Rcolor" style="background-color: blue">C4</div>
+      <div id="c1" class="Rcolor" style="background-color: violet">C5</div>
+      <div id="c1" class="Rcolor" style="background-color: pink">C6</div>
+      <div id="c1" class="Rcolor" style="background-color: cyan">C7</div>
+    </div>
+    <hr />
+
     <div id="bulb">Bulb</div>
-    <button id="on" style="background-color: yellow;" onclick="on()">On</button>
-    <button id="off" style="background-color: white;" onclick="off()">Off</button>
-    <button id="red" style="background-color: red;" onclick="red()">red</button>
-    <button id="blue" style="background-color: blue;" onclick="blue()">blue</button>
-    <button id="green" style="background-color: green;" onclick="green()">green</button>
+    <button id="on" style="background-color: yellow" onclick="on()">On</button>
+    <button id="off" style="background-color: white" onclick="off()">
+      Off
+    </button>
+    <button id="red" style="background-color: red" onclick="red()">red</button>
+    <button id="blue" style="background-color: blue" onclick="blue()">
+      blue
+    </button>
+    <button id="green" style="background-color: green" onclick="green()">
+      green
+    </button>
 
-    <input type="color" placeholder="color" id="color" >
+    <input type="color" placeholder="color" id="color" />
 
-    <br>
-    <hr>
+    <br />
+    <hr />
     <div id="smartbulb">Smart Bulb</div>
-    <br>
+    <br />
     <button onclick="SB_control()" id="SB_btn">On</button>
 
     <button onclick="SB_control2()">On/Off</button>
