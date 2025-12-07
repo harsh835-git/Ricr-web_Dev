@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./style.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+  </head>
+
+  <body style="background-color: rgb(228, 85, 85);"></body>
+
+  <div
+      class="text-start fw-bolder fs-3 bg-info text-primary container-fluid d-flex justify-content-between position-fixed"
+    >
+      Online Course Landing Site
+
+      <div id="Links" class="fs-5 fw-bold text-end d-flex gap-3">
+        <div><a href="index.html">Home</a></div>
+        <div><a href="Course.html">Courses</a></div>
+        <div><a href="About.html">About</a></div>
+        <div><a href="Contact.html">Contact</a></div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br /><br />
+    
+  <div class="bg-secondary container">
+    <div class="mutl">
+    <div class="container form-box py-5" style="padding: 0 200px;">
+
+      <div class="text-center">
+        <h1>Enquiry Form</h1>
+        <p>
+          Have questions or need assistance? Fill out the form below to connect
+          with our team and explore your opportunities.
+        </p>
+      </div>
+
+      <div class="row g-4 py-2">
+        <div class="col-md-6">
+          <label class="py-2">Person Name*</label>
+          <input type="text" class="form-control" id="PersonName" placeholder="Person Name"/>
+        </div>
+
+        <div class="col-md-6">
+          <label class="py-2">Contact Number*</label>
+          <input type="number" class="form-control" id="ContactNumber" placeholder="Contact Number" />
+        </div>
+      </div>
+
+      <div class="row g-4 py-2">
+        <div class="col-md-8">
+          <label class="py-2">Email*</label>
+          <input type="text" class="form-control" id="Email" placeholder="Email" />
+        </div>
+
+        <div class="col-md-4">
+          <label class="py-2">Qualification*</label>
+          <input type="text" class="form-control" id="Qualification" placeholder="Qualification"/>
+        </div>
+      </div>
+
+      <div class="row g-4 py-2">
+        <div class="col-12">
+          <label class="py-2">College/School Name*</label>
+          <input type="text" class="form-control" id="College" placeholder="College/School Name">
+        </div>
+      </div>
+
+      <div class="row g-4 py-2">
+        <div class="col-md-6">
+          <label class="py-2">Course Selection*</label>
+          <select class="form-select" id="select-year">
+            <option selected>Year</option>
+            <option value="1">First Year</option>
+            <option value="2">Second Year</option>
+            <option value="3">Third Year</option>
+            <option value="4">Forth Year</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="py-2">Branch*</label>
+          <input type="text" class="form-control" id="Branch" />
+        </div>
+      </div>
+
+      <!-- Course Interest + Source Section -->
+      <div class="row py-3">
+        <div class="col-md-6">
+                <p class="fw-bold">Interested in Which Course*</p>
+
+                <label><input type="checkbox" id="c1" /> Full Stack Web Development</label><br />
+                <label><input type="checkbox" id="c2" /> Data Science with Python</label><br />
+                <label><input type="checkbox" id="c3" /> Data Analytics with Python</label><br />
+                <label><input type="checkbox" id="c4" /> Business Analyst</label><br />
+                <label><input type="checkbox" id="c5" /> Java Programming</label><br />
+                <label><input type="checkbox" id="c6" /> Python Programming</label><br />
+                <label><input type="checkbox" id="c7" /> C/C++ Programming</label><br />
+                <label><input type="checkbox" id="c8" /> Other</label>
+          </div>
+
+        <div class="col-md-6 my-2 ">
+          <p class="fw-bold">Source of Information</p>
+          <p class="text-muted" style="margin-top:-10px;">
+            (Only choose 'Received call from institute' if you actually got a call from us)*
+          </p>
+
+          <div class="row g-3 mb-3">
+            <div class="col-12 py-2">
+              <label class="py-2">Source Of Information*</label>
+              <select class="form-select" id="info">
+                <option selected>Select</option>
+                <option>News Paper/Print Media</option>
+                <option>Friends/Relative</option>
+                <option>Social Media</option>
+                <option>Workshop Seminar</option>
+                <option>Friends</option>
+                >
+                <option>Recieved Call From institute</option>
+                <option>Other</option
+              </select>
+            </div>
+
+            <div class="col-12 ">
+              <label class="py-2">Name of Executive (If Any)</label>
+              <input type="text" class="form-control"/>
+            </div>
+          </div>
+
+          
+        </div>
+        <div class="align-items-center myclass "><button onclick="Regform()" class="btn btn-outline-dark fs-5 fw-bold">Submit</button></div>
+
+      </div>
+    </div>
+
+  </div> </div>
+
+
+
+    <script src="script.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script>
+  </body>
+</html>
