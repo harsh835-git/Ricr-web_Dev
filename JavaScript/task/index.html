@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>India Map State Finder</title>
+
+<!-- Bootstrap Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<style>
+    body {
+        text-align: center;
+        font-family: Arial;
+    }
+
+    #mapContainer {
+        position: relative;
+        display: inline-block;
+    }
+
+    #map {
+        width: 600px;
+        border: 2px solid black;
+    }
+
+    #flag {
+        position: absolute;
+        font-size: 28px;
+        color: red;
+        display: none;
+        transform: translate(-50%, -100%);
+    }
+
+    input {
+        padding: 8px;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 16px;
+    }
+</style>
+
+</head>
+<body>
+
+<h2>Search Indian State</h2>
+
+<input type="text" id="stateInput" placeholder="Enter State / UT Name">
+<button onclick="placeFlag()">Search</button>
+
+<br><br>
+
+<div id="mapContainer">
+    <img id="map" src="Map.jpg">
+    <i id="flag" class="bi bi-flag-fill"></i>
+</div>
+
+<script>
+
+const statePositions = {
+
+"jammu and kashmir": { top: 90, left: 210 },
+"ladakh": { top: 50, left: 260 },
+"himachal pradesh": { top: 140, left: 235 },
+"uttarakhand": { top: 160, left: 275 },
+"punjab": { top: 165, left: 220 },
+"haryana": { top: 185, left: 245 },
+"delhi": { top: 205, left: 260 },
+
+"rajasthan": { top: 250, left: 220 },
+"uttar pradesh": { top: 240, left: 300 },
+"bihar": { top: 260, left: 345 },
+"sikkim": { top: 230, left: 375 },
+"west bengal": { top: 290, left: 390 },
+
+"arunachal pradesh": { top: 210, left: 460 },
+"assam": { top: 240, left: 440 },
+"meghalaya": { top: 250, left: 425 },
+"nagaland": { top: 245, left: 470 },
+"manipur": { top: 270, left: 470 },
+"mizoram": { top: 300, left: 460 },
+"tripura": { top: 290, left: 440 },
+
+"gujarat": { top: 310, left: 200 },
+"madhya pradesh": { top: 300, left: 280 },
+"chhattisgarh": { top: 310, left: 330 },
+"odisha": { top: 340, left: 360 },
+"jharkhand": { top: 300, left: 345 },
+
+"maharashtra": { top: 360, left: 260 },
+"goa": { top: 370, left: 230 },
+"karnataka": { top: 400, left: 260 },
+"telangana": { top: 350, left: 300 },
+"andhra pradesh": { top: 390, left: 325 },
+
+"tamil nadu": { top: 460, left: 300 },
+"kerala": { top: 440, left: 245 },
+
+"andaman and nicobar islands": { top: 480, left: 465 },
+"lakshadweep": { top: 430, left: 195 },
+"puducherry": { top: 445, left: 315 },
+"chandigarh": { top: 165, left: 235 },
+"dadra and nagar haveli and daman and diu": { top: 345, left: 220 }
+};
+
+
+function placeFlag() {
+    const input = document.getElementById("stateInput").value.toLowerCase().trim();
+    const flag = document.getElementById("flag");
+
+    if (statePositions[input]) {
+        flag.style.top = statePositions[input].top + "px";
+        flag.style.left = statePositions[input].left + "px";
+        flag.style.display = "block";
+    } 
+    else {
+        alert("State / UT not found!");
+    }
+}
+
+</script>
+
+</body>
+</html>
