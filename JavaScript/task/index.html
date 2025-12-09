@@ -1,126 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>India Map State Finder</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Map - Full Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* General Body Styling */
+        body {
+            transition: background-color 0.5s ease, color 0.5s ease;
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; /* Prevents scrollbars on 1920x1080 full screen */
+            height: 100vh;
+        }
 
-<!-- Bootstrap Icons CDN -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #121212 !important;
+            color: #e0e0e0;
+        }
 
-<style>
-    body {
-        text-align: center;
-        font-family: Arial;
-    }
+        /* Controls Panel - Left Side */
+        .controls-panel {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            height: 90vh; /* Takes up 90% of screen height */
+            overflow-y: auto; /* Allows scrolling inside the panel if buttons are too many */
+            border: 1px solid rgba(0,0,0,0.05);
+        }
 
-    #mapContainer {
-        position: relative;
-        display: inline-block;
-    }
+        body.dark-mode .controls-panel {
+            background: #827e7e;
+            color: #fff;
+            border-color: #333;
+        }
 
-    #map {
-        width: 600px;
-        border: 2px solid black;
-    }
+        /* Map Container - Optimized for 1920x1080 */
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+            height: 90vh; /* Matches control panel height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            overflow: hidden; /* Keeps flags inside */
+        }
 
-    #flag {
-        position: absolute;
-        font-size: 28px;
-        color: red;
-        display: none;
-        transform: translate(-50%, -100%);
-    }
+        .map-image {
+            max-height: 100%; /* Ensures map fits vertically on 1080p */
+            width: auto;
+            max-width: 100%;
+            display: block;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
 
-    input {
-        padding: 8px;
-        font-size: 16px;
-    }
+        /* The Flag Marker */
+        .state-flag {
+            position: absolute;
+            font-size: 24px; 
+            color: #ff9933; /* Saffron */
+            text-shadow: 0 0 2px #000; /* Black outline for visibility */
+            transform: translate(-50%, -100%); /* Pin point alignment */
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s ease;
+        }
 
-    button {
-        padding: 8px 15px;
-        font-size: 16px;
-    }
-</style>
+        .state-flag:hover {
+            color: #138808; /* Green on hover */
+            transform: translate(-50%, -130%) scale(1.3);
+            z-index: 100;
+        }
 
+        /* Tooltip Styling */
+        .custom-tooltip {
+            position: fixed; /* Fixed prevents it from getting cut off by overflows */
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 15px;
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 9999;
+            display: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border-left: 4px solid #ff9933;
+            backdrop-filter: blur(4px);
+        }
+
+        .tooltip-capital {
+            font-size: 13px;
+            color: #ccc;
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        /* Button Styling */
+        .state-btn {
+            margin: 3px;
+            font-size: 0.8rem;
+            border-radius: 20px;
+            padding: 5px 12px;
+            transition: all 0.2s;
+        }
+        
+        .state-btn:hover { transform: translateY(-2px); }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
 </head>
 <body>
 
-<h2>Search Indian State</h2>
+    <div class="container-fluid py-4">
+        <div class="row g-4 align-items-start">
+            
+            <div class="col-lg-3 col-md-4">
+                <div class="controls-panel">
+                    <h3 class="text-center mb-4 fw-bold"><i class="fas fa-map-marked-alt"></i> India Map</h3>
+                    
+                    <div class="d-grid gap-2 mb-4">
+                        <button class="btn btn-success fw-bold py-2" id="addAllBtn">
+                            <i class="fas fa-check-double"></i> Add All States
+                        </button>
+                        <button class="btn btn-danger fw-bold py-2" id="clearAllBtn">
+                            <i class="fas fa-trash-alt"></i> Clear All
+                        </button>
+                    </div>
 
-<input type="text" id="stateInput" placeholder="Enter State / UT Name">
-<button onclick="placeFlag()">Search</button>
+                    <hr class="my-3">
+                    
+                    <h6 class="mb-3 text-muted">Click to Locate State:</h6>
+                    <div id="stateButtonsContainer" class="d-flex flex-wrap justify-content-center">
+                        </div>
+                </div>
+            </div>
 
-<br><br>
+            <div class="col-lg-9 col-md-8">
+                <div class="map-wrapper" id="mapContainer">
+                    <img src="Map.jpg" alt="India Map" class="map-image" id="indiaMap">
+                    
+                    <div id="flagsLayer" style="position: absolute; top:0; left:0; width:100%; height:100%;"></div>
+                </div>
+                
+                <div class="text-center mt-2">
+                    <span id="statusText" class="badge bg-secondary">System Ready</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div id="mapContainer">
-    <img id="map" src="Map.jpg">
-    <i id="flag" class="bi bi-flag-fill"></i>
-</div>
+    <div id="infoTooltip" class="custom-tooltip">
+        <div id="tooltipState" class="fw-bold"></div>
+        <div id="tooltipCapital" class="tooltip-capital"></div>
+    </div>
 
-<script>
+    <audio id="sound-click" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.m4a"></audio>
+    
+    <audio id="sound-add-all" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.m4a"></audio>
+    
+    <audio id="sound-clear" src="https://assets.mixkit.co/active_storage/sfx/2572/2572-preview.m4a"></audio>
 
-const statePositions = {
+    <script>
+        // --- 1. COORDINATE DATA ---
+        // Adjust 'top' and 'left' percentages if your map image is different
+        const statesData = [
+            { name: "Andhra Pradesh", capital: "Amaravati", top: 73, left: 45 },
+            { name: "Arunachal Pradesh", capital: "Itanagar", top: 29, left: 67 },
+            { name: "Assam", capital: "Dispur", top: 36, left: 65 },
+            { name: "Bihar", capital: "Patna", top: 38, left: 55 },
+            { name: "Chhattisgarh", capital: "Raipur", top: 54, left: 50 },
+            { name: "Goa", capital: "Panaji", top: 68, left: 37 },
+            { name: "Gujarat", capital: "Gandhinagar", top: 48, left: 33 },
+            { name: "Haryana", capital: "Chandigarh", top: 28, left: 42 },
+            { name: "Himachal Pradesh", capital: "Shimla", top: 20, left: 44 },
+            { name: "Jharkhand", capital: "Ranchi", top: 45, left: 55 },
+            { name: "Karnataka", capital: "Bengaluru", top: 73, left: 41 },
+            { name: "Kerala", capital: "Thiruvananthapuram", top: 86, left: 41 },
+            { name: "Madhya Pradesh", capital: "Bhopal", top: 47, left: 45 },
+            { name: "Maharashtra", capital: "Mumbai", top: 60, left: 40 },
+            { name: "Manipur", capital: "Imphal", top: 41, left: 68 },
+            { name: "Meghalaya", capital: "Shillong", top: 38, left: 64 },
+            { name: "Mizoram", capital: "Aizawl", top: 44, left: 66 },
+            { name: "Nagaland", capital: "Kohima", top: 35, left: 69 },
+            { name: "Odisha", capital: "Bhubaneswar", top: 56, left: 53 },
+            { name: "Punjab", capital: "Chandigarh", top: 21, left: 41 },
+            { name: "Rajasthan", capital: "Jaipur", top: 35, left: 39 },
+            { name: "Sikkim", capital: "Gangtok", top: 34, left: 59.3 },
+            { name: "Tamil Nadu", capital: "Chennai", top: 84, left: 45 },
+            { name: "Telangana", capital: "Hyderabad", top: 64, left: 44 },
+            { name: "Tripura", capital: "Agartala", top: 43, left: 64 },
+            { name: "Uttar Pradesh", capital: "Lucknow", top: 34, left: 49 },
+            { name: "Uttarakhand", capital: "Dehradun", top: 24, left: 45 },
+            { name: "West Bengal", capital: "Kolkata", top: 45, left: 58 },
+            { name: "Jammu & Kashmir", capital: "Srinagar", top: 13, left: 40 },
+            { name: "Ladakh", capital: "Leh", top: 10, left: 45 }
+        ];
 
-"jammu and kashmir": { top: 90, left: 210 },
-"ladakh": { top: 50, left: 260 },
-"himachal pradesh": { top: 140, left: 235 },
-"uttarakhand": { top: 160, left: 275 },
-"punjab": { top: 165, left: 220 },
-"haryana": { top: 185, left: 245 },
-"delhi": { top: 205, left: 260 },
+        // --- 2. SELECT ELEMENTS ---
+        const flagsLayer = document.getElementById('flagsLayer'); // Layer specifically for flags overlay
+        const stateButtonsContainer = document.getElementById('stateButtonsContainer');
+        const statusText = document.getElementById('statusText');
+        const tooltip = document.getElementById('infoTooltip');
+        const tooltipState = document.getElementById('tooltipState');
+        const tooltipCapital = document.getElementById('tooltipCapital');
 
-"rajasthan": { top: 250, left: 220 },
-"uttar pradesh": { top: 240, left: 300 },
-"bihar": { top: 260, left: 345 },
-"sikkim": { top: 230, left: 375 },
-"west bengal": { top: 290, left: 390 },
+        // Sounds
+        const sClick = document.getElementById('sound-click');
+        const sAddAll = document.getElementById('sound-add-all');
+        const sClear = document.getElementById('sound-clear');
 
-"arunachal pradesh": { top: 210, left: 460 },
-"assam": { top: 240, left: 440 },
-"meghalaya": { top: 250, left: 425 },
-"nagaland": { top: 245, left: 470 },
-"manipur": { top: 270, left: 470 },
-"mizoram": { top: 300, left: 460 },
-"tripura": { top: 290, left: 440 },
+        // --- 3. INITIALIZATION ---
+        function init() {
+            statesData.forEach(state => {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-outline-dark state-btn'; 
+                btn.innerText = state.name;
+                btn.onclick = () => {
+                    placeFlag(state, true); // true = play individual sound
+                };
+                stateButtonsContainer.appendChild(btn);
+            });
+        }
 
-"gujarat": { top: 310, left: 200 },
-"madhya pradesh": { top: 300, left: 280 },
-"chhattisgarh": { top: 310, left: 330 },
-"odisha": { top: 340, left: 360 },
-"jharkhand": { top: 300, left: 345 },
+        // --- 4. CORE FUNCTIONS ---
 
-"maharashtra": { top: 360, left: 260 },
-"goa": { top: 370, left: 230 },
-"karnataka": { top: 400, left: 260 },
-"telangana": { top: 350, left: 300 },
-"andhra pradesh": { top: 390, left: 325 },
+        function placeFlag(state, playSoundEffect) {
+            // Activate Dark Mode for ambiance
+            document.body.classList.add('dark-mode');
 
-"tamil nadu": { top: 460, left: 300 },
-"kerala": { top: 440, left: 245 },
+            // Avoid duplicate flags
+            if(document.getElementById(`flag-${state.name}`)) return;
 
-"andaman and nicobar islands": { top: 480, left: 465 },
-"lakshadweep": { top: 430, left: 195 },
-"puducherry": { top: 445, left: 315 },
-"chandigarh": { top: 165, left: 235 },
-"dadra and nagar haveli and daman and diu": { top: 345, left: 220 }
-};
+            // Play Sound Logic
+            if(playSoundEffect) {
+                sClick.currentTime = 0;
+                sClick.play();
+            }
+
+            // Create Flag Element
+            const flag = document.createElement('i');
+            flag.className = 'fas fa-flag state-flag'; 
+            flag.id = `flag-${state.name}`;
+            
+            // Positioning (Crucial: relative to the image container)
+            // We use the flagsLayer which sits exactly on top of the image
+            const img = document.getElementById('indiaMap');
+            
+            // Simply use percentage top/left relative to container
+            flag.style.top = state.top + '%';
+            flag.style.left = state.left + '%';
+
+            // Events for Tooltip
+            flag.addEventListener('mousemove', (e) => showTooltip(e, state));
+            flag.addEventListener('mouseleave', hideTooltip);
+
+            flagsLayer.appendChild(flag);
+            
+            // Update status only if single click
+            if(playSoundEffect) {
+                statusText.innerText = `Located: ${state.name}`;
+            }
+        }
+
+        // --- 5. BUTTON OPERATIONS ---
+
+        // Add All Logic
+        document.getElementById('addAllBtn').addEventListener('click', () => {
+            document.body.classList.add('dark-mode');
+            statusText.innerText = "Adding all states...";
+            
+            // Play the specific "Add All" sound
+            sAddAll.currentTime = 0;
+            sAddAll.play();
+
+            // Loop through states with a delay for a cool visual effect
+            statesData.forEach((state, index) => {
+                setTimeout(() => {
+                    placeFlag(state, false); // false suppresses the 'click' sound so we hear the 'add all' sound instead
+                }, index * 40); // 40ms delay between each flag
+            });
+        });
+
+        // Clear All Logic
+        document.getElementById('clearAllBtn').addEventListener('click', () => {
+            // Play Clear Sound
+            sClear.currentTime = 0;
+            sClear.play();
+
+            flagsLayer.innerHTML = ''; // Removes all flags instantly
+            
+            statusText.innerText = "Map Cleared.";
+            document.body.classList.remove('dark-mode'); // Optional: Toggle back to light mode
+        });
 
 
-function placeFlag() {
-    const input = document.getElementById("stateInput").value.toLowerCase().trim();
-    const flag = document.getElementById("flag");
+        // --- 6. TOOLTIP LOGIC ---
+        function showTooltip(e, state) {
+            tooltipState.innerText = state.name;
+            tooltipCapital.innerText = `Capital: ${state.capital}`;
+            
+            tooltip.style.display = 'block';
+            // Position tooltip near mouse cursor
+            tooltip.style.left = (e.clientX + 15) + 'px';
+            tooltip.style.top = (e.clientY + 15) + 'px';
+        }
 
-    if (statePositions[input]) {
-        flag.style.top = statePositions[input].top + "px";
-        flag.style.left = statePositions[input].left + "px";
-        flag.style.display = "block";
-    } 
-    else {
-        alert("State / UT not found!");
-    }
-}
+        function hideTooltip() {
+            tooltip.style.display = 'none';
+        }
 
-</script>
+        // Start the app
+        init();
 
+    </script>
 </body>
 </html>
