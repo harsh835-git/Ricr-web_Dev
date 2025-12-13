@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <body style="background-color: rgb(2, 1, 86)">
+    <div
+      style="background-color: rgb(201, 112, 17)"
+      class="fs-2 fw-bolder w-25 rounded-top-5 text-center mx-auto my-3 text-white"
+    >
+      Tip Calculator
+    </div>
+
+    <div class="bg-white w-25 mx-auto rounded-3 shadow" style="height: 650px">
+      <label for="BillAmount" class="form-label fs-4 fw-medium my-3 mx-2"
+        >Bill Amount</label
+      >
+
+      <input
+        type="number"
+        name="BillAmount"
+        id="Amount"
+        placeholder="Amount to be paid"
+        class="bg-transparent form-control p-3"
+      />
+
+      <label for="service" class="form-label fs-4 fw-medium my-3 mx-2"
+        >How was the service?</label
+      >
+      <select
+        name="Service"
+        id="Service"
+        class="bg-transparent form-select text-primary-emphasis p-3"
+      >
+        <option value="">Select</option>
+        <option value="25%">25%-Top Notch</option>
+        <option value="20%">20%-Excellent</option>
+        <option value="15%">15%-Good</option>
+        <option value="10%">10%-Bad</option>
+        <option value="5%">5%-Worst</option>
+      </select>
+
+      <label for="No.ofPersons" class="form-label fs-4 fw-medium my-3 mx-2"
+        >Total Number Of Persons</label
+      >
+
+      <input
+        type="number"
+        name="numberofpersons"
+        id="NumberOfPersons"
+        placeholder="Number of Person Sharing the bill"
+        class="bg-transparent form-control p-3"
+      />
+
+      <button
+        class="btn text-white fs-4 fw-semibold my-4 mx-4"
+        style="width: 150px; height: 60px; background-color: rgb(14, 198, 164)"
+        onclick="Calculate()"
+      >
+        Calculate
+      </button>
+
+      <p id="error" class="text-danger text-center mt-3 d-none">
+        Please enter a valid number
+      </p>
+
+      <div id="result" class="alert alert-success text-center mt-3 d-none w-75 mx-auto">
+        Tip Amount <br />
+        <div id="amount"></div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="script.js"></script>
+  </body>
+</html>
