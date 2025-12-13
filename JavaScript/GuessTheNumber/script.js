@@ -9,7 +9,7 @@ function Submit() {
     }
 
     if (guess === Randomnumber) {
-        alert("🎉 You win! You guessed the right number!");
+        alert("You win! You guessed the right number!");
         location.reload(); 
     } 
     else if (guess > Randomnumber) {
