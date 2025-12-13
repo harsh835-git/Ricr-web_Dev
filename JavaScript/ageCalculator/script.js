@@ -11,7 +11,7 @@ function Calculate() {
     const birthYear = new Date(dob).getFullYear();
 
     let age = currentYear - birthYear;
-    
+
 
 
     const print = document.createElement("div");
@@ -21,9 +21,10 @@ function Calculate() {
         "justify-content-center",
         "p-3",
         "m-2",
-        "fw-bold"
+        "fw-bold",
+        "fs-3"
     );
-    print.textContent = "Age is: " + age;
+    print.textContent = "Age is: " + age +" Years";
 
     const result = document.getElementById("result");
     result.innerText = "";
