@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Checkout</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">Shopping Kart</div>
+    </nav>
+
+    <section class="section" style="background-color: #2a5298">
+      <h2 class="fw-bolder fs-1" style="color: white;"></h2>>Checkout</h2>
+
+      <form onsubmit="return validateCheckoutForm()">
+        <input
+          type="text"
+          id="name"
+          placeholder="Name"
+          class="form-control my-2"
+          required
+        />
+        <input
+          type="text"
+          id="address"
+          placeholder="Address"
+          class="form-control my-2"
+          required
+        />
+        <input
+          type="tel"
+          id="phone"
+          placeholder="Phone Number"
+          class="form-control my-2"
+          required
+        />
+        <input
+          type="email"
+          id="email"
+          placeholder="Email"
+          class="form-control my-2"
+          required
+        />
+
+        <select id="payment" class="form-control my-2" required>
+          <option value="">Select Payment Mode</option>
+          <option>Credit Card</option>
+          <option>Debit Card</option>
+          <option>UPI</option>
+          <option>Cash on Delivery</option>
+        </select>
+
+        <input
+          type="number"
+          id="quantity"
+          placeholder="Quantity"
+          min="1"
+          class="form-control my-2"
+          required
+        />
+
+        <button type="submit" class="btn btn-warning fw-bold border-4 shadow">
+          Place Order
+        </button>
+      </form>
+    </section>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>
+chs

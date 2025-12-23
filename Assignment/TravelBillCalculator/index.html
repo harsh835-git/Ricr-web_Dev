@@ -1,167 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coaching Institute Registration</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel Bill Calculator</title>
 
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
 
-<body class="bg-secondary">
-  <!-- Header -->
-  <div class="text-center p-3 fs-2 fw-bold text-white bg-black">
-    Coaching Institute Registration Form
-  </div>
-
-  <!-- Form -->
-  <form
-    class="card container mx-auto my-3 bg-secondary-subtle p-4"
-    style="max-width: 900px"
-  >
-    <!-- Personal Information -->
-    <h4 class="fw-bold">Personal Information</h4>
-
-    <label class="form-label">Full Name</label>
-    <input type="text" class="form-control" placeholder="Enter full name" />
-    <div class="text-danger d-none">Please enter a valid name</div>
-
-    <label class="form-label mt-3">Email Address</label>
-    <input type="email" class="form-control" placeholder="name@example.com" />
-    <div class="text-danger d-none">Please enter a valid email</div>
-
-    <label class="form-label mt-3">Mobile Number</label>
-    <input type="tel" class="form-control" placeholder="10-digit mobile number" />
-    <div class="text-danger d-none">Enter a valid Indian mobile number</div>
-
-    <label class="form-label mt-3">Date of Birth</label>
-    <input type="date" class="form-control" />
-    <div class="text-danger d-none">You must be at least 15 years old</div>
-
-    <hr />
-
-    <!-- Academic Details -->
-    <h4 class="fw-bold">Academic Details</h4>
-
-    <label class="form-label">Last Completed Qualification</label>
-    <select class="form-select">
-      <option value="">Select qualification</option>
-      <option>10th</option>
-      <option>12th</option>
-      <option>Graduate</option>
-      <option>Postgraduate</option>
-    </select>
-    <div class="text-danger d-none">Please select a qualification</div>
-
-    <label class="form-label mt-3">Percentage / Grade</label>
-    <input type="text" class="form-control" placeholder="0-100 or A-F" />
-    <div class="text-danger d-none">
-      Enter a valid percentage or grade
+  <body class="bg-secondary">
+    <div class="text-center p-3 fs-2 fw-bold text-white bg-dark">
+      Travel Bill Calculator
     </div>
 
-    <hr />
+    <div class="card container my-4 p-4 bg-light" style="max-width: 700px">
+      <h4 class="fw-bold mb-3">Travel Details</h4>
 
-    <!-- Course Information -->
-    <h4 class="fw-bold">Course Information</h4>
+      <label class="form-label fw-semibold"> Kilometers Covered </label>
+      <input
+        type="number"
+        class="form-control"
+        placeholder="Enter kilometers (e.g. 10, 25.5)"
+      />
 
-    <label class="form-label">Preferred Course</label>
-    <select class="form-select">
-      <option value="">Select course</option>
-      <option>IIT-JEE</option>
-      <option>NEET</option>
-      <option>Banking Exams</option>
-      <option>UPSC</option>
-    </select>
-    <div class="text-danger d-none">Select a course</div>
+      <div class="text-danger mt-1 d-none">
+        Please enter a non-negative number of kilometres
+      </div>
 
-    <label class="form-label mt-3">Batch Timing Preference</label>
-    <select class="form-select">
-      <option value="">Select timing</option>
-      <option>Morning</option>
-      <option>Afternoon</option>
-      <option>Evening</option>
-      <option>Weekend</option>
-    </select>
-    <div class="text-danger d-none">Select batch timing</div>
+      <button class="btn btn-primary w-100 mt-4">Calculate Bill</button>
 
-    <hr />
+      <hr class="my-4" />
 
-    <!-- Address -->
-    <h4 class="fw-bold">Address</h4>
+      <div class="border rounded p-3 bg-white">
+        <h5 class="fw-bold text-primary mb-2">Total Bill</h5>
+        <div class="fs-3 fw-bold">Rs. 0</div>
+      </div>
 
-    <label class="form-label">Residential Address</label>
-    <textarea
-      class="form-control"
-      rows="3"
-      placeholder="House no, Street, City, State"
-    ></textarea>
-    <div class="text-danger d-none">Enter your full address</div>
+      <div class="mt-4">
+        <h6 class="fw-bold">Calculation Breakdown</h6>
 
-    <label class="form-label mt-3">City</label>
-    <input type="text" class="form-control" placeholder="City name" />
-    <div class="text-danger d-none">Enter a valid city name</div>
+        <ul class="list-group mt-2">
+          <li class="list-group-item">0 km * Rs. 11 = Rs. 0</li>
+          <li class="list-group-item">0 km * Rs. 10 = Rs. 0</li>
+          <li class="list-group-item">0 km * Rs. 9 = Rs. 0</li>
+        </ul>
 
-    <label class="form-label mt-3">Pin Code</label>
-    <input type="text" class="form-control" placeholder="6-digit pin code" />
-    <div class="text-danger d-none">Enter a valid pin code</div>
-
-    <hr />
-
-    <!-- Guardian Details -->
-    <h4 class="fw-bold">Guardian Details</h4>
-
-    <label class="form-label">Guardian’s Full Name</label>
-    <input type="text" class="form-control" placeholder="Guardian name" />
-    <div class="text-danger d-none">Enter guardian's name</div>
-
-    <label class="form-label mt-3">Guardian’s Contact Number</label>
-    <input type="tel" class="form-control" placeholder="10-digit mobile number" />
-    <div class="text-danger d-none">Enter valid contact number</div>
-
-    <hr />
-
-    <!-- Additional Information -->
-    <h4 class="fw-bold">Additional Information</h4>
-
-    <label class="form-label">How did you hear about us?</label>
-    <select class="form-select">
-      <option value="">Select an option</option>
-      <option>Friends</option>
-      <option>Online Ad</option>
-      <option>Newspaper</option>
-      <option>Social Media</option>
-      <option>Other</option>
-    </select>
-    <div class="text-danger d-none">Select an option</div>
-
-    <label class="form-label mt-3">
-      Special Requirements (Optional)
-    </label>
-    <textarea
-      class="form-control"
-      rows="2"
-      placeholder="Any special needs or preferences"
-    ></textarea>
-
-    <!-- Buttons -->
-    <div class="d-flex gap-2 mt-4">
-      <button type="button" class="btn btn-primary w-100">
-        Submit Registration
-      </button>
-      <button type="reset" class="btn btn-secondary w-100">
-        Reset
-      </button>
+      </div>
     </div>
 
-    <!-- Success Message Placeholder -->
-    <div class="alert alert-success mt-3 d-none">
-      Registration submitted successfully!
-    </div>
-  </form>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
