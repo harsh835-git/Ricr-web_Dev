@@ -28,7 +28,7 @@ body {
 .navbar ul li a {
     color: white;
     text-decoration: none;
-    margin-left: 20px;
+    margin-left: 25px;
     padding: 30px;
     
     
@@ -36,6 +36,7 @@ body {
 
 .navbar ul li a:hover {
     color: #ffcc00;
+    font-weight: bolder;
 }
 
 
@@ -68,6 +69,7 @@ body {
 
 .btn:hover {
     background: #ffb300;
+
 }
 
 form {
@@ -79,4 +81,7 @@ input, textarea, select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
+}
+.card{
+    height: 500px; 
 }
