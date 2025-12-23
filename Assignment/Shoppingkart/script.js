@@ -1,9 +1,9 @@
-function validateCheckoutForm() {
-    const name = document.getElementById("name").value;
-    alert(`Thank you for Shopping, ${name}!`);
-    console.log("Checkout Successful:", name);
-    return false;
-}
+// function validateCheckoutForm() {
+//     const name = document.getElementById("name").value;
+//     alert(`Thank you for Shopping, ${name}!`);
+//     console.log("Checkout Successful:", name);
+//     return false;
+// }
 
 function validateContactForm() {
     const name = document.getElementById("contactName").value;
