@@ -6,16 +6,26 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
+import Product from "./pages/Product";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <>
-    <Header/>
-      <div className="bg-black text-light text-capitalize text-center fs-2 fw-bolder p-1 ">
-        This Is my first React App
-      </div>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
 
-      <Footer/>
+        <Footer />
+      </BrowserRouter>
     </>
   );
 }
