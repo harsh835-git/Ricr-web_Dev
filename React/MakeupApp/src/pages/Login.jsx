@@ -27,7 +27,7 @@ const Login = () => {
       };
 
       console.log("Login Data:", loginData);
-      console.log("API Response:", data);
+      
     } catch (error) {
       console.error("Error:", error.message);
     } finally {

@@ -44,7 +44,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="text-amber-950">
+      <div className="text-amber-950 border-black">
         <h1 className="text-rose-900 text-center text-4xl font-bold border-b-2 mb-2">
           SIGN UP
         </h1>
