@@ -16,6 +16,8 @@ const Header = () => {
           <Link to ={"/about"} className="text-black hover:text-white hover:font-medium flex gap-2 items-center"> <FcAbout />About</Link>
           <Link to ={"/product"} className="text-black hover:text-white hover:font-medium flex gap-2 items-center"> <MdProductionQuantityLimits /> Product</Link>
           <Link to ={"/contact"} className="text-black hover:text-white hover:font-medium flex gap-2 items-center"> <MdContacts /> Contact</Link>
+          <Link to ={"/signup"} className="text-black hover:text-white hover:font-medium flex gap-2 items-center">SignUp</Link>
+           <Link to ={"/login"} className="text-black hover:text-white hover:font-medium flex gap-2 items-center">Login</Link>
         </div>
       </div>
     </>

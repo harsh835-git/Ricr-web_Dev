@@ -6,6 +6,8 @@ const Contact = () => {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+
+  
   const handleClearForm = () => {
     setFullName("");
     setEmail("");
