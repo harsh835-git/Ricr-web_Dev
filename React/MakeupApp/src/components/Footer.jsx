@@ -3,7 +3,7 @@ import React from "react";
 const Footer =() =>{
     return (
         <>
-        <div className="bg-[#71512a] flex justify-evenly  fixed bottom-0 w-screen text-white p-1">
+        <div className="bg-[#5C4B75] flex justify-evenly  fixed bottom-0 w-screen text-white p-1">
             <span>All Rights Reserved</span>
             <span>CopyRights @2025</span>
             <span>MakeupApp</span>

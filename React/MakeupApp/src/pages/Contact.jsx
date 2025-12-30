@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import makeupbackground from "../assets/makeupbackground.png";
 const Contact = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import makeupbackground from "../assets/makeupbackground.png";
 
 const SignUp = () => {
   const [fullName, setFullName] = useState("");
@@ -44,85 +45,89 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="text-amber-950 border-black">
-        <h1 className="text-rose-900 text-center text-4xl font-bold border-b-2 mb-2">
-          SIGN UP
-        </h1>
+      <div className="border shadow-2xs w-2xs  h-max text-center  mx-auto my-10 rounded-3xl">
+        <div className="text-black border-black mx-auto">
+          <h1 className="text-black text-center text-4xl font-bold mb-2">
+            SIGN UP
+          </h1>
 
-        <div className="text-center">
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>FULL Name:</label>
-              <input
-                type="text"
-                className="border p-2 rounded-2xl m-1.5"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="Enter Your Full Name"
-                required
-              />
-            </div>
+          <div className="text-center">
+            <form onSubmit={handleSubmit} >
+              <div>
+                <label>FULL Name:</label>
+                <input
+                  type="text"
+                  className="border p-2 rounded-2xl m-1.5"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="Enter Your Full Name"
+                  required
+                />
+              </div>
 
-            <div>
-              <label>Mobile Number:</label>
-              <input
-                type="tel"
-                className="border p-2 rounded-2xl m-1.5"
-                value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
-                placeholder="Enter Your Number"
-                required
-              />
-            </div>
+              <div>
+                <label>Mobile Number:</label>
+                <input
+                  type="tel"
+                  className="border p-2 rounded-2xl m-1.5"
+                  value={mobile}
+                  onChange={(e) => setMobile(e.target.value)}
+                  placeholder="Enter Your Number"
+                  required
+                />
+              </div>
 
-            <div>
-              <label>E-mail:</label>
-              <input
-                type="email"
-                className="border p-2 rounded-2xl m-1.5 ml-10"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter Your Email"
-                required
-              />
-            </div>
+              <div>
+                <label>E-mail:</label>
+                <input
+                  type="email"
+                  className="border p-2 rounded-2xl m-1.5 ml-9"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter Your Email"
+                  required
+                />
+              </div>
 
-            <div>
-              <label>Address:</label>
-              <textarea
-                className="border p-2 rounded-2xl m-1.5 ml-1"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="Enter Your Address"
-                required
-              ></textarea>
-            </div>
+              <div>
+                <label>Address:</label>
+                <textarea
+                  className="border p-2 rounded-2xl m-1.5 ml-1"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="Enter Your Address"
+                  required
+                ></textarea>
+              </div>
 
-            <div>
-              <label>Create Password:</label>
-              <input
-                type="password"
-                className="border p-2 rounded-2xl m-1.5"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter Your Password"
-                required
-              />
-            </div>
+              <div>
+                <label>Create Password:</label>
+                <input
+                  type="password"
+                  className="border p-2 rounded-2xl m-1.5"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter Your Password"
+                  required
+                />
+              </div>
 
-            <button
-              type="button"
-              onClick={handleClearForm}
-              className="border m-2 bg-red-500 text-white rounded-xl border-black border-2 p-1"
-            >
-              Reset
-            </button>
+              <button
+                type="button"
+                onClick={handleClearForm}
+                className="border m-2 bg-red-500 text-white rounded-xl border-black border-2 p-1"
+              >
+                Reset
+              </button>
 
-            <button
-              type="submit"
-              className="border m-2 bg-green-500 text-white rounded-xl border-black border-2 p-1"
-            >Submit</button>
-          </form>
+              <button
+                type="submit"
+                className="border m-2 bg-green-500 text-white rounded-xl border-black border-2 p-1"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </>

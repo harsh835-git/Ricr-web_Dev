@@ -1,4 +1,5 @@
 import React from "react";
+import makeupbackground from "../assets/makeupbackground.png";
 
 const About = () => {
   return (
