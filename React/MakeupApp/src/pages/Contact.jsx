@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import makeupbackground from "../assets/makeupbackground.png";
 const Contact = () => {
+  const  [contactData, setContactData]=useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    city: "",
+    subject: "",
+    message: "",
+    religion: "",
+    gender: "",
+    skill: [],
+  })
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
