@@ -1,60 +1,113 @@
 import User from "../models/userModel.js";
 
-export const UserRegister = async (req, res) => {
+export const UserRegister = async (req, res, next) => {
     try {
         const { fullName, email, phone, passWord } = req.body;
 
         if (!fullName || !email || !phone || !passWord) {
-            res.status(400).json({ message: "All Fields Required" })
-            return;
+            const error = new Error("All fields Required");
+            error.StatusCode = 400;
+            return next(error);
+        }
+
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+
+            const error = new Error("Email already exists");
+            error.StatusCode = 409;
+            return next(error);
         }
         const newUser = await User.create({
             fullName, email, phone, passWord
         });
         console.log(newUser);
 
-        res.status(201).json({ message: "User Created Successfully" });
+
+        const error = new Error("User Created Successfully");
+        error.StatusCode = 201;
+        return next(error);
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Inernal Server Error" });
+
+        next(error);
     }
 }
-export const UserLogin = async (req, res) => {
+export const UserLogin = async (req, res, next) => {
     try {
         const { email, passWord } = req.body;
 
         if (!email || !passWord) {
-            res.status(400).json({ message: "All Fields Required" })
-            return;
+
+            const error = new Error("All fields Required");
+            error.StatusCode = 400;
+            return next(error);
         }
-        const existingUser = await User.find({
+        const existingUser = await User.findOne({
             email
         });
         if (!existingUser) {
-            res.status(404).json({ message: "User Not Found" })
-            return;
+
+            const error = new Error("User Not Found");
+            error.StatusCode = 404;
+            return next(error);
         }
         const isVerfied = passWord === existingUser.passWord;
         if (!isVerfied) {
-            res.status(402).json({ message: "User Not Authorized" })
-            return;
+
+            const error = new Error("User Not Authorized");
+            error.StatusCode = 402;
+            return next(error);
         }
 
+        console.log(existingUser);
 
         res.status(200).json({ message: "Welcome Back", data: existingUser });
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Inernal Server Error" });
+        next(error);
     }
 }
-export const UserLogout = async (req, res) => {
+export const UserLogout = async (req, res, next) => {
     try {
-        res.status(200).json({ message: "Logout Sucessfully" });
+        res.status(200).json({ message: "Logout successfull" })
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Inernal Server Error" });
+        next(error);
+
+    }
+}
+
+export const UserUpdate = async (req, res, next) => {
+    try {
+        const { fullName, email, phone } = req.body
+
+        if (!fullName || !email || !phone) {
+
+            const error = new Error("All fields Required");
+            error.StatusCode = 400;
+            return next(error);
+        }
+        const existingUser = await User.findOne({
+            email
+        });
+        if (!existingUser) {
+
+            const error = new Error("User Not Found");
+            error.StatusCode = 404;
+            return next(error);
+        }
+
+        existingUser.fullName = fullName;
+        existingUser.phone = phone;
+
+        await existingUser.save();
+        res.status(200).json({ message: "User Updated Successfully", data: existingUser });
+
+    } catch (error) {
+        console.log(error);
+        next(error);
 
     }
 }

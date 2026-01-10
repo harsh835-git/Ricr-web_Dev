@@ -13,7 +13,12 @@ app.get("/", (req, res) => {
     res.json({message: "Server is running successfully"});
     console.log("Server is Running");
 })
+app.use((err,req,res,next)=>{
+    const ErrorMessage=err.message || "Internal Server Error";
+    const StatusCode = err.status || 500;
 
+    res.status(StatusCode).json({message:ErrorMessage});
+})
 
 const port = process.env.PORT || 5000;
 app.listen(port, async () => {
