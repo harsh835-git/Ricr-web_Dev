@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import api from "../config/Api"
+import api from "../config/Api";
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -67,22 +67,22 @@ const Registration = () => {
   };
 
   // Submit Form
-   const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
 
     if (!validate()) {
       toast.error("Please fix the errors");
-      setIsLoading(false);
       return;
     }
 
+    setIsLoading(true);
+
     try {
-     const res = await api.post("/auth/register",formData)
-      toast.success(res.data.message);
+      const res = await api.post("/auth/register", formData);
+      toast.success(res.data.message || "Registration successful");
       handleClearForm();
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -108,9 +108,7 @@ const Registration = () => {
             onReset={handleClearForm}
             className="p-8"
           >
-         
-
-            <div className=" space-y-4">
+            <div className="space-y-4">
               {/* Full Name */}
               <div>
                 <input
@@ -119,35 +117,52 @@ const Registration = () => {
                   placeholder="Full Name"
                   value={formData.fullName}
                   onChange={handleChange}
+                  disabled={isLoading}
                   className="w-full px-4 py-3 border-2 rounded-lg"
                 />
                 {validationError.fullName && (
-                  <span className="text-xs text-red-500">
+                  <p className="text-xs text-red-500">
                     {validationError.fullName}
-                  </span>
+                  </p>
                 )}
               </div>
 
               {/* Email */}
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border-2 rounded-lg"
-              />
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={formData.email}
+                  onChange={handleChange}
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 border-2 rounded-lg"
+                />
+                {validationError.email && (
+                  <p className="text-xs text-red-500">
+                    {validationError.email}
+                  </p>
+                )}
+              </div>
 
               {/* Mobile */}
-              <input
-                type="tel"
-                name="mobileNumber"
-                placeholder="Mobile Number"
-                maxLength="10"
-                value={formData.mobileNumber}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border-2 rounded-lg"
-              />
+              <div>
+                <input
+                  type="tel"
+                  name="mobileNumber"
+                  placeholder="Mobile Number"
+                  maxLength="10"
+                  value={formData.mobileNumber}
+                  onChange={handleChange}
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 border-2 rounded-lg"
+                />
+                {validationError.mobileNumber && (
+                  <p className="text-xs text-red-500">
+                    {validationError.mobileNumber}
+                  </p>
+                )}
+              </div>
 
               {/* Password */}
               <div>
@@ -157,12 +172,13 @@ const Registration = () => {
                   placeholder="Password"
                   value={formData.passWord}
                   onChange={handleChange}
+                  disabled={isLoading}
                   className="w-full px-4 py-3 border-2 rounded-lg"
                 />
                 {validationError.passWord && (
-                  <span className="text-xs text-red-500">
+                  <p className="text-xs text-red-500">
                     {validationError.passWord}
-                  </span>
+                  </p>
                 )}
               </div>
 
@@ -174,12 +190,13 @@ const Registration = () => {
                   placeholder="Confirm Password"
                   value={formData.confirmPassWord}
                   onChange={handleChange}
+                  disabled={isLoading}
                   className="w-full px-4 py-3 border-2 rounded-lg"
                 />
                 {validationError.confirmPassWord && (
-                  <span className="text-xs text-red-500">
+                  <p className="text-xs text-red-500">
                     {validationError.confirmPassWord}
-                  </span>
+                  </p>
                 )}
               </div>
             </div>
@@ -187,18 +204,19 @@ const Registration = () => {
             {/* Buttons */}
             <div className="flex gap-4 pt-8 border-t-2 mt-8">
               <button
-                type="submit"
+                type="reset"
                 disabled={isLoading}
-                className="flex-1 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-bold py-4 rounded-lg hover:from-indigo-700 hover:to-indigo-800"
+                className="flex-1 bg-gray-300 font-bold py-4 rounded-lg hover:bg-gray-400 hover:scale-105 transition duration-300 shadow-lg"
               >
-                {isLoading ? "Submitting..." : "Submit Registration"}
+                Clear Form
               </button>
 
               <button
-                type="reset"
-                className="flex-1 bg-gray-300 font-bold py-4 rounded-lg hover:bg-gray-400"
+                type="submit"
+                disabled={isLoading}
+                className="flex-1 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-bold py-4 rounded-lg hover:from-indigo-700 hover:to-indigo-800 hover:scale-105 transition duration-300 shadow-lg"
               >
-                Clear Form
+                {isLoading ? "Submitting..." : "Submit Registration"}
               </button>
             </div>
           </form>
