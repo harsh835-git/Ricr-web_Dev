@@ -2,6 +2,8 @@ import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 export const UserRegister = async (req, res, next) => {
     try {
+        console.log(req.body);
+        
         const { fullName, email, mobileNumber, passWord } = req.body;
 
         if (!fullName || !email || !mobileNumber || !passWord) {
@@ -9,6 +11,8 @@ export const UserRegister = async (req, res, next) => {
             error.statusCode = 400;
             return next(error);
         }
+        console.log(fullName, email, mobileNumber, passWord);
+        
         // check duplicated user
         const existingUser = await User.findOne({email});
         if (existingUser) {
@@ -16,13 +20,15 @@ export const UserRegister = async (req, res, next) => {
             error.statusCode = 409;
             return next(error);
         }
-
+        console.log("Sending Data to DB");
+        
         // encrypt the password
         const salt = await bcrypt.genSalt(10)
         const hashPassword = await bcrypt.hash(passWord, salt);
 
         // save data to databse
-
+        console.log("wor dhashing done.hashpassowrd ",hashPassword);
+        
 
         const newUser = await User.create({
             fullName,
@@ -55,7 +61,7 @@ export const UserLogin = async (req, res, next) => {
         const existingUser = await User.findOne({email});
         if (!existingUser) {
             const error = new Error("Email not  Registered");
-            error.statusCode = 402;
+            error.statusCode = 401;
             return next(error);
         }
 
@@ -65,7 +71,7 @@ export const UserLogin = async (req, res, next) => {
         const isVerified = await bcrypt.compare(passWord, existingUser.passWord);
         if (!isVerified) {
             const error = new Error("PassWord didnt match");
-            error.statusCode = 402;
+            error.statusCode = 401;
             return next(error);
         }
 
