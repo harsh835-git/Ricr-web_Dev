@@ -70,7 +70,10 @@ const Login = () => {
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
       >
-        <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
+        <h1 className="text-3xl font-bold text-center font-serif">Login</h1>
+        <p className="text-lg text-gray-600 text-center mb-6 font-serif">
+            You have to Login in GrubGo
+          </p>
 
         {/* Email */}
         <div className="mb-4">
