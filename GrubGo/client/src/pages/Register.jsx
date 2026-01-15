@@ -77,7 +77,7 @@ const Registration = () => {
 
     setIsLoading(true);
     console.log(form);
-    
+
     try {
       const res = await api.post("/auth/register", formData);
       toast.success(res.data.message || "Registration successful");
@@ -90,14 +90,14 @@ const Registration = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-6 px-4">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 py-6 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2 font-serif">
             Registration
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-600 font-serif">
             You are 1 step away from GrubGo
           </p>
         </div>
@@ -215,7 +215,7 @@ const Registration = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="flex-1 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-bold py-4 rounded-lg hover:from-indigo-700 hover:to-indigo-800 hover:scale-105 transition duration-300 shadow-lg"
+                className="flex-1 bg-linear-to-r from-indigo-600 to-indigo-700 text-white font-bold py-4 rounded-lg hover:from-indigo-700 hover:to-indigo-800 hover:scale-105 transition duration-300 shadow-lg"
               >
                 {isLoading ? "Submitting..." : "Submit Registration"}
               </button>

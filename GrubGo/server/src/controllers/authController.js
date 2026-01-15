@@ -27,7 +27,7 @@ export const UserRegister = async (req, res, next) => {
         const hashPassword = await bcrypt.hash(passWord, salt);
 
         // save data to databse
-        console.log("wor dhashing done.hashpassowrd ",hashPassword);
+        console.log("wor hashing done.hashpassowrd ",hashPassword);
         
 
         const newUser = await User.create({
@@ -90,3 +90,22 @@ export const UserLogin = async (req, res, next) => {
             next(error)
         }
     }
+
+    export const Usercontact = async (req, res, next) => {
+    try {
+        console.log(req.body);
+        
+        const { fullName, email, mobileNumber, message ,gender } = req.body;
+
+        if (!fullName || !email || !mobileNumber || !message || !gender) {
+            const error = new Error("All fields required");
+            error.statusCode = 400;
+            return next(error);
+        }
+        console.log(fullName, email, mobileNumber, message ,gender);
+        res.status(201).json({ message: "Query accepted" });
+        // end
+    } catch (error) {
+        next(error)
+    }
+}

@@ -7,26 +7,26 @@ const Header = () => {
 
   return (
     <>
-      <div className="bg-(--color-primary) px-4 py-2 flex justify-between items-center">
+      <div className="bg-(--color-primary) px-4 py-2 flex justify-between items-center sticky">
         <Link to={"/"}>
           <img src={horizontalLogo} alt="" className="h-12 invert-100" />
         </Link>
         <div className="flex gap-4">
           <Link
             to={"/"}
-            className="text-decoration-none text-white  hover:text-(--color-accent)"
+            className="text-decoration-none text-white  hover:text-(--color-accent) font-serif"
           >
             Home
           </Link>
           <Link
             to={"/about"}
-            className="text-decoration-none text-white hover:text-(--color-accent)"
+            className="text-decoration-none text-white hover:text-(--color-accent) font-serif"
           >
             About
           </Link>
           <Link
             to={"/contact"}
-            className="text-decoration-none text-white hover:text-(--color-accent)"
+            className="text-decoration-none text-white hover:text-(--color-accent) font-serif"
           >
             Contact
           </Link>
@@ -34,13 +34,13 @@ const Header = () => {
         <div>
           <button
             onClick={() => navigate("/Login")}
-            className="bg-(--color-secondary) py-2 px-4 m-2 font-bold hover:bg-(--color-secondary-hover) hover:text-white rounded "
+            className="bg-(--color-secondary) py-2 px-4 m-2 font-bold hover:bg-(--color-secondary-hover) hover:text-white rounded font-serif"
           >
             Login
           </button>
           <button
             onClick={() => navigate("/Register")}
-            className="bg-(--color-secondary) py-2 px-4 font-bold hover:bg-(--color-secondary-hover) hover:text-white rounded "
+            className="bg-(--color-secondary) py-2 px-4 font-bold hover:bg-(--color-secondary-hover) hover:text-white rounded font-serif"
           >
             Register
           </button>
