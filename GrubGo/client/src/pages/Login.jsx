@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import api from "../config/Api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate =useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     passWord: "",
@@ -12,7 +13,6 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [validationError, setValidationError] = useState({});
 
-  // Handle Input Change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -22,9 +22,7 @@ const Login = () => {
     let Error = {};
 
     if (
-      !/^[\w.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
-        formData.email
-      )
+      !/^[\w.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(formData.email)
     ) {
       Error.email = "Enter a valid email address";
     }
@@ -37,92 +35,93 @@ const Login = () => {
     return Object.keys(Error).length === 0;
   };
 
-  const handleClearForm = () => {
-    setFormData({ email: "", passWord: "" });
-  };
-
-  // Login
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validate()) {
-      toast.error("Please fix the errors");
-      return;
-    }
+    if (!validate()) return toast.error("Fix the errors");
 
     setIsLoading(true);
-
     try {
       const res = await api.post("/auth/login", formData);
-      toast.success(res.data.message || "Login successful");
-      handleClearForm();
+      toast.success(res.data.message || "Welcome back 🍔");
+      navigate("/user-dashboard")
     } catch (error) {
-      toast.error(error.response?.data?.message || "Something went wrong");
+      toast.error(error.response?.data?.message || "Login failed");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-      
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
-      >
-        <h1 className="text-3xl font-bold text-center font-serif">Login</h1>
-        <p className="text-lg text-gray-600 text-center mb-6 font-serif">
-            You have to Login in GrubGo
-          </p>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 to-red-100 px-4">
+      <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
 
-        {/* Email */}
-        <div className="mb-4">
-          <input
+        {/* Header */}
+        <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-center py-6">
+          <h1 className="text-3xl font-extrabold">🍔 GrubGo</h1>
+          <p className="text-sm mt-1">Welcome back! Login to continue</p>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="p-6 space-y-5">
+
+          <InputField
+            emoji="📧"
             type="email"
-            name="email"
             placeholder="Email Address"
+            name="email"
             value={formData.email}
             onChange={handleChange}
+            error={validationError.email}
             disabled={isLoading}
-            className="w-full px-4 py-3 border-2 rounded-lg"
           />
-          {validationError.email && (
-            <p className="text-xs text-red-500">{validationError.email}</p>
-          )}
-        </div>
 
-        {/* Password */}
-        <div className="mb-6">
-          <input
+          <InputField
+            emoji="🔒"
             type="password"
-            name="passWord"
             placeholder="Password"
+            name="passWord"
             value={formData.passWord}
             onChange={handleChange}
+            error={validationError.passWord}
             disabled={isLoading}
-            className="w-full px-4 py-3 border-2 rounded-lg"
           />
-          {validationError.passWord && (
-            <p className="text-xs text-red-500">{validationError.passWord}</p>
-          )}
-        </div>
 
-        <p className="text-indigo-600 text-sm mb-4">
-          <Link to="/register" className="font-bold hover:underline">
-            Didn't Registered?
-          </Link>
-        </p>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-lg hover:scale-105 transition"
+          >
+            {isLoading ? "Logging in..." : "Login & Order 🍕"}
+          </button>
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition"
-        >
-          {isLoading ? "Logging in..." : "Login"}
-        </button>
-      </form>
+          <p className="text-center text-sm text-gray-600">
+            New to GrubGo?{" "}
+            <Link
+              to="/register"
+              className="text-orange-600 font-bold hover:underline"
+            >
+              Create Account
+            </Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };
+
+/* Reusable Input Component */
+const InputField = ({ emoji, error, ...props }) => (
+  <div>
+    <div
+      className={`flex items-center gap-3 px-4 py-3 rounded-xl border
+      ${error ? "border-red-400" : "border-gray-300 focus-within:border-orange-500"}
+      bg-gray-50`}
+    >
+      <span className="text-xl">{emoji}</span>
+      <input {...props} className="w-full bg-transparent outline-none" />
+    </div>
+    {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
+  </div>
+);
 
 export default Login;

@@ -2,92 +2,92 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl">
-        <h1 className="text-3xl font-bold text-center font-serif mb-2">
-          About GrubGo
-        </h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 to-red-100 px-4 p-5">
+      <div className="w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden">
 
-        <p className="text-lg text-gray-600 text-center mb-6 font-serif">
-          Fast • Fresh • Delivered at Your Doorstep
-        </p>
-
-        <div className="space-y-5 text-gray-700 text-base leading-relaxed">
-          <p>
-            <span className="font-semibold text-indigo-600">GrubGo</span> is a
-            modern food delivery and ordering platform designed to bring your
-            favorite meals from top restaurants straight to your doorstep.
-            Whether you're craving fast food, traditional meals, or healthy
-            options — we’ve got you covered.
-          </p>
-
-          <p>
-            Our mission is to make food ordering{" "}
-            <span className="font-semibold">simple, fast, and reliable</span>.
-            With an easy-to-use interface, secure payments, and real-time order
-            tracking, GrubGo ensures a smooth experience from browsing to
-            delivery.
-          </p>
-
-          <p>
-            We partner with trusted restaurants and skilled delivery partners to
-            guarantee fresh food, on-time delivery, and complete customer
-            satisfaction.
+        {/* Header */}
+        <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-center py-8">
+          <h1 className="text-4xl font-extrabold">🍔 About GrubGo</h1>
+          <p className="mt-2 text-sm tracking-wide">
+            Fast • Fresh • Delivered to Your Doorstep
           </p>
         </div>
 
-        {/* Features Section */}
-        <div className="mt-8">
-          <h2 className="text-2xl font-bold text-center mb-4 font-serif">
-            Why Choose Us?
+        {/* Content */}
+        <div className="p-8 space-y-6 text-gray-700 leading-relaxed">
+
+          <p>
+            <span className="font-bold text-orange-600">GrubGo</span> is a modern
+            food delivery platform built to bring your favorite meals from
+            trusted restaurants directly to your home. From street food to
+            healthy bowls — we deliver it all.
+          </p>
+
+          <p>
+            Our goal is to make food ordering{" "}
+            <span className="font-semibold">
+              simple, fast, and reliable
+            </span>
+            . With seamless browsing, secure payments, and real-time order
+            tracking, GrubGo ensures a delightful experience every time.
+          </p>
+
+          <p>
+            We collaborate with verified restaurants and professional delivery
+            partners to guarantee fresh food, timely delivery, and complete
+            customer satisfaction.
+          </p>
+        </div>
+
+        {/* Features */}
+        <div className="px-8 pb-10">
+          <h2 className="text-2xl font-bold text-center mb-6">
+            Why Choose GrubGo?
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="border rounded-lg p-4">
-              <h3 className="font-semibold text-indigo-600 mb-1">
-                🍕 Wide Food Choices
-              </h3>
-              <p className="text-sm text-gray-600">
-                Order from multiple cuisines, restaurants, and food categories.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <FeatureCard
+              emoji="🍕"
+              title="Wide Food Choices"
+              text="Order from multiple cuisines, restaurants, and categories."
+            />
 
-            <div className="border rounded-lg p-4">
-              <h3 className="font-semibold text-indigo-600 mb-1">
-                🚀 Fast Delivery
-              </h3>
-              <p className="text-sm text-gray-600">
-                Quick and reliable delivery right to your home.
-              </p>
-            </div>
+            <FeatureCard
+              emoji="🚀"
+              title="Fast Delivery"
+              text="Quick and reliable delivery right to your doorstep."
+            />
 
-            <div className="border rounded-lg p-4">
-              <h3 className="font-semibold text-indigo-600 mb-1">
-                🔒 Secure Payments
-              </h3>
-              <p className="text-sm text-gray-600">
-                Multiple safe and secure payment options available.
-              </p>
-            </div>
+            <FeatureCard
+              emoji="🔒"
+              title="Secure Payments"
+              text="Multiple safe and secure payment options."
+            />
 
-            <div className="border rounded-lg p-4">
-              <h3 className="font-semibold text-indigo-600 mb-1">
-                📦 Live Order Tracking
-              </h3>
-              <p className="text-sm text-gray-600">
-                Track your order in real-time from kitchen to doorstep.
-              </p>
-            </div>
+            <FeatureCard
+              emoji="📦"
+              title="Live Order Tracking"
+              text="Track your order in real-time from kitchen to door."
+            />
           </div>
         </div>
 
-        {/* Footer Line */}
-        <p className="text-center text-sm text-gray-500 mt-8">
+        {/* Footer */}
+        <div className="bg-orange-50 text-center py-4 text-sm text-gray-600">
           Serving happiness, one meal at a time ❤️
-        </p>
+        </div>
       </div>
     </div>
   );
 };
+
+const FeatureCard = ({ emoji, title, text }) => (
+  <div className="bg-gray-50 border rounded-2xl p-5 hover:shadow-lg transition">
+    <h3 className="font-bold text-orange-600 mb-2 text-lg">
+      {emoji} {title}
+    </h3>
+    <p className="text-sm text-gray-600">{text}</p>
+  </div>
+);
 
 export default About;

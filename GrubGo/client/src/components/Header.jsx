@@ -7,9 +7,9 @@ const Header = () => {
 
   return (
     <>
-      <div className="bg-(--color-primary) px-4 py-2 flex justify-between items-center sticky">
+      <div className="bg-(--color-primary) px-4 py-2 flex justify-between items-center sticky top-0">
         <Link to={"/"}>
-          <img src={horizontalLogo} alt="" className="h-12 invert-100" />
+          <img src={horizontalLogo} alt="" className="h-12 rounded-3xl shadow" />
         </Link>
         <div className="flex gap-4">
           <Link

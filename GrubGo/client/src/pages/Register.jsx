@@ -14,13 +14,11 @@ const Registration = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [validationError, setValidationError] = useState({});
 
-  // Handle Input Change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Clear Form
   const handleClearForm = () => {
     setFormData({
       fullName: "",
@@ -32,199 +30,135 @@ const Registration = () => {
     setValidationError({});
   };
 
-  // Validation
   const validate = () => {
     let Error = {};
 
-    if (formData.fullName.length < 3) {
-      Error.fullName = "Name should be at least 3 characters";
-    } else if (!/^[A-Za-z ]+$/.test(formData.fullName)) {
-      Error.fullName = "Only letters and spaces allowed";
-    }
-
-    if (
-      !/^[\w.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
-        formData.email
-      )
-    ) {
-      Error.email = "Enter a valid email address";
-    }
-
-    if (!/^[6-9]\d{9}$/.test(formData.mobileNumber)) {
-      Error.mobileNumber = "Only valid Indian mobile numbers allowed";
-    }
-
-    if (formData.passWord.length < 6) {
-      Error.passWord = "Password must be at least 6 characters";
-    }
-
-    if (formData.passWord !== formData.confirmPassWord) {
+    if (formData.fullName.length < 3) Error.fullName = "Enter full name";
+    if (!/^[\w.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(formData.email))
+      Error.email = "Invalid email address";
+    if (!/^[6-9]\d{9}$/.test(formData.mobileNumber))
+      Error.mobileNumber = "Invalid mobile number";
+    if (formData.passWord.length < 6)
+      Error.passWord = "Minimum 6 characters";
+    if (formData.passWord !== formData.confirmPassWord)
       Error.confirmPassWord = "Passwords do not match";
-    }
 
     setValidationError(Error);
     return Object.keys(Error).length === 0;
   };
 
-  // Submit Form
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validate()) {
-      toast.error("Please fix the errors");
-      return;
-    }
+    if (!validate()) return toast.error("Fix the errors");
 
     setIsLoading(true);
-    console.log(form);
-
     try {
       const res = await api.post("/auth/register", formData);
-      toast.success(res.data.message || "Registration successful");
+      toast.success(res.data.message || "Welcome to GrubGo 🍔");
       handleClearForm();
     } catch (error) {
-      toast.error(error.response?.data?.message || "Something went wrong");
+      toast.error(error.response?.data?.message || "Registration failed");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 py-6 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 to-red-100 px-4">
+      <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
+        
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2 font-serif">
-            Registration
-          </h1>
-          <p className="text-lg text-gray-600 font-serif">
-            You are 1 step away from GrubGo
-          </p>
+        <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-center py-6">
+          <h1 className="text-3xl font-extrabold">🍔 GrubGo</h1>
+          <p className="text-sm mt-1">Fast food, faster delivery</p>
         </div>
 
         {/* Form */}
-        <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
-          <form
-            onSubmit={handleSubmit}
-            onReset={handleClearForm}
-            className="p-8"
+        <form onSubmit={handleSubmit} onReset={handleClearForm} className="p-6 space-y-4">
+
+          <InputField
+            emoji="👤"
+            placeholder="Full Name"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleChange}
+            error={validationError.fullName}
+          />
+
+          <InputField
+            emoji="📧"
+            placeholder="Email Address"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            error={validationError.email}
+          />
+
+          <InputField
+            emoji="📱"
+            placeholder="Mobile Number"
+            name="mobileNumber"
+            maxLength="10"
+            value={formData.mobileNumber}
+            onChange={handleChange}
+            error={validationError.mobileNumber}
+          />
+
+          <InputField
+            emoji="🔒"
+            placeholder="Password"
+            name="passWord"
+            type="password"
+            value={formData.passWord}
+            onChange={handleChange}
+            error={validationError.passWord}
+          />
+
+          <InputField
+            emoji="🔒"
+            placeholder="Confirm Password"
+            name="confirmPassWord"
+            type="password"
+            value={formData.confirmPassWord}
+            onChange={handleChange}
+            error={validationError.confirmPassWord}
+          />
+
+          {/* Buttons */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-lg hover:scale-105 transition"
           >
-            <div className="space-y-4">
-              {/* Full Name */}
-              <div>
-                <input
-                  type="text"
-                  name="fullName"
-                  placeholder="Full Name"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                  className="w-full px-4 py-3 border-2 rounded-lg"
-                />
-                {validationError.fullName && (
-                  <p className="text-xs text-red-500">
-                    {validationError.fullName}
-                  </p>
-                )}
-              </div>
+            {isLoading ? "Creating Account..." : "Start Ordering 🍕"}
+          </button>
 
-              {/* Email */}
-              <div>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  value={formData.email}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                  className="w-full px-4 py-3 border-2 rounded-lg"
-                />
-                {validationError.email && (
-                  <p className="text-xs text-red-500">
-                    {validationError.email}
-                  </p>
-                )}
-              </div>
-
-              {/* Mobile */}
-              <div>
-                <input
-                  type="tel"
-                  name="mobileNumber"
-                  placeholder="Mobile Number"
-                  maxLength="10"
-                  value={formData.mobileNumber}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                  className="w-full px-4 py-3 border-2 rounded-lg"
-                />
-                {validationError.mobileNumber && (
-                  <p className="text-xs text-red-500">
-                    {validationError.mobileNumber}
-                  </p>
-                )}
-              </div>
-
-              {/* Password */}
-              <div>
-                <input
-                  type="password"
-                  name="passWord"
-                  placeholder="Password"
-                  value={formData.passWord}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                  className="w-full px-4 py-3 border-2 rounded-lg"
-                />
-                {validationError.passWord && (
-                  <p className="text-xs text-red-500">
-                    {validationError.passWord}
-                  </p>
-                )}
-              </div>
-
-              {/* Confirm Password */}
-              <div>
-                <input
-                  type="password"
-                  name="confirmPassWord"
-                  placeholder="Confirm Password"
-                  value={formData.confirmPassWord}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                  className="w-full px-4 py-3 border-2 rounded-lg"
-                />
-                {validationError.confirmPassWord && (
-                  <p className="text-xs text-red-500">
-                    {validationError.confirmPassWord}
-                  </p>
-                )}
-              </div>
-            </div>
-
-            {/* Buttons */}
-            <div className="flex gap-4 pt-8 border-t-2 mt-8">
-              <button
-                type="reset"
-                disabled={isLoading}
-                className="flex-1 bg-gray-300 font-bold py-4 rounded-lg hover:bg-gray-400 hover:scale-105 transition duration-300 shadow-lg"
-              >
-                Clear Form
-              </button>
-
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="flex-1 bg-linear-to-r from-indigo-600 to-indigo-700 text-white font-bold py-4 rounded-lg hover:from-indigo-700 hover:to-indigo-800 hover:scale-105 transition duration-300 shadow-lg"
-              >
-                {isLoading ? "Submitting..." : "Submit Registration"}
-              </button>
-            </div>
-          </form>
-        </div>
+          <button
+            type="reset"
+            className="w-full py-2 text-sm text-gray-500 hover:text-gray-700"
+          >
+            Clear Form
+          </button>
+        </form>
       </div>
     </div>
   );
 };
+
+/* Reusable Food Style Input */
+const InputField = ({ emoji, error, ...props }) => (
+  <div>
+    <div
+      className={`flex items-center gap-3 px-4 py-3 rounded-xl border
+      ${error ? "border-red-400" : "border-gray-300 focus-within:border-orange-500"}
+      bg-gray-50`}
+    >
+      <span className="text-xl">{emoji}</span>
+      <input {...props} className="w-full bg-transparent outline-none" />
+    </div>
+    {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
+  </div>
+);
 
 export default Registration;

@@ -12,16 +12,13 @@ const Contact = () => {
     gender: "",
   });
 
-  const [isLoading, setIsLoading] = useState(false); // Handle Input Change
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setContactData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setContactData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Clear Form
   const handleClearForm = () => {
     setContactData({
       fullName: "",
@@ -33,15 +30,13 @@ const Contact = () => {
     });
   };
 
-  // Submit Form
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(contactData);
 
     try {
       const res = await api.post("/public/new-contact", contactData);
-      toast.success(res.data.message); /// || "You will be contacted soon!");
+      toast.success(res.data.message || "We will contact you soon 🍕");
       handleClearForm();
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong");
@@ -51,108 +46,122 @@ const Contact = () => {
   };
 
   return (
-    <>
-      <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl"
-        >
-          <h1 className="text-3xl font-bold text-center font-serif">
-            Contact Us
-          </h1>
-          <p className="text-lg text-gray-600 text-center mb-6 font-serif">
-            We’d love to hear from you
-          </p>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 to-red-100 px-4">
+      <div className="w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden">
 
-          <input
-            type="text"
-            name="fullName"
+        {/* Header */}
+        <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-center py-6">
+          <h1 className="text-3xl font-extrabold">📞 Contact GrubGo</h1>
+          <p className="text-sm mt-1">We’d love to hear from you</p>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+
+          <InputField
+            emoji="👤"
             placeholder="Full Name"
+            name="fullName"
             value={contactData.fullName}
             onChange={handleChange}
-            required
-            className="w-full px-4 py-3 border-2 rounded-lg mb-4"
           />
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={contactData.email}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-3 border-2 rounded-lg mb-4"
-          />
+          <div className="grid md:grid-cols-2 gap-4">
+            <InputField
+              emoji="📧"
+              type="email"
+              placeholder="Email Address"
+              name="email"
+              value={contactData.email}
+              onChange={handleChange}
+            />
 
-          <input
-            type="text"
-            name="mobileNumber"
-            placeholder="Phone Number"
-            value={contactData.mobileNumber}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-3 border-2 rounded-lg mb-4"
-          />
+            <InputField
+              emoji="📱"
+              placeholder="Mobile Number"
+              name="mobileNumber"
+              value={contactData.mobileNumber}
+              onChange={handleChange}
+            />
+          </div>
 
-          <input
-            type="text"
-            name="city"
+          <InputField
+            emoji="🏙️"
             placeholder="City"
+            name="city"
             value={contactData.city}
             onChange={handleChange}
-            required
-            className="w-full px-4 py-3 border-2 rounded-lg mb-4"
           />
 
           {/* Gender */}
-          <div className="mb-4">
-            <p className="font-semibold mb-1">Gender</p>
-            {["male", "female", "other"].map((g) => (
-              <label key={g} className="mr-4">
-                <input
-                  type="radio"
-                  name="gender"
-                  value={g}
-                  checked={contactData.gender === g}
-                  onChange={handleChange}
-                  required
-                  className="mr-1"
-                />
-                {g.charAt(0).toUpperCase() + g.slice(1)}
-              </label>
-            ))}
+          <div>
+            <p className="font-semibold mb-2">Gender</p>
+            <div className="flex gap-6">
+              {["male", "female", "other"].map((g) => (
+                <label
+                  key={g}
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <input
+                    type="radio"
+                    name="gender"
+                    value={g}
+                    checked={contactData.gender === g}
+                    onChange={handleChange}
+                    className="accent-orange-500"
+                  />
+                  {g.charAt(0).toUpperCase() + g.slice(1)}
+                </label>
+              ))}
+            </div>
           </div>
 
-          <textarea
-            name="message"
-            placeholder="Your Message"
-            value={contactData.message}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-3 border-2 rounded-lg mb-6"
-            rows="4"
-          />
+          {/* Message */}
+          <div>
+            <div className="flex items-start gap-3 px-4 py-3 rounded-xl border border-gray-300 bg-gray-50">
+              <span className="text-xl mt-1">💬</span>
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                value={contactData.message}
+                onChange={handleChange}
+                rows="4"
+                className="w-full bg-transparent outline-none resize-none"
+              />
+            </div>
+          </div>
 
-          <div className="flex gap-4">
+          {/* Buttons */}
+          <div className="flex gap-4 pt-4">
             <button
               type="button"
               onClick={handleClearForm}
-              className="w-1/2 bg-gray-500 text-white font-bold py-3 rounded-lg"
+              disabled={isLoading}
+              className="w-1/2 py-3 rounded-xl bg-gray-300 font-bold hover:bg-gray-400 transition"
             >
               Clear
             </button>
 
             <button
               type="submit"
-              className="w-1/2 bg-indigo-600 text-white font-bold py-3 rounded-lg disabled:opacity-60"
+              disabled={isLoading}
+              className="w-1/2 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold hover:scale-105 transition"
             >
-              Submit
+              {isLoading ? "Sending..." : "Send Message 🚀"}
             </button>
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
+
+/* Reusable Input Component (Same GrubGo Style) */
+const InputField = ({ emoji, ...props }) => (
+  <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-300 bg-gray-50">
+    <span className="text-xl">{emoji}</span>
+    <input {...props} className="w-full bg-transparent outline-none" />
+  </div>
+);
 
 export default Contact;
