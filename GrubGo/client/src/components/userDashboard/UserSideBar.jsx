@@ -6,78 +6,48 @@ import { CgProfile } from "react-icons/cg";
 import { FaCartShopping } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
 
+const UserSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
+  const menuItems = [
+    { key: "overview", title: "OverView", icons: <TbChartTreemap /> },
+    { key: "profile", title: "Profile", icons: <CgProfile /> },
+    { key: "orders", title: "Orders", icons: <FaCartShopping /> },
+    { key: "transactions", title: "Transactions", icons: <GrTransaction /> },
+    { key: "helpdesk", title: "Help Desk", icons: <RiCustomerService2Fill /> },
+  ];
 
-const UserSideBar = ({ active, setActive }) => {
   return (
     <>
-      <div className="p-3">
-        <div className="text-xl font-bold flex gap-4 align-text-bottom">User Dashboard <GiHamburgerMenu/></div>
+      <div className="p-2">
+        <div className="text-xl font-bold flex gap-4 align-text-bottom h-10 ">
+          {" "}
+          <button
+            className="hover:scale-105 "
+            onClick={() => setIsCollapsed(!isCollapsed)}
+          >
+            <GiHamburgerMenu />
+          </button>
+          {!isCollapsed && (
+            <span className="overflow-hidden text-nowrap">User Dashboard</span>
+          )}
+        </div>
         <hr />
-        <div className="grid gap-3 p-6">
-          <button
-            className={`flex gap-3 items-center p-2 rounded-xl
+        <div className="py-6 space-y-5 w-full">
+          {menuItems.map((item, idx) => (
+            <button
+              className={`flex gap-3 items-center p-2 rounded-xl duration-300 text-base h-12 w-full text-nowrap 
               ${
-                active === "overview"
+                active === item.key
                   ? "bg-(--color-secondary) text-white"
                   : " hover:bg-amber-200/70"
               }
             `}
-            onClick={() => setActive("overview")}
-          >
-            <TbChartTreemap />
-            Overview
-          </button>
-          <button
-            className={`flex gap-3 items-center  p-2 rounded-xl
-              ${
-                active === "profile"
-                  ? "bg-(--color-secondary) text-white"
-                  : " hover:bg-amber-200/70"
-              }
-            `}
-            onClick={() => setActive("profile")}
-          >
-            {" "}
-            <CgProfile /> Profile
-          </button>
-          <button
-            className={`flex gap-3 items-center  p-2 rounded-xl
-              ${
-                active === "orders"
-                  ? "bg-(--color-secondary) text-white"
-                  : " hover:bg-amber-200/70"
-              }
-            `}
-            onClick={() => setActive("orders")}
-          >
-            <FaCartShopping /> Orders
-          </button>
-          <button
-            className={`flex gap-3 items-center  p-2 rounded-xl
-              ${
-                active === "transactions"
-                  ? "bg-(--color-secondary) text-white"
-                  : " hover:bg-amber-200/70"
-              }
-            `}
-            onClick={() => setActive("transactions")}
-          >
-            {" "}
-            <GrTransaction />
-            Transactions
-          </button>
-          <button
-            className={`flex gap-3 items-center hover:bg-amber-200/70 p-2 rounded-xl
-              ${
-                active === "helpdesk"
-                  ? "bg-(--color-secondary) text-white"
-                  : " hover:bg-amber-200"
-              }
-            `}
-            onClick={() => setActive("helpdesk")}
-          >
-            <RiCustomerService2Fill /> Help Desk
-          </button>
+              onClick={() => setActive(item.key)}
+              key={idx}
+            >
+              {item.icons}
+              {!isCollapsed && item.title}
+            </button>
+          ))}
         </div>
       </div>
     </>

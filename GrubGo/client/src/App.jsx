@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Toaster } from "react-hot-toast";
 import UserDashboard from "./pages/dashboards/UserDashboard";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/Register" element={<Register />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 };
