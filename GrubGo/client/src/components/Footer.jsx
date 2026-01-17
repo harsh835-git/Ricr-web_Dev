@@ -22,7 +22,7 @@ const Footer = () => {
               <li className="hover:underline cursor-pointer">
                 <Link
                   to={"/"}
-                  className="text-decoration-none text-white  hover:text-(--color-accent) font-serif"
+                  className="text-decoration-none text-white   font-serif"
                 >
                   Home
                 </Link>
@@ -30,7 +30,7 @@ const Footer = () => {
               <li className="hover:underline cursor-pointer">
                 <Link
                   to={"/about"}
-                  className="text-decoration-none text-white hover:text-(--color-accent) font-serif"
+                  className="text-decoration-none text-white  font-serif"
                 >
                   About
                 </Link>
@@ -38,12 +38,12 @@ const Footer = () => {
               <li className="hover:underline cursor-pointer">
                 <Link
                   to={"/contact"}
-                  className="text-decoration-none text-white hover:text-(--color-accent) font-serif"
+                  className="text-decoration-none text-white  font-serif"
                 >
                   Contact
                 </Link>
               </li>
-              <li className="hover:underline cursor-pointer">Restaurants</li>
+              <li className="font-serif hover:underline cursor-pointer">Restaurants</li>
             </ul>
           </div>
 
