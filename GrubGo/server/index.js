@@ -10,13 +10,13 @@ import PublicRouter from './src/routers/publicRouter.js'
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173" }))
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/auth", AuthRouter);
-app.use("/public",PublicRouter);
+app.use("/public", PublicRouter);
 
 app.get("/", (req, res) => {
     console.log("Serve is working");
@@ -27,8 +27,8 @@ app.use((err, req, res, next) => {
     const ErrorMessage = err.message || "Internal Server Error";
     const StatusCode = err.statusCode || 500;
 
-    console.log("Error Found",{ErrorMessage,StatusCode});
-    
+    console.log("Error Found", { ErrorMessage, StatusCode });
+
     res.status(StatusCode).json({ message: ErrorMessage });
 });
 const port = process.env.PORT || 5000;

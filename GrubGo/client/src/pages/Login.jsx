@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import api from "../config/Api";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const navigate =useNavigate();
+  const { setUser, setIsLogin } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     passWord: "",
@@ -22,7 +24,9 @@ const Login = () => {
     let Error = {};
 
     if (
-      !/^[\w.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(formData.email)
+      !/^[\w.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
+        formData.email,
+      )
     ) {
       Error.email = "Enter a valid email address";
     }
@@ -43,7 +47,10 @@ const Login = () => {
     try {
       const res = await api.post("/auth/login", formData);
       toast.success(res.data.message || "Welcome back 🍔");
-      navigate("/user-dashboard")
+      setUser(res.data.data);
+      setIsLogin(true);
+      sessionStorage.setItem("GrubGoUser",JSON.stringify(res.data.data))
+      navigate("/user-dashboard");
     } catch (error) {
       toast.error(error.response?.data?.message || "Login failed");
     } finally {
@@ -54,7 +61,6 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 to-red-100 px-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
-
         {/* Header */}
         <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-center py-6">
           <h1 className="text-3xl font-extrabold">🍔 GrubGo</h1>
@@ -63,7 +69,6 @@ const Login = () => {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
-
           <InputField
             emoji="📧"
             type="email"

@@ -1,9 +1,10 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
+import { genAdminToken } from '../utils/authToken.js'
 export const UserRegister = async (req, res, next) => {
     try {
         console.log(req.body);
-        
+
         const { fullName, email, mobileNumber, passWord } = req.body;
 
         if (!fullName || !email || !mobileNumber || !passWord) {
@@ -12,23 +13,23 @@ export const UserRegister = async (req, res, next) => {
             return next(error);
         }
         console.log(fullName, email, mobileNumber, passWord);
-        
+
         // check duplicated user
-        const existingUser = await User.findOne({email});
+        const existingUser = await User.findOne({ email });
         if (existingUser) {
             const error = new Error("Email Already  Registered");
             error.statusCode = 409;
             return next(error);
         }
         console.log("Sending Data to DB");
-        
+
         // encrypt the password
         const salt = await bcrypt.genSalt(10)
         const hashPassword = await bcrypt.hash(passWord, salt);
 
         // save data to databse
-        console.log("wor hashing done.hashpassowrd ",hashPassword);
-        
+        console.log("wor hashing done.hashpassowrd ", hashPassword);
+
 
         const newUser = await User.create({
             fullName,
@@ -58,7 +59,7 @@ export const UserLogin = async (req, res, next) => {
             return next(error);
         }
         // check duplicated user
-        const existingUser = await User.findOne({email});
+        const existingUser = await User.findOne({ email });
         if (!existingUser) {
             const error = new Error("Email not  Registered");
             error.statusCode = 401;
@@ -75,6 +76,8 @@ export const UserLogin = async (req, res, next) => {
             return next(error);
         }
 
+        //token generation will be done here
+        genAdminToken(existingUser, res)
         // send message to Frontend
         res.status(200).json({ message: 'Login Successfull', data: existingUser })
         // end
@@ -83,26 +86,26 @@ export const UserLogin = async (req, res, next) => {
         next(error)
     }
 }
-    export const UserLogout = async (req, res, next) => {
-        try {
-            res.status(200).json({ message: 'Logout Successfull' });
-        } catch (error) {
-            next(error)
-        }
+export const UserLogout = async (req, res, next) => {
+    try {
+        res.status(200).json({ message: 'Logout Successfull' });
+    } catch (error) {
+        next(error)
     }
+}
 
-    export const Usercontact = async (req, res, next) => {
+export const Usercontact = async (req, res, next) => {
     try {
         console.log(req.body);
-        
-        const { fullName, email, mobileNumber, message ,gender } = req.body;
+
+        const { fullName, email, mobileNumber, message, gender } = req.body;
 
         if (!fullName || !email || !mobileNumber || !message || !gender) {
             const error = new Error("All fields required");
             error.statusCode = 400;
             return next(error);
         }
-        console.log(fullName, email, mobileNumber, message ,gender);
+        console.log(fullName, email, mobileNumber, message, gender);
         res.status(201).json({ message: "Query accepted" });
         // end
     } catch (error) {
