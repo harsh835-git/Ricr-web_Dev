@@ -5,6 +5,7 @@ export const AuthProvider = (props) => {
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("GrubGoUser)) ||" ");
   const [isLogin, setIsLogin] = useState(!!user);
 
+  
   useEffect(() => {
     setIsLogin(!!user);
   }, [user]);
