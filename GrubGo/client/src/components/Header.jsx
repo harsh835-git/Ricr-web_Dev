@@ -39,7 +39,12 @@ const Header = () => {
         </div>
         <div>
           {isLogin ? (
-            <span>{user.fullName}</span>
+            <div
+              className="font-bold font-serif text-white text-xl cursor-pointer"
+              onClick={() => navigate("/user-dashboard")}
+            >
+              Hi, {user.fullName}!
+            </div>
           ) : (
             <div>
               {" "}
