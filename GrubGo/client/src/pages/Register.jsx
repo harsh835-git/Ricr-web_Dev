@@ -34,13 +34,18 @@ const Registration = () => {
     let Error = {};
 
     if (formData.fullName.length < 3) Error.fullName = "Enter full name";
-    if (!/^[\w.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(formData.email))
+    if (
+      !/^[\w.]+@(gmail|outlook|ricr|yahoo)\.(com|in|co.in)$/.test(
+        formData.email,
+      )
+    )
       Error.email = "Invalid email address";
     if (!/^[6-9]\d{9}$/.test(formData.mobileNumber))
       Error.mobileNumber = "Invalid mobile number";
-    if (formData.passWord.length < 6)
-      Error.passWord = "Minimum 6 characters";
-    if (formData.passWord !== formData.confirmPassWord)
+    if (formData.passWord.length < 6) Error.passWord = "Minimum 6 characters";
+    if (!formData.confirmPassWord)
+      Error.confirmPassWord = "Confirm your password";
+    else if (formData.passWord !== formData.confirmPassWord)
       Error.confirmPassWord = "Passwords do not match";
 
     setValidationError(Error);
@@ -48,6 +53,8 @@ const Registration = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("Sending:", formData);
+
     e.preventDefault();
     if (!validate()) return toast.error("Fix the errors");
 
@@ -66,7 +73,6 @@ const Registration = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 to-red-100 px-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
-        
         {/* Header */}
         <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-center py-6">
           <h1 className="text-3xl font-extrabold">🍔 GrubGo</h1>
@@ -74,8 +80,11 @@ const Registration = () => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} onReset={handleClearForm} className="p-6 space-y-4">
-
+        <form
+          onSubmit={handleSubmit}
+          onReset={handleClearForm}
+          className="p-6 space-y-4"
+        >
           <InputField
             emoji="👤"
             placeholder="Full Name"

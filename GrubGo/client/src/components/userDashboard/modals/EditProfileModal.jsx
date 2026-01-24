@@ -18,28 +18,30 @@ const EditProfileModal = ({ onclose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Updated Data:", formData);
+
     try {
       const res = await api.put("/user/update", formData);
-      setUser(res.data.data);
-      setIsLogin(true);
+
       sessionStorage.setItem("GrubGoUser", JSON.stringify(res.data.data));
+      setUser(res.data.data);
+
+      
     } catch (error) {
-      console.log(error);
+      console.log("Update failed:", error);
     } finally {
       onclose();
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4 flex-wrap">
-      <div className="bg-white w-full max-w-lg shadow-xl rounded-2xl max-h-[85vh] mx-auto overflow-y-auto ">
+    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
+      <div className="bg-white w-full max-w-lg shadow-xl rounded-2xl max-h-[85vh] mx-auto overflow-y-auto">
         {/* Header */}
-        <div className="flex justify-between items-center px-6 py-4 border-b bg-linear-180 from-orange-500 to-red-500">
-          <h2 className="text-lg font-semibold text-gray-800">Edit Profile</h2>
+        <div className="flex justify-between items-center px-6 py-4 border-b bg-gradient-to-r from-orange-500 to-red-500">
+          <h2 className="text-lg font-semibold text-white">Edit Profile</h2>
           <button
             onClick={onclose}
-            className="text-gray-400 hover:text-gray-700 text-xl"
+            className="text-white hover:text-gray-200 text-xl"
           >
             ✕
           </button>
@@ -54,7 +56,7 @@ const EditProfileModal = ({ onclose }) => {
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
-              className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300"
+              className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
           </div>
 
@@ -76,7 +78,7 @@ const EditProfileModal = ({ onclose }) => {
               name="mobileNumber"
               value={formData.mobileNumber}
               onChange={handleChange}
-              className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300"
+              className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
           </div>
 
@@ -92,7 +94,7 @@ const EditProfileModal = ({ onclose }) => {
 
             <button
               type="submit"
-              className="px-5 py-2 text-sm rounded-lg bg-linear-to-r from-orange-500 to-red-500 text-white hover:bg-gray-800"
+              className="px-5 py-2 text-sm rounded-lg bg-gradient-to-r from-orange-500 to-red-500 text-white hover:opacity-90"
             >
               Save Changes
             </button>
