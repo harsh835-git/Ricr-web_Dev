@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const { setUser, setIsLogin } = useAuth();
+  const { setUser, setIsLogin, setRole } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -39,6 +39,13 @@ const Login = () => {
     return Object.keys(Error).length === 0;
   };
 
+  const handleClearForm = () => {
+    setFormData({
+      email: "",
+      password: "",
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return toast.error("Fix the errors");
@@ -46,18 +53,43 @@ const Login = () => {
     setIsLoading(true);
     try {
       const res = await api.post("/auth/login", formData);
-      toast.success(res.data.message || "Welcome back 🍔");
+      toast.success(res.data.message);
       setUser(res.data.data);
       setIsLogin(true);
-      sessionStorage.setItem("GrubGoUser",JSON.stringify(res.data.data))
-      navigate("/user-dashboard");
+      sessionStorage.setItem("GrubGoUser", JSON.stringify(res.data.data));
+      handleClearForm();
+      switch (res.data.data.role) {
+        case "manager": {
+          setRole("manager");
+          navigate("/resturant-dashboard");
+          break;
+        }
+        case "partner": {
+          setRole("partner");
+          navigate("/rider-dashboard");
+          break;
+        }
+        case "customer": {
+          setRole("customer");
+          navigate("/user-dashboard");
+          break;
+        }
+        case "admin": {
+          setRole("admin");
+          navigate("/admin-dashboard");
+          break;
+        }
+
+        default:
+          break;
+      }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Login failed");
+      console.log(error);
+      toast.error(error?.response?.data?.message || "Unknown Error");
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 to-red-100 px-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">

@@ -1,3 +1,5 @@
+import jwt from "jsonwebtoken"; 
+import User from "../models/userModel.js";
 export const Protect = async (req, res, next) => {
   try {
     const biscuit = req.cookies.Bourbon;

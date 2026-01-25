@@ -9,6 +9,7 @@ const Registration = () => {
     mobileNumber: "",
     passWord: "",
     confirmPassWord: "",
+    role: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +27,7 @@ const Registration = () => {
       mobileNumber: "",
       passWord: "",
       confirmPassWord: "",
+      role: "",
     });
     setValidationError({});
   };
@@ -47,6 +49,10 @@ const Registration = () => {
       Error.confirmPassWord = "Confirm your password";
     else if (formData.passWord !== formData.confirmPassWord)
       Error.confirmPassWord = "Passwords do not match";
+
+    if (!formData.role) {
+      Error.role = "Please choose any one";
+    }
 
     setValidationError(Error);
     return Object.keys(Error).length === 0;
@@ -85,6 +91,49 @@ const Registration = () => {
           onReset={handleClearForm}
           className="p-6 space-y-4"
         >
+          <div>
+            <div className="flex items-center justify-between">
+              <label>I am </label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="role"
+                  id="manager"
+                  checked={formData.role === "manager"}
+                  value={"manager"}
+                  onChange={handleChange}
+                />
+                <label htmlFor="manager">Resturant Manager</label>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="role"
+                  id="partner"
+                  checked={formData.role === "partner"}
+                  value={"partner"}
+                  onChange={handleChange}
+                />
+                <label htmlFor="partner">Delivery Partner</label>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="role"
+                  id="customer"
+                  checked={formData.role === "customer"}
+                  value={"customer"}
+                  onChange={handleChange}
+                />
+                <label htmlFor="customer">Customer</label>
+              </div>
+            </div>
+            {validationError.role && (
+              <span className="text-xs text-red-500">
+                {validationError.role}
+              </span>
+            )}
+          </div>
           <InputField
             emoji="👤"
             placeholder="Full Name"

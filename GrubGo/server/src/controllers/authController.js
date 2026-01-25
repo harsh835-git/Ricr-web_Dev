@@ -5,9 +5,9 @@ export const UserRegister = async (req, res, next) => {
     try {
         console.log(req.body);
 
-        const { fullName, email, mobileNumber, passWord } = req.body;
+        const { fullName, email, mobileNumber, passWord, role } = req.body;
 
-        if (!fullName || !email || !mobileNumber || !passWord) {
+        if (!fullName || !email || !mobileNumber || !passWord ||!role) {
             const error = new Error("All fields required");
             error.statusCode = 400;
             return next(error);
@@ -36,6 +36,7 @@ export const UserRegister = async (req, res, next) => {
             email,
             mobileNumber,
             passWord: hashPassword,
+            role,
         })
 
         //  send response to  frontend  

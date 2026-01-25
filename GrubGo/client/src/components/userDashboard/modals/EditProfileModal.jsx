@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import api from "../../../config/Api";
+import toast from "react-hot-toast";
+
+
 
 const EditProfileModal = ({ onclose }) => {
   const { user, setUser } = useAuth();
-
+  const [loading, setLoading] = useState(false); // New: Loading state
   const [formData, setFormData] = useState({
-    fullName: user?.fullName || "",
-    email: user?.email || "",
-    mobileNumber: user?.mobileNumber || "",
+    fullName: user.fullName || "",
+    email: user.email || "",
+    mobileNumber: user.mobileNumber || "",
   });
 
   const handleChange = (e) => {
@@ -18,18 +21,22 @@ const EditProfileModal = ({ onclose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading
+    console.log("form Submitted");
+    console.log(formData);
 
     try {
       const res = await api.put("/user/update", formData);
 
       sessionStorage.setItem("GrubGoUser", JSON.stringify(res.data.data));
       setUser(res.data.data);
-
-      
+      toast.success("Profile updated successfully!");
+      onclose();
     } catch (error) {
       console.log("Update failed:", error);
+      toast.error(error.response?.data?.message || "Failed to update profile");
     } finally {
-      onclose();
+      setLoading(false);
     }
   };
 
