@@ -1,22 +1,23 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import EditProfileModal from "./modals/EditProfileModal";
 
 const UserProfile = () => {
-  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const { user } = useAuth();
+
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
 
   return (
     <>
-     <p className="text-center font-bold text-3xl font-serif text-gray-800 p-1.5">My Profile</p>
+      <p className="text-center font-bold text-3xl font-serif text-gray-800 p-1.5">
+        My Profile
+      </p>
 
-
-     <hr  className="m-4 text-5xl"/>
+      <hr className="m-4 text-5xl" />
 
       <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6 px-6 py-5 border-b bg-white ">
-
         {/* Left Info */}
-       
+
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm text-gray-700">
           <div>
             <p className="text-xs uppercase text-gray-500 tracking-wide font-bold">
@@ -31,9 +32,7 @@ const UserProfile = () => {
             <p className="text-xs uppercase text-gray-500 tracking-wide font-bold">
               Email
             </p>
-            <p className="font-medium text-gray-900">
-              {user?.email || "—"}
-            </p>
+            <p className="font-medium text-gray-900">{user?.email || "—"}</p>
           </div>
 
           <div>

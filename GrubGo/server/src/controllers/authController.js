@@ -7,7 +7,7 @@ export const UserRegister = async (req, res, next) => {
 
         const { fullName, email, mobileNumber, passWord, role } = req.body;
 
-        if (!fullName || !email || !mobileNumber || !passWord ||!role) {
+        if (!fullName || !email || !mobileNumber || !passWord || !role) {
             const error = new Error("All fields required");
             error.statusCode = 400;
             return next(error);
@@ -89,6 +89,7 @@ export const UserLogin = async (req, res, next) => {
 }
 export const UserLogout = async (req, res, next) => {
     try {
+        res.clearCookie("Bourbon");
         res.status(200).json({ message: 'Logout Successfull' });
     } catch (error) {
         next(error)
