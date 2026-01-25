@@ -78,23 +78,25 @@ const Registration = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 to-red-100 px-4">
-      <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
+      <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden m-6">
         {/* Header */}
-        <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-center py-6">
+        <div className="bg-linear-to-r from-orange-500 to-red-500 text-white text-center py-6">
           <h1 className="text-3xl font-extrabold">🍔 GrubGo</h1>
-          <p className="text-sm mt-1">Fast food, faster delivery</p>
+          <p className="text-sm mt-1">Create your account</p>
         </div>
 
         {/* Form */}
         <form
           onSubmit={handleSubmit}
           onReset={handleClearForm}
-          className="p-6 space-y-4"
+          className="p-6 space-y-5"
         >
+          {/* Role */}
           <div>
-            <div className="flex items-center justify-between">
-              <label>I am </label>
-              <div className="flex items-center gap-2">
+            <p className="text-sm font-semibold text-gray-600 mb-2">I am</p>
+
+            <div className="flex flex-col gap-2 text-sm">
+              <label className="flex items-center gap-2">
                 <input
                   type="radio"
                   name="role"
@@ -102,10 +104,12 @@ const Registration = () => {
                   checked={formData.role === "manager"}
                   value={"manager"}
                   onChange={handleChange}
+                  className="accent-orange-500"
                 />
-                <label htmlFor="manager">Resturant Manager</label>
-              </div>
-              <div className="flex items-center gap-2">
+                Resturant Manager
+              </label>
+
+              <label className="flex items-center gap-2">
                 <input
                   type="radio"
                   name="role"
@@ -113,10 +117,12 @@ const Registration = () => {
                   checked={formData.role === "partner"}
                   value={"partner"}
                   onChange={handleChange}
+                  className="accent-orange-500"
                 />
-                <label htmlFor="partner">Delivery Partner</label>
-              </div>
-              <div className="flex items-center gap-2">
+                Delivery Partner
+              </label>
+
+              <label className="flex items-center gap-2">
                 <input
                   type="radio"
                   name="role"
@@ -124,16 +130,19 @@ const Registration = () => {
                   checked={formData.role === "customer"}
                   value={"customer"}
                   onChange={handleChange}
+                  className="accent-orange-500"
                 />
-                <label htmlFor="customer">Customer</label>
-              </div>
+                Customer
+              </label>
             </div>
+
             {validationError.role && (
               <span className="text-xs text-red-500">
                 {validationError.role}
               </span>
             )}
           </div>
+
           <InputField
             emoji="👤"
             placeholder="Full Name"
@@ -183,7 +192,6 @@ const Registration = () => {
             error={validationError.confirmPassWord}
           />
 
-          {/* Buttons */}
           <button
             type="submit"
             disabled={isLoading}
