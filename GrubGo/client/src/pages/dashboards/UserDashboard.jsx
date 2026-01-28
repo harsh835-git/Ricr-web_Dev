@@ -24,8 +24,15 @@ const UserDashboard = () => {
   if (role !== "customer") {
     return (
       <>
-        <div className="">
-          You are not loggedin as Customer. Please Login again.{" "}
+        <div className="p-3">
+          <div className="border rounded shadow p-5 w-4xl mx-auto text-center bg-gray-100">
+            <div className="text-5xl text-red-600">
+              ⊗
+            </div>
+            <div className="text-xl">
+              You are not login as Customer. Please Login again.
+            </div>
+          </div>
         </div>
       </>
     );

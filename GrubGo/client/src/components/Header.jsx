@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="bg-linear-to-r from-orange-500 to-red-500 px-4 py-2 flex justify-between items-center sticky top-0">
+      <div className="bg-linear-to-r from-orange-500 to-red-500 px-4 py-2 flex justify-between items-center sticky top-0 z-100">
         <Link to={"/"}>
           <img
             src={horizontalLogo}

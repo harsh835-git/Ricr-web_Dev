@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 
 const EditProfileModal = ({ onclose }) => {
-  const { user, setUser } = useAuth();
+  const { user, setUser , setIsLogin} = useAuth();
   const [loading, setLoading] = useState(false); // New: Loading state
   const [formData, setFormData] = useState({
     fullName: user.fullName || "",

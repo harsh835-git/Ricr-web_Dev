@@ -29,14 +29,19 @@ export const UserRegister = async (req, res, next) => {
 
         // save data to databse
         console.log("wor hashing done.hashpassowrd ", hashPassword);
+        const photoURL = `https://placehold.co/600x400?text=${fullName.charAt(0).toUpperCase()}`;
+        const photo = {
+            url: photoURL,
+        };
 
 
         const newUser = await User.create({
             fullName,
-            email,
+            email: email.toLowerCase(),
             mobileNumber,
             passWord: hashPassword,
             role,
+            photo,
         })
 
         //  send response to  frontend  
@@ -96,6 +101,8 @@ export const UserLogout = async (req, res, next) => {
     }
 }
 
+
+
 export const Usercontact = async (req, res, next) => {
     try {
         console.log(req.body);
@@ -114,3 +121,15 @@ export const Usercontact = async (req, res, next) => {
         next(error)
     }
 }
+
+export const UserChangePhoto = async (req, res, next) => {
+    try {
+        console.log("body: ", req.body);
+
+        console.log("file:", req.file);
+
+        res.status(200).json({ message: "Photo Updated" });
+    } catch (error) {
+        next(error);
+    }
+};
