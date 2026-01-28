@@ -1,64 +1,109 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import EditProfileModal from "./modals/EditProfileModal";
+import api from "../../config/Api";
+import toast from "react-hot-toast";
+import UserImage from "../../assets/image.png";
+import { FaCamera } from "react-icons/fa";
 
 const UserProfile = () => {
-  const { user } = useAuth();
-
+  const { user, setUser } = useAuth();
+  const [preview, setPreview] = useState("");
+  const [photo, setPhoto] = useState("");
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
 
+  const changePhoto = async (photo) => {
+    const form_Data = new FormData();
+    form_Data.append("image", photo);
+    form_Data.append("imageURL", preview);
+
+    try {
+      const res = await api.patch("/user/changePhoto", form_Data);
+      toast.success(res.data.message);
+      setUser(res.data.data);
+      sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Unknown Error");
+    }
+  };
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    const newPhotoURL = URL.createObjectURL(file);
+
+    setPreview(newPhotoURL);
+    setPhoto(file);
+    changePhoto(file);
+  };
+
   return (
-    <>
-      <p className="text-center font-bold text-3xl font-serif text-gray-800 p-1.5">
-        My Profile
-      </p>
+  <>
+    <div className="h-full bg-gradient-to-br from-orange-200 to-white p-8 ">
+      <div className="max-w-5xl  mx-auto bg-white rounded-2xl shadow-xl p-8">
 
-      <hr className="m-4 text-5xl" />
+        {/* Top Section */}
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-8 border-b pb-6">
+          
+          {/* Profile Image */}
+          <div className="relative">
+            <div className="w-40 h-40 rounded-full overflow-hidden ring-4 ring-orange-300 shadow-md ">
+              <img
+                src={preview || user?.photo?.url || UserImage}
+                alt="profile"
+                className="w-full h-full object-cover "
+              />
+            </div>
 
-      <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6 px-6 py-5 border-b bg-white ">
-        {/* Left Info */}
+            <label
+              htmlFor="imageUpload"
+              className="absolute bottom-2 right-2 bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-full cursor-pointer shadow-lg"
+            >
+              <FaCamera />
+            </label>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm text-gray-700">
-          <div>
-            <p className="text-xs uppercase text-gray-500 tracking-wide font-bold">
-              Full Name
-            </p>
-            <p className="font-medium text-gray-900 ">
-              {user?.fullName || "—"}
-            </p>
+            <input
+              type="file"
+              id="imageUpload"
+              className="hidden"
+              accept="image/*"
+              onChange={handlePhotoChange}
+            />
           </div>
 
-          <div>
-            <p className="text-xs uppercase text-gray-500 tracking-wide font-bold">
-              Email
-            </p>
-            <p className="font-medium text-gray-900">{user?.email || "—"}</p>
-          </div>
+          {/* User Info */}
+          <div className="flex-1 text-center md:text-left">
+            <h1 className="text-3xl font-bold text-gray-800">
+              {user.fullName || "User Name"}
+            </h1>
+            <p className="text-gray-600 mt-2">{user.email || "user@email.com"}</p>
+            <p className="text-gray-600">{user.mobileNumber || "XXXXXXXXXX"}</p>
 
-          <div>
-            <p className="text-xs uppercase text-gray-500 tracking-wide font-bold">
-              Phone
-            </p>
-            <p className="font-medium text-gray-900">
-              {user?.mobileNumber || "—"}
-            </p>
+            <div className="flex justify-center md:justify-start gap-4 mt-6">
+              <button
+                onClick={() => setIsEditProfileModalOpen(true)}
+                className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold shadow"
+              >
+                Edit Profile
+              </button>
+
+              <button className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-semibold shadow">
+                Reset Password
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Action */}
-        <button
-          onClick={() => setIsEditProfileModalOpen(true)}
-          className="px-6 py-2 rounded-xl font-semibold bg-linear-to-r from-orange-500 to-red-500 text-white hover:scale-105 transition"
-        >
-          Edit Profile
-        </button>
+        {/* Optional Info Cards (future ready) */}
+        
       </div>
+    </div>
 
-      {isEditProfileModalOpen && (
-        <EditProfileModal onclose={() => setIsEditProfileModalOpen(false)} />
-      )}
-    </>
-  );
+    {isEditProfileModalOpen && (
+      <EditProfileModal onClose={() => setIsEditProfileModalOpen(false)} />
+    )}
+  </>
+);
+
 };
 
 export default UserProfile;
