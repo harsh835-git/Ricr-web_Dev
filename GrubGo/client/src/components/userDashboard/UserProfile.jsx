@@ -86,7 +86,7 @@ const UserProfile = () => {
                 <button
                   onClick={() => setIsEditProfileModalOpen(true)}
                   className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold shadow"
-                >
+                 >
                   Edit Profile
                 </button>
 

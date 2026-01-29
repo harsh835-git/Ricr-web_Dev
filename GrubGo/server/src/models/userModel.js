@@ -84,7 +84,7 @@ const userSchema = mongoose.Schema(
         required: true,
         default: "N/A",
       },
-      ifs_Code: {
+      ifsc_Code: {
         type: String,
         required: true,
         default: "N/A",

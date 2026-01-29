@@ -9,9 +9,9 @@ const EditProfileModal = ({ onclose }) => {
   const { user, setUser , setIsLogin} = useAuth();
   const [loading, setLoading] = useState(false); // New: Loading state
   const [formData, setFormData] = useState({
-    fullName: user.fullName || "",
-    email: user.email || "",
-    mobileNumber: user.mobileNumber || "",
+    fullName: user?.fullName || "",
+    email: user?.email || "",
+    mobileNumber: user?.mobileNumber || "",
   });
 
   const handleChange = (e) => {
@@ -41,7 +41,7 @@ const EditProfileModal = ({ onclose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4">
+    <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 px-4">
       <div className="bg-white w-full max-w-lg shadow-xl rounded-2xl max-h-[85vh] mx-auto overflow-y-auto">
         {/* Header */}
         <div className="flex justify-between items-center px-6 py-4 border-b bg-gradient-to-r from-orange-500 to-red-500">
