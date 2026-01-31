@@ -17,11 +17,10 @@ const ResetPasswordModal = ({ onClose }) => {
     setLoading(true);
     console.log(formData);
 
-    //validation Code
-
     try {
       const res = await api.patch("/user/resetPassword", formData);
       toast.success(res.data.message);
+      onClose();
     } catch (error) {
       console.log(error);
       toast.error(error?.response?.data?.message || "Unknown Error");
@@ -36,120 +35,95 @@ const ResetPasswordModal = ({ onClose }) => {
   };
 
   return (
-    <>
-      <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
-        <div className="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-lg shadow-lg">
-          <div className="flex justify-between px-6 py-4 border-b border-gray-300 items-center sticky top-0 bg-white">
-            <h2 className="text-xl font-semibold text-gray-800">
-              Reset Password
-            </h2>
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50 p-4">
+      <div className="bg-[#fffdf9] w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden">
+
+        {/* Header */}
+        <div className="flex justify-between items-center px-6 py-4 border-b bg-orange-50">
+          <h2 className="text-xl font-bold text-orange-600">🔒 Reset Password</h2>
+          <button
+            onClick={onClose}
+            className="w-9 h-9 rounded-full bg-orange-100 hover:bg-orange-200 flex items-center justify-center text-xl"
+          >
+            ✕
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+
+          {/* Old Password */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
+              Old Password
+            </label>
+            <input
+              type="password"
+              name="oldPassword"
+              value={formData.oldPassword}
+              onChange={handleInputChange}
+              placeholder="Enter old password"
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:outline-none"
+            />
+          </div>
+
+          {/* New Password */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
+              New Password
+            </label>
+            <input
+              type="password"
+              name="newPassword"
+              value={formData.newPassword}
+              onChange={handleInputChange}
+              placeholder="Enter new password"
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:outline-none"
+            />
+          </div>
+
+          {/* Confirm Password */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
+              Confirm New Password
+            </label>
+            <input
+              type="password"
+              name="cfNewPassword"
+              value={formData.cfNewPassword}
+              onChange={handleInputChange}
+              placeholder="Confirm new password"
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:outline-none"
+            />
+          </div>
+
+          {/* Buttons */}
+          <div className="flex gap-4 pt-4">
             <button
-              onClick={() => onClose()}
-              className="text-gray-600 hover:text-red-600 text-2xl transition"
+              type="button"
+              onClick={onClose}
+              disabled={loading}
+              className="flex-1 bg-gray-200 py-3 rounded-xl hover:bg-gray-300 transition"
             >
-              ⊗
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="flex-1 bg-orange-500 text-white py-3 rounded-xl hover:bg-orange-600 transition flex justify-center items-center gap-2"
+            >
+              {loading ? (
+                <>
+                  <span className="animate-spin">⟳</span> Updating...
+                </>
+              ) : (
+                "Update Password"
+              )}
             </button>
           </div>
 
-          {/* we will be taking old and new Password here */}
-
-          <form onSubmit={handleSubmit} className="p-6 space-y-6">
-            {/* Personal Information Section */}
-            <div>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Old Password *
-                  </label>
-                  <input
-                    type="password"
-                    name="oldPassword"
-                    value={formData.oldPassword}
-                    onChange={handleInputChange}
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.oldPassword ? "border-red-500" : "border-gray-300"
-                    }`}
-                    placeholder="Enter your old password"
-                  />
-                  {errors.oldPassword && (
-                    <p className="text-red-600 text-xs mt-1">
-                      {errors.oldPassword}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    New Password *
-                  </label>
-                  <input
-                    type="password"
-                    name="newPassword"
-                    value={formData.newPassword}
-                    onChange={handleInputChange}
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.newPassword ? "border-red-500" : "border-gray-300"
-                    }`}
-                    placeholder="Enter your new password"
-                  />
-                  {errors.newPassword && (
-                    <p className="text-red-600 text-xs mt-1">
-                      {errors.newPassword}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Confirm New Password *
-                  </label>
-                  <input
-                    type="password"
-                    name="cfNewPassword"
-                    value={formData.cfNewPassword}
-                    onChange={handleInputChange}
-                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.cfNewPassword
-                        ? "border-red-500"
-                        : "border-gray-300"
-                    }`}
-                    placeholder="Confirm new password"
-                  />
-                  {errors.cfNewPassword && (
-                    <p className="text-red-600 text-xs mt-1">
-                      {errors.cfNewPassword}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Form Actions */}
-            <div className="flex justify-end space-x-4 pt-6 border-t border-gray-300">
-              <button
-                type="button"
-                onClick={() => onClose()}
-                disabled={loading}
-                className="px-6 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition disabled:opacity-50"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                disabled={loading}
-                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-              >
-                {loading ? (
-                  <>
-                    <span className="animate-spin">⟳</span> Saving...
-                  </>
-                ) : (
-                  "Save Changes"
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 

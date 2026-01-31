@@ -37,38 +37,37 @@ const UserSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
 
   return (
     <>
-      <div className="p-2 flex-col justify-around h-full">
+      <div className="p-3 flex-col justify-between h-full bg-white shadow-xl border-r border-gray-200">
         {" "}
         <div>
-          <div className="text-xl font-bold flex gap-4 align-text-bottom h-10 ">
+          <div className="text-xl font-bold flex gap-3 items-center h-14 px-2 border-b border-gray-200">
             {" "}
             <button
-              className="hover:scale-105 "
+              className="p-2 rounded-lg hover:bg-orange-100 transition"
               onClick={() => setIsCollapsed(!isCollapsed)}
             >
-              <GiHamburgerMenu />
+              <GiHamburgerMenu className="text-orange-600 text-xl" />
             </button>
             {!isCollapsed && (
-              <span className="overflow-hidden text-nowrap">
+              <span className="overflow-hidden text-nowrap text-gray-800 tracking-wide">
                 User Dashboard
               </span>
             )}
           </div>
-          <hr />
-          <div className="py-6 space-y-5 w-full">
+          <div className="py-6 space-y-3 w-full">
             {menuItems.map((item, idx) => (
               <button
-                className={`flex gap-3 items-center p-2 rounded-xl duration-300 text-base h-12 w-full text-nowrap 
+                className={`flex gap-3 items-center px-4 py-3 rounded-xl duration-300 text-sm font-semibold h-12 w-full text-nowrap transition-all
               ${
                 active === item.key
-                  ? "bg-(--color-secondary) text-white"
-                  : " hover:bg-amber-200/70"
+                  ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-md"
+                  : " text-gray-600 hover:bg-orange-100 hover:text-orange-600"
               }
             `}
                 onClick={() => setActive(item.key)}
                 key={idx}
               >
-                {item.icons}
+                <span className="text-lg">{item.icons}</span>
                 {!isCollapsed && item.title}
               </button>
             ))}
@@ -77,9 +76,9 @@ const UserSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
         <div>
           <button
             onClick={handleLogout}
-            className="flex gap-3 items-center p-2 rounded-xl duration-300 text-base h-12 w-full text-nowrap hover:bg-amber-200/70"
+            className="flex gap-3 items-center px-4 py-3 rounded-xl duration-300 text-sm font-semibold h-12 w-full text-nowrap text-red-500 hover:bg-red-100 transition"
           >
-            <MdLogout />
+            <MdLogout className="text-lg" />
             {!isCollapsed && "Logout"}
           </button>
         </div>
