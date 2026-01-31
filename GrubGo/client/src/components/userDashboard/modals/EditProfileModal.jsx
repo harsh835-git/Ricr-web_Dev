@@ -1,40 +1,157 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import api from "../../../config/Api";
-import toast from "react-hot-toast";
 
+const EditProfileModal = ({ onClose }) => {
+  const { user, setUser, setIsLogin } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState({ type: "", text: "" });
 
-
-const EditProfileModal = ({ onclose }) => {
-  const { user, setUser , setIsLogin} = useAuth();
-  const [loading, setLoading] = useState(false); // New: Loading state
   const [formData, setFormData] = useState({
     fullName: user?.fullName || "",
     email: user?.email || "",
     mobileNumber: user?.mobileNumber || "",
+    gender: user?.gender || "",
+    dob: user?.dob || "",
+    address: user?.address || "",
+    city: user?.city || "",
+    pin: user?.pin || "",
+    documents: {
+      uidai: user?.documents?.uidai || "",
+      pan: user?.documents?.pan || "",
+    },
+    paymentDetails: {
+      upi: user?.paymentDetails?.upi || "",
+      account_number: user?.paymentDetails?.account_number || "",
+      ifs_Code: user?.paymentDetails?.ifs_Code || "",
+    },
+    geoLocation: {
+      lat: user?.geoLocation?.lat || "N/A",
+      lon: user?.geoLocation?.lon || "N/A",
+    },
   });
 
-  const handleChange = (e) => {
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = "Full name is required";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email";
+    }
+
+    if (!formData.mobileNumber.toString().trim()) {
+      newErrors.mobileNumber = "Mobile number is required";
+    } else if (
+      !/^\d{10}$/.test(formData.mobileNumber.toString().replace(/\D/g, ""))
+    ) {
+      newErrors.mobileNumber = "Mobile number must be 10 digits";
+    }
+
+    if (!formData.city.trim()) {
+      newErrors.city = "City is required";
+    }
+
+    if (!formData.pin.trim()) {
+      newErrors.pin = "PIN code is required";
+    } else if (!/^\d{6}$/.test(formData.pin)) {
+      newErrors.pin = "PIN code must be 6 digits";
+    }
+
+    if (
+      formData.documents.pan &&
+      !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.documents.pan)
+    ) {
+      newErrors.pan = "Invalid PAN format";
+    }
+
+    if (
+      formData.paymentDetails.upi &&
+      !/^[a-zA-Z0-9._-]+@[a-zA-Z]{3,}$/.test(formData.paymentDetails.upi)
+    ) {
+      newErrors.upi = "Invalid UPI format";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const handleNestedChange = (parent, field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [parent]: {
+        ...prev[parent],
+        [field]: value,
+      },
+    }));
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: "" }));
+    }
+  };
+
+  const fetchLocation = (e) => {
+    e.preventDefault();
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (result) => {
+        setFormData((prev) => ({
+          ...prev,
+          geoLocation: {
+            lat: result.coords.latitude,
+            lon: result.coords.longitude,
+          },
+        }));
+      },
+      (error) => {
+        console.error("Location Error:", error);
+      },
+    );
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading
-    console.log("form Submitted");
-    console.log(formData);
+    if (!validateForm()) {
+      setMessage({ type: "error", text: "Please fix the errors above" });
+      return;
+    }
+
+    setLoading(true);
+    setMessage({ type: "", text: "" });
 
     try {
       const res = await api.put("/user/update", formData);
-
-      sessionStorage.setItem("GrubGoUser", JSON.stringify(res.data.data));
-      setUser(res.data.data);
-      toast.success("Profile updated successfully!");
-      onclose();
+      if (res.data?.data) {
+        sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
+        setUser(res.data.data);
+        setIsLogin(true);
+        setMessage({ type: "success", text: "Profile updated successfully!" });
+        setTimeout(() => onClose(), 1500);
+      }
     } catch (error) {
-      console.log("Update failed:", error);
-      toast.error(error.response?.data?.message || "Failed to update profile");
+      setMessage({
+        type: "error",
+        text: error.response?.data?.message || "Failed to update profile",
+      });
     } finally {
       setLoading(false);
     }
@@ -42,68 +159,311 @@ const EditProfileModal = ({ onclose }) => {
 
   return (
     <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 px-4">
-      <div className="bg-white w-full max-w-lg shadow-xl rounded-2xl max-h-[85vh] mx-auto overflow-y-auto">
-        {/* Header */}
-        <div className="flex justify-between items-center px-6 py-4 border-b bg-gradient-to-r from-orange-500 to-red-500">
-          <h2 className="text-lg font-semibold text-white">Edit Profile</h2>
+      <div className="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-lg shadow-lg">
+        <div className="flex justify-between px-6 py-4 border-b border-gray-300 items-center sticky top-0 bg-white z-10">
+          <h2 className="text-xl font-semibold text-gray-800">Edit Profile</h2>
           <button
-            onClick={onclose}
-            className="text-white hover:text-gray-200 text-xl"
+            onClick={onClose}
+            className="text-gray-600 hover:text-red-600 text-2xl transition"
           >
             ✕
           </button>
         </div>
 
-        {/* Body */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        {message.text && (
+          <div
+            className={`mx-6 mt-4 p-4 rounded-md ${
+              message.type === "success"
+                ? "bg-green-100 text-green-700 border border-green-300"
+                : "bg-red-100 text-red-700 border border-red-300"
+            }`}
+          >
+            {message.text}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          {/* Personal Information */}
           <div>
-            <label className="text-sm text-gray-500">Full Name</label>
-            <input
-              type="text"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
-            />
+            <h3 className="text-lg font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-200">
+              Personal Information
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.fullName ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="Enter your full name"
+                />
+                {errors.fullName && (
+                  <p className="text-red-600 text-xs mt-1">{errors.fullName}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  disabled
+                  className="w-full border border-gray-300 rounded-md shadow-sm p-2 bg-gray-100 text-gray-600 cursor-not-allowed"
+                />
+                <p className="text-gray-500 text-xs mt-1">
+                  Email cannot be changed
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Mobile Number *
+                </label>
+                <input
+                  type="tel"
+                  name="mobileNumber"
+                  value={formData.mobileNumber}
+                  onChange={handleInputChange}
+                  className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.mobileNumber ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="10-digit mobile number"
+                />
+                {errors.mobileNumber && (
+                  <p className="text-red-600 text-xs mt-1">
+                    {errors.mobileNumber}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Gender
+                </label>
+                <select
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Date of Birth
+                </label>
+                <input
+                  type="date"
+                  name="dob"
+                  value={formData.dob}
+                  onChange={handleInputChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
           </div>
 
+          {/* Address */}
           <div>
-            <label className="text-sm text-gray-700">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              disabled
-              className="w-full mt-1 px-3 py-2 border rounded-lg bg-gray-200 cursor-not-allowed"
-            />
+            <h3 className="text-lg font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-200">
+              Address
+            </h3>
+            <div className="grid grid-cols-1 gap-4">
+              <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleInputChange}
+                className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your address"
+              />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    City *
+                  </label>
+                  <input
+                    type="text"
+                    name="city"
+                    value={formData.city}
+                    onChange={handleInputChange}
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      errors.city ? "border-red-500" : "border-gray-300"
+                    }`}
+                  />
+                  {errors.city && (
+                    <p className="text-red-600 text-xs mt-1">{errors.city}</p>
+                  )}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    PIN Code *
+                  </label>
+                  <input
+                    type="text"
+                    name="pin"
+                    value={formData.pin}
+                    onChange={handleInputChange}
+                    maxLength="6"
+                    className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      errors.pin ? "border-red-500" : "border-gray-300"
+                    }`}
+                  />
+                  {errors.pin && (
+                    <p className="text-red-600 text-xs mt-1">{errors.pin}</p>
+                  )}
+                </div>
+                <div className="flex items-end gap-2">
+                  <button
+                    type="button"
+                    onClick={fetchLocation}
+                    className="flex-1 border border-gray-300 rounded-md shadow-sm p-2 hover:bg-gray-50 transition"
+                  >
+                    Get Live Location
+                  </button>
+                  <span className="p-2 text-lg">
+                    {formData.geoLocation.lat !== "N/A" ? "✅" : "❌"}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
 
+          {/* Documents */}
           <div>
-            <label className="text-sm text-gray-500">Phone</label>
-            <input
-              type="text"
-              name="mobileNumber"
-              value={formData.mobileNumber}
-              onChange={handleChange}
-              className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
-            />
+            <h3 className="text-lg font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-200">
+              Documents
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Aadhaar (UIDAI)
+                </label>
+                <input
+                  type="text"
+                  value={formData.documents.uidai}
+                  onChange={(e) =>
+                    handleNestedChange("documents", "uidai", e.target.value)
+                  }
+                  className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="12-digit UIDAI number"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  PAN
+                </label>
+                <input
+                  type="text"
+                  value={formData.documents.pan}
+                  onChange={(e) =>
+                    handleNestedChange("documents", "pan", e.target.value)
+                  }
+                  maxLength="10"
+                  className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.pan ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="PAN number"
+                />
+                {errors.pan && (
+                  <p className="text-red-600 text-xs mt-1">{errors.pan}</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Payment Details */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-200">
+              Payment Details
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  UPI ID
+                </label>
+                <input
+                  type="text"
+                  value={formData.paymentDetails.upi}
+                  onChange={(e) =>
+                    handleNestedChange("paymentDetails", "upi", e.target.value)
+                  }
+                  className={`w-full border rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.upi ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="username@bank"
+                />
+                {errors.upi && (
+                  <p className="text-red-600 text-xs mt-1">{errors.upi}</p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Account Number
+                </label>
+                <input
+                  type="text"
+                  value={formData.paymentDetails.account_number}
+                  onChange={(e) =>
+                    handleNestedChange(
+                      "paymentDetails",
+                      "account_number",
+                      e.target.value,
+                    )
+                  }
+                  className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  IFS Code
+                </label>
+                <input
+                  type="text"
+                  value={formData.paymentDetails.ifs_Code}
+                  onChange={(e) =>
+                    handleNestedChange(
+                      "paymentDetails",
+                      "ifs_Code",
+                      e.target.value,
+                    )
+                  }
+                  className="w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Actions */}
-          <div className="flex justify-end gap-3 pt-4 border-t">
+          <div className="flex justify-end space-x-4 pt-6 border-t border-gray-300">
             <button
               type="button"
-              onClick={onclose}
-              className="px-4 py-2 text-sm rounded-lg border hover:bg-gray-100"
+              onClick={onClose}
+              disabled={loading}
+              className="px-6 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition disabled:opacity-50"
             >
               Cancel
             </button>
-
             <button
               type="submit"
-              className="px-5 py-2 text-sm rounded-lg bg-gradient-to-r from-orange-500 to-red-500 text-white hover:opacity-90"
+              disabled={loading}
+              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
             >
-              Save Changes
+              {loading ? "Saving..." : "Save Changes"}
             </button>
           </div>
         </form>

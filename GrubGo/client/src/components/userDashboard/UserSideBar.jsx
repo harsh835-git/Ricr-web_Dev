@@ -9,8 +9,10 @@ import { MdLogout } from "react-icons/md";
 import api from "../../config/Api";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const UserSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
+  const navigate = useNavigate();
   const menuItems = [
     { key: "overview", title: "OverView", icons: <TbChartTreemap /> },
     { key: "profile", title: "Profile", icons: <CgProfile /> },
@@ -26,6 +28,7 @@ const UserSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
       toast.success(res.data.message);
       setUser("");
       setIsLogin(false);
+      navigate("/");
       sessionStorage.removeItem("GrubGoUser");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Unknown error");
