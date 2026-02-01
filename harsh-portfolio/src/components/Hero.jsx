@@ -46,7 +46,7 @@ const Hero = () => {
           </motion.p>
           <motion.h1
             variants={itemVars}
-            className="text-6xl md:text-8xl font-extrabold mb-4 bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent"
+            className="text-6xl md:text-8xl font-extrabold mb-4 bg-linear-to-b from-white to-gray-400 bg-clip-text text-transparent"
           >
             Harsh Soni
           </motion.h1>
@@ -108,8 +108,8 @@ const Hero = () => {
 
               {/* Bottom Glass Tag */}
               <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[90%] p-5 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl">
-                <h3 className="text-xl font-bold">Harsh Soni</h3>
-                <p className="text-xs text-cyan-400 font-semibold tracking-wider uppercase">
+                <h3 className="text-xl font-bold text-purple-950">Harsh Soni</h3>
+                <p className="text-xs text-cyan-700 font-semibold tracking-wider uppercase">
                   Full Stack Developer
                 </p>
                 <div className="flex gap-3 mt-3">

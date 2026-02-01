@@ -16,7 +16,7 @@ const About = () => {
           <div className="relative z-10 p-8 bg-white/5 border border-white/10 backdrop-blur-xl rounded-[2.5rem]">
             <h3 className="text-5xl font-bold text-white/20 absolute -top-4 -left-4">01</h3>
             <p className="text-xl leading-relaxed text-gray-300 italic">
-              "I don't just write code; I build systems that solve problems, from food delivery logistics to national-level hackathon challenges."
+              "I don't just write code; I build systems that solve problems, from entry level logistics to national-level hackathon challenges."
             </p>
           </div>
         </motion.div>
