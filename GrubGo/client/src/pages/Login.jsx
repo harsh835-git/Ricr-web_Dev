@@ -8,7 +8,8 @@ import { useAuth } from "../context/AuthContext";
 const Login = () => {
   const { setUser, setIsLogin, setRole } = useAuth();
   const navigate = useNavigate();
-  const [isForgetPasswordModalOpen, setIsForgetPasswordModalOpen] = {};
+  const [isForgetPasswordModalOpen, setIsForgetPasswordModalOpen] =
+    useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -97,7 +98,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 to-red-100 px-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-center py-6">
+        <div className="bg-linear-to-r from-orange-500 to-red-500 text-white text-center py-6">
           <h1 className="text-3xl font-extrabold">🍔 GrubGo</h1>
           <p className="text-sm mt-1">Welcome back! Login to continue</p>
         </div>
@@ -129,7 +130,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-lg hover:scale-105 transition"
+            className="w-full py-3 rounded-xl bg-linear-to-r from-orange-500 to-red-500 text-white font-bold text-lg hover:scale-105 transition"
           >
             {isLoading ? "Logging in..." : "Login & Order 🍕"}
           </button>
@@ -145,7 +146,15 @@ const Login = () => {
           </p>
 
           <div className="text-center text-gray-600 text-sm">
-            Forget Password?
+            <button
+              className=" hover:text-(--color-secondary) cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                setIsForgetPasswordModalOpen(true);
+              }}
+            >
+              Forget Password?
+            </button>
           </div>
         </form>
         {isForgetPasswordModalOpen && (

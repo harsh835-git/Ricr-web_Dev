@@ -1,6 +1,8 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import { genAdminToken } from '../utils/authToken.js'
+import OTP from "../models/otpModel.js";
+import { sendOTPEmail } from "../utils/emailService.js";
 export const UserRegister = async (req, res, next) => {
     try {
         console.log(req.body);
@@ -129,6 +131,50 @@ export const UserChangePhoto = async (req, res, next) => {
         console.log("file:", req.file);
 
         res.status(200).json({ message: "Photo Updated" });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+export const UserGenOTP = async (req, res, next) => {
+    try {
+        //Fetch Data from Frontend
+        const { email } = req.body;
+
+        //verify that all data exist
+        if (!email) {
+            const error = new Error("All feilds required");
+            error.statusCode = 400;
+            return next(error);
+        }
+
+        //Check if user is registred or not
+        const existingUser = await User.findOne({ email });
+        if (!existingUser) {
+            const error = new Error("Email not registered");
+            error.statusCode = 401;
+            return next(error);
+        }
+
+        const otp = Math.floor(Math.random() * 1000000).toString();
+        console.log(typeof otp);
+
+        //encrypt the otp
+        const salt = await bcrypt.genSalt(10);
+        const hashOTP = await bcrypt.hash(otp, salt);
+
+        console.log(hashOTP);
+
+        await OTP.create({
+            email,
+            otp: hashOTP,
+            createdAt: new Date(),
+        });
+
+        await sendOTPEmail(email, otp);
+
+        res.status(200).json({ message: "OTP send on registered email" });
     } catch (error) {
         next(error);
     }
