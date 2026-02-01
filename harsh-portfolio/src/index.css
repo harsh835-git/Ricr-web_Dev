@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  --bg-dark: #030014;
+  --accent-purple: rgba(76, 29, 149, 0.4);
+  --accent-blue: rgba(30, 58, 138, 0.3);
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: white;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Animated Background Blobs */
+.cosmic-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: #030014;
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1;
+  animation: move 20s infinite alternate;
+}
+
+.blob-1 {
+  width: 500px;
+  height: 500px;
+  background: var(--accent-purple);
+  top: -10%;
+  right: -10%;
+}
+
+.blob-2 {
+  width: 400px;
+  height: 400px;
+  background: var(--accent-blue);
+  bottom: -5%;
+  left: -5%;
+  animation-delay: -5s;
+}
+
+@keyframes move {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(100px, 50px) scale(1.1); }
+}

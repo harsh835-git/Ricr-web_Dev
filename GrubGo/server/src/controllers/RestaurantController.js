@@ -2,9 +2,6 @@ import Restaurant from "../models/restaurantModel.js";
 import bcrypt from "bcrypt";
 import { genAdminToken } from "../utils/authToken.js";
 
-/* ============================
-   REGISTER RESTAURANT MANAGER
-=============================== */
 export const RestaurantRegister = async (req, res, next) => {
     try {
         const { fullName, email, mobileNumber, passWord, restaurantName } = req.body;
@@ -49,9 +46,6 @@ export const RestaurantRegister = async (req, res, next) => {
     }
 };
 
-/* ============================
-   RESTAURANT LOGIN
-=============================== */
 export const RestaurantLogin = async (req, res, next) => {
     try {
         const { email, passWord } = req.body;
@@ -87,9 +81,6 @@ export const RestaurantLogin = async (req, res, next) => {
     }
 };
 
-/* ============================
-   LOGOUT RESTAURANT
-=============================== */
 export const RestaurantLogout = async (req, res, next) => {
     try {
         res.clearCookie("Bourbon");
@@ -99,9 +90,7 @@ export const RestaurantLogout = async (req, res, next) => {
     }
 };
 
-/* ============================
-   UPDATE RESTAURANT PROFILE
-=============================== */
+
 export const UpdateRestaurantProfile = async (req, res, next) => {
     try {
         const restaurantId = req.user._id;
@@ -121,9 +110,6 @@ export const UpdateRestaurantProfile = async (req, res, next) => {
     }
 };
 
-/* ============================
-   CHANGE RESTAURANT PHOTO
-=============================== */
 export const RestaurantChangePhoto = async (req, res, next) => {
     try {
         const restaurantId = req.user._id;

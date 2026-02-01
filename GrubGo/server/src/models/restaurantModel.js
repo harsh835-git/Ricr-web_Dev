@@ -2,9 +2,7 @@ import mongoose from "mongoose";
 
 const restaurantSchema = mongoose.Schema(
   {
-    /* ===============================
-       OWNER / MANAGER DETAILS
-    =============================== */
+  
     fullName: {
       type: String,
       required: true,
@@ -27,9 +25,7 @@ const restaurantSchema = mongoose.Schema(
       required: true,
     },
 
-    /* ===============================
-       RESTAURANT BASIC DETAILS
-    =============================== */
+ 
     restaurantName: {
       type: String,
       required: true,
@@ -46,9 +42,7 @@ const restaurantSchema = mongoose.Schema(
       default: "active",
     },
 
-    /* ===============================
-       OWNER PERSONAL INFO
-    =============================== */
+   
     gender: {
       type: String,
       enum: ["male", "female", "others", "N/A"],
@@ -60,9 +54,7 @@ const restaurantSchema = mongoose.Schema(
       default: "N/A",
     },
 
-    /* ===============================
-       ADDRESS
-    =============================== */
+  
     address: {
       type: String,
       default: "N/A",
@@ -89,9 +81,6 @@ const restaurantSchema = mongoose.Schema(
       },
     },
 
-    /* ===============================
-       DOCUMENTS
-    =============================== */
     documents: {
       gst: {
         type: String,
@@ -119,9 +108,7 @@ const restaurantSchema = mongoose.Schema(
       },
     },
 
-    /* ===============================
-       PAYMENT DETAILS
-    =============================== */
+  
     paymentDetails: {
       upi: {
         type: String,
@@ -137,9 +124,7 @@ const restaurantSchema = mongoose.Schema(
       },
     },
 
-    /* ===============================
-       PROFILE PHOTO
-    =============================== */
+
     photo: {
       url: {
         type: String,

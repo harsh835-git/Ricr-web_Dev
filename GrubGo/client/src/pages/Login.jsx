@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import api from "../config/Api";
+import ForgetPasswordModal from "../components/publicModals/ForgetPasswordModal";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const { setUser, setIsLogin, setRole } = useAuth();
   const navigate = useNavigate();
+  const [isForgetPasswordModalOpen, setIsForgetPasswordModalOpen] = {};
+
   const [formData, setFormData] = useState({
     email: "",
     passWord: "",
@@ -140,7 +143,16 @@ const Login = () => {
               Create Account
             </Link>
           </p>
+
+          <div className="text-center text-gray-600 text-sm">
+            Forget Password?
+          </div>
         </form>
+        {isForgetPasswordModalOpen && (
+          <ForgetPasswordModal
+            onClose={() => setIsForgetPasswordModalOpen(false)}
+          />
+        )}
       </div>
     </div>
   );

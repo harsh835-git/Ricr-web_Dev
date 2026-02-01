@@ -1,5 +1,5 @@
 import express from "express";
-import { UpdateRestaurantProfile, RestaurantChangePhoto, restaurantResetPassword } from "../controllers/userController.js";
+import { UpdateRestaurantProfile, RestaurantChangePhoto, restaurantResetPassword } from "../controllers/RestaurantController.js";
 import { Protect } from "../middlewares/authMiddleware.js";
 import multer from "multer";
 

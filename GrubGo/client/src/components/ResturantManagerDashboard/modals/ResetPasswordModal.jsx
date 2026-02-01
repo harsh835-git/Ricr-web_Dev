@@ -53,7 +53,7 @@ const ResetPasswordModal = ({ onClose }) => {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50 p-4">
       <div className="bg-[#fffdf9] w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden">
 
-        {/* Header */}
+        
         <div className="flex justify-between items-center px-6 py-4 border-b bg-orange-50">
           <h2 className="text-xl font-bold text-orange-600">🔒 Reset Password</h2>
           <button

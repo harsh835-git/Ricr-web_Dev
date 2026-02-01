@@ -72,7 +72,7 @@ const ResturantSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) =>
             >
               <span className="text-lg">{item.icons}</span>
               {!isCollapsed && (
-                <span className="font-medium">{item.title}</span>
+                <span className="font-medium ">{item.title}</span>
               )}
             </button>
           ))}
