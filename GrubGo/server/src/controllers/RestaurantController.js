@@ -137,40 +137,35 @@ export const RestaurantChangePhoto = async (req, res, next) => {
     }
 };
 
-
 export const restaurantResetPassword = async (req, res, next) => {
-    try {
-        const { oldPassword, newPassword, cfNewPassword } = req.body;
-        const restaurantId = req.user._id;   // middleware se aa raha hoga
+    
+  try {
+    const { oldPassword, newPassword } = req.body;
 
-        if (!oldPassword || !newPassword || !cfNewPassword) {
-            return res.status(400).json({ message: "All fields required" });
-        }
+    const restaurantId = req.user._id;   
 
-        if (newPassword !== cfNewPassword) {
-            return res.status(400).json({ message: "Passwords do not match" });
-        }
-
-        const restaurant = await User.findById(restaurantId);
-
-        if (!restaurant) {
-            return res.status(404).json({ message: "Restaurant not found" });
-        }
-
-        const isMatch = await bcrypt.compare(oldPassword, restaurant.passWord);
-
-        if (!isMatch) {
-            return res.status(401).json({ message: "Old password incorrect" });
-        }
-
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(newPassword, salt);
-
-        restaurant.passWord = hashedPassword;
-        await restaurant.save();
-
-        res.status(200).json({ message: "Password updated successfully" });
-    } catch (error) {
-        next(error);
+    if (!oldPassword || !newPassword) {
+      return res.status(400).json({ message: "All fields required" });
     }
+
+    const restaurant = await Restaurant.findById(restaurantId);
+
+    if (!restaurant) {
+        
+      return res.status(404).json({ message: "Restaurant not found" });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, restaurant.passWord);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: "Old password incorrect" });
+    }
+
+    restaurant.passWord = await bcrypt.hash(newPassword, 10);
+    await restaurant.save();
+
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    next(error);
+  }
 };

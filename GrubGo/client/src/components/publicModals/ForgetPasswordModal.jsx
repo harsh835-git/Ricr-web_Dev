@@ -74,7 +74,7 @@ const ForgetPasswordModal = ({ onClose }) => {
                 onChange={handleInputChange}
                 disabled={isOtpSent}
                 placeholder="Enter registered email"
-                className="w-full px-3 py-3 focus:outline-none disabled:bg-gray-100"
+                className="w-full px-3 py-3 focus:outline-none disabled:bg-gray-300"
               />
             </div>
           </div>
@@ -92,7 +92,7 @@ const ForgetPasswordModal = ({ onClose }) => {
                   onChange={handleInputChange}
                   disabled={isOtpVerified}
                   placeholder="Enter OTP"
-                  className="w-full px-3 py-3 focus:outline-none disabled:bg-gray-600"
+                  className="w-full px-3 py-3 focus:outline-none disabled:bg-gray-300"
                 />
               </div>
             </div>

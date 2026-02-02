@@ -18,7 +18,7 @@ const Projects = () => {
         "Interactive React application that helps users locate and learn about different Indian states through a dynamic UI.",
       tech: ["React", "Tailwind CSS"],
       link: "https://github.com/harsh835-git/Ricr-web_Dev", // Github link
-      liveLink: "https://tourmaline-kulfi-e54dd9.netlify.app", // Your Netlify Link
+      liveLink: "https://indian-states-locator.netlify.app", // Your Netlify Link
       isFeatured: false,
     },
     {
