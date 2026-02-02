@@ -18,6 +18,11 @@ const ForgetPasswordModal = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.newPassword !== formData.cfNewPassword) {
+      toast.error("New Password and Confirm Password Shoulb be same");
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     try {
       let res;
@@ -53,18 +58,20 @@ const ForgetPasswordModal = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center z-50 p-4">
       <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden">
-
         {/* Header */}
         <div className="bg-linear-to-r from-orange-500 to-red-500 px-6 py-4 flex justify-between items-center text-white">
           <h2 className="text-lg font-bold">🔐 Reset Password</h2>
-          <button onClick={onClose} className="text-xl hover:scale-110">✕</button>
+          <button onClick={onClose} className="text-xl hover:scale-110">
+            ✕
+          </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-
           {/* Email */}
           <div>
-            <label className="text-sm font-semibold text-gray-700">Email Address</label>
+            <label className="text-sm font-semibold text-gray-700">
+              Email Address
+            </label>
             <div className="flex items-center border rounded-xl px-3 mt-1">
               <FaEnvelope className="text-gray-400" />
               <input
@@ -102,7 +109,9 @@ const ForgetPasswordModal = ({ onClose }) => {
           {isOtpSent && isOtpVerified && (
             <>
               <div>
-                <label className="text-sm font-semibold text-gray-700">New Password</label>
+                <label className="text-sm font-semibold text-gray-700">
+                  New Password
+                </label>
                 <div className="flex items-center border rounded-xl px-3 mt-1">
                   <FaLock className="text-gray-400" />
                   <input
@@ -117,7 +126,9 @@ const ForgetPasswordModal = ({ onClose }) => {
               </div>
 
               <div>
-                <label className="text-sm font-semibold text-gray-700">Confirm Password</label>
+                <label className="text-sm font-semibold text-gray-700">
+                  Confirm Password
+                </label>
                 <div className="flex items-center border rounded-xl px-3 mt-1">
                   <FaLock className="text-gray-400" />
                   <input
@@ -141,11 +152,21 @@ const ForgetPasswordModal = ({ onClose }) => {
           >
             {loading ? (
               <>
-                <span className="animate-spin"><BsArrowClockwise /></span> Processing...
+                <span className="animate-spin">
+                  <BsArrowClockwise />
+                </span>{" "}
+                Processing...
               </>
-            ) : isOtpSent ? (isOtpVerified ? "Update Password" : "Verify OTP") : "Send OTP"}
+            ) : isOtpSent ? (
+              isOtpVerified ? (
+                "Update Password"
+              ) : (
+                "Verify OTP"
+              )
+            ) : (
+              "Send OTP"
+            )}
           </button>
-
         </form>
       </div>
     </div>
