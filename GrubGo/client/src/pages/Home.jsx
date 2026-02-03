@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-100 to-red-100">
+    <div className="min-h-screen bg-linear-to-br from-orange-100 to-red-100">
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-orange-500 to-red-500 text-white">
+      <section className="bg-linear-to-r from-orange-500 to-red-500 text-white">
         <div className="max-w-6xl mx-auto px-6 py-16 text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
             🍕 Hungry? Order with GrubGo
@@ -27,7 +27,7 @@ const Home = () => {
       {/* Categories */}
       <section className="max-w-6xl mx-auto px-6 py-12">
         <h2 className="text-3xl font-bold text-center mb-8">
-          Browse by Category
+          Browse by servingSize
         </h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">

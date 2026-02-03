@@ -1,40 +1,43 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import api from "../../../config/Api";
+import toast from "react-hot-toast";
 
 const EditManagerModal = ({ onClose }) => {
-  const { Restaurant, setRestaurant, setIsLogin } = useAuth();
+  const { user, setUser, setIsLogin } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState({ type: "", text: "" });
 
   const [formData, setFormData] = useState({
-    fullName: Restaurant?.fullName || "",
-    email: Restaurant?.email || "",
-    mobileNumber: Restaurant?.mobileNumber || "",
-    gender: Restaurant?.gender || "",
-    dob: Restaurant?.dob || "",
-    cuisine: Restaurant?.cuisine || "",
+    fullName: user?.fullName || "",
+    email: user?.email || "",
+    mobileNumber: user?.mobileNumber || "",
+    gender: user?.gender || "",
+    dob: user?.dob || "",
+    cuisine: user?.cuisine || "",
+    restaurantName: user?.restaurantName || "",
 
-    address: Restaurant?.address || "",
-    city: Restaurant?.city || "",
-    pin: Restaurant?.pin || "",
+    address: user?.address || "",
+    city: user?.city || "",
+    pin: user?.pin || "",
 
     documents: {
-      uidai: Restaurant?.documents?.uidai || "",
-      pan: Restaurant?.documents?.pan || "",
-      fssai: Restaurant?.documents?.fssai || "",
-      gst: Restaurant?.documents?.gst || "",
+      uidai: user?.documents?.uidai || "",
+      pan: user?.documents?.pan || "",
+      fssai: user?.documents?.fssai || "",
+      gst: user?.documents?.gst || "",
+      rc: user?.documents?.rc || "",
+      dl: user?.documents?.dl || "",
     },
 
     paymentDetails: {
-      upi: Restaurant?.paymentDetails?.upi || "",
-      account_number: Restaurant?.paymentDetails?.account_number || "",
-      ifs_Code: Restaurant?.paymentDetails?.ifs_Code || "",
+      upi: user?.paymentDetails?.upi || "",
+      account_number: user?.paymentDetails?.account_number || "",
+      ifs_Code: user?.paymentDetails?.ifs_Code || "",
     },
 
     geoLocation: {
-      lat: Restaurant?.geoLocation?.lat || "N/A",
-      lon: Restaurant?.geoLocation?.lon || "N/A",
+      lat: user?.geoLocation?.lat || "",
+      lon: user?.geoLocation?.lon || "",
     },
   });
 
@@ -51,149 +54,146 @@ const EditManagerModal = ({ onClose }) => {
   };
 
   const fetchLocation = () => {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      setFormData((prev) => ({
-        ...prev,
-        geoLocation: {
-          lat: pos.coords.latitude,
-          lon: pos.coords.longitude,
-        },
-      }));
-    });
+    if (!navigator.geolocation) {
+      toast.error("Geolocation not supported");
+      return;
+    }
+    toast.loading("Fetching location...", { id: "loc" });
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setFormData((prev) => ({
+          ...prev,
+          geoLocation: {
+            lat: pos.coords.latitude,
+            lon: pos.coords.longitude,
+          },
+        }));
+        toast.success("Location updated", { id: "loc" });
+      },
+      () => toast.error("Permission denied", { id: "loc" })
+    );
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    const toastId = toast.loading("Updating profile...");
+
     try {
       const res = await api.put("/Restaurant/update", formData);
-      sessionStorage.setItem("GrubGoUser", JSON.stringify(res.data.data));
+      sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
       setUser(res.data.data);
       setIsLogin(true);
-      setMessage({ type: "success", text: "Restaurant profile updated successfully" });
-      setTimeout(() => onClose(), 1200);
-    } catch {
-      setMessage({ type: "error", text: "Update failed" });
+      toast.success("Profile updated", { id: toastId });
+      setTimeout(() => onClose(), 1000);
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Update failed", {
+        id: toastId,
+      });
     }
     setLoading(false);
   };
 
-  return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur flex items-center justify-center z-50 p-4 ">
-      <div className="bg-white w-full max-w-6xl rounded-2xl shadow-xl overflow-y-auto max-h-[95vh] mt-30 mb-10">
+  const inputStyle =
+    "w-full px-3 py-2 mt-1 rounded-lg border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400";
 
-        {/* Header */}
-        <div className="flex justify-between items-center px-6 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white">
-          <h2 className="text-lg font-bold">🍽 Restaurant Profile</h2>
-          <button onClick={onClose} className="bg-white/20 w-8 h-8 rounded-full">✕</button>
+  const labelStyle = "text-sm font-semibold text-gray-700";
+
+  return (
+    <div className="fixed inset-0 bg-black/70 backdrop-blur flex justify-center items-start z-50 pt-24 p-4">
+      <div className="bg-white w-full max-w-6xl rounded-xl shadow-xl overflow-y-auto max-h-[90vh]">
+
+        {/* THEME HEADER */}
+        <div className="flex justify-between items-center px-6 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-md sticky top-0 z-10">
+          <h2 className="text-lg font-bold">Edit Restaurant Profile</h2>
+          <button onClick={onClose} className="text-xl hover:scale-110">✕</button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-8">
+        <form onSubmit={handleSubmit} className="p-6 space-y-10">
 
-          {/* Owner Info */}
-          <div className="bg-orange-50 p-6 rounded-xl">
-            <h3 className="text-orange-600 font-semibold mb-4">Owner & Restaurant Info</h3>
-            <div className="grid md:grid-cols-2 gap-4">
+          {/* Owner & Restaurant */}
+          <div>
+            <h3 className="font-bold text-gray-800 mb-4">Owner & Restaurant</h3>
+            <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label>Owner Name</label>
-                <br />
-                <input className="input focus:outline-none border-none p-1" name="fullName" value={formData.fullName} onChange={handleInputChange}/>
+                <label className={labelStyle}>Owner Name</label>
+                <input className={inputStyle} name="fullName" value={formData.fullName} onChange={handleInputChange}/>
               </div>
 
               <div>
-                <label>Email</label>
-                <br />
-                <input className="input bg-gray-100 focus:outline-none border-none p-1" value={formData.email} disabled />
+                <label className={labelStyle}>Restaurant Name</label>
+                <input className={inputStyle} name="restaurantName" value={formData.restaurantName} onChange={handleInputChange}/>
               </div>
 
               <div>
-                <label>Mobile Number</label>
-                <br />
-                <input className="input focus:outline-none border-none p-1" name="mobileNumber" value={formData.mobileNumber} onChange={handleInputChange}/>
+                <label className={labelStyle}>Mobile Number</label>
+                <input className={inputStyle} name="mobileNumber" value={formData.mobileNumber} onChange={handleInputChange}/>
               </div>
 
               <div>
-                <label>Gender</label>
-                <br />
-                <select className="input focus:outline-none border-none p-1" name="gender" value={formData.gender} onChange={handleInputChange}>
-                  <option value="">Select</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Date of Birth</label>
-                <br />
-                <input type="date" className="input focus:outline-none border-none p-1" name="dob" value={formData.dob} onChange={handleInputChange}/>
-              </div>
-
-              <div>
-                <label>Cuisine Type</label>
-                <br />
-                <input className="input focus:outline-none border-none p-1" name="cuisine" value={formData.cuisine} onChange={handleInputChange} placeholder="Eg: Indian, Chinese, Italian"/>
+                <label className={labelStyle}>Cuisine Type</label>
+                <input className={inputStyle} name="cuisine" value={formData.cuisine} onChange={handleInputChange}/>
               </div>
             </div>
           </div>
 
           {/* Address */}
-          <div className="bg-orange-50 p-6 rounded-xl">
-            <h3 className="text-orange-600 font-semibold mb-4">Restaurant Address</h3>
-            <div>
-              <label>Full Address</label>
-              <br />
-              <input className="input focus:outline-none border-none p-1" name="address" value={formData.address} onChange={handleInputChange}/>
-            </div>
-            <div className="grid md:grid-cols-3 gap-4 mt-4">
+          <div>
+            <h3 className="font-bold text-gray-800 mb-4">Address</h3>
+            <div className="grid md:grid-cols-3 gap-6">
               <div>
-                <label>City</label>
-                <br />
-                <input className="input focus:outline-none border-none p-1" name="city" value={formData.city} onChange={handleInputChange}/>
+                <label className={labelStyle}>Address</label>
+                <input className={inputStyle} name="address" value={formData.address} onChange={handleInputChange}/>
               </div>
               <div>
-                <label>PIN Code</label>
-                <br />
-                <input className="input focus:outline-none border-none p-1" name="pin" value={formData.pin} onChange={handleInputChange}/>
+                <label className={labelStyle}>City</label>
+                <input className={inputStyle} name="city" value={formData.city} onChange={handleInputChange}/>
               </div>
               <div>
-                <label>Live Location</label>
-                <br />
-                <button type="button" onClick={fetchLocation} className="bg-orange-500 text-white w-full py-2 rounded-lg">
-                  Use Current Location
-                </button>
+                <label className={labelStyle}>PIN Code</label>
+                <input className={inputStyle} name="pin" value={formData.pin} onChange={handleInputChange}/>
               </div>
             </div>
+
+            <button type="button" onClick={fetchLocation} className="mt-4 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-lg">
+              Use Current Location
+            </button>
+
+            <p className="mt-2 text-sm text-gray-600">
+              Latitude: {formData.geoLocation.lat} | Longitude: {formData.geoLocation.lon}
+            </p>
           </div>
 
           {/* Documents */}
-          <div className="bg-orange-50 p-6 rounded-xl">
-            <h3 className="text-orange-600 font-semibold mb-4">Legal Documents</h3>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div><label>Aadhaar Number</label><br/> <input className="input focus:outline-none border-none p-1" value={formData.documents.uidai} onChange={(e)=>handleNestedChange("documents","uidai",e.target.value)}/></div>
-              <div><label>PAN Number</label> <br/><input className="input focus:outline-none border-none p-1" value={formData.documents.pan} onChange={(e)=>handleNestedChange("documents","pan",e.target.value)}/></div>
-              <div><label>FSSAI License</label> <br/><input className="input focus:outline-none border-none p-1" value={formData.documents.fssai} onChange={(e)=>handleNestedChange("documents","fssai",e.target.value)}/></div>
-              <div><label>GST Number</label> <br/><input className="input focus:outline-none border-none p-1" value={formData.documents.gst} onChange={(e)=>handleNestedChange("documents","gst",e.target.value)}/></div>
+          <div>
+            <h3 className="font-bold text-gray-800 mb-4">Business Documents</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              {["uidai","pan","fssai","gst","rc","dl"].map((doc) => (
+                <div key={doc}>
+                  <label className={labelStyle}>{doc.toUpperCase()}</label>
+                  <input className={inputStyle} value={formData.documents[doc]} onChange={(e)=>handleNestedChange("documents",doc,e.target.value)}/>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Payment */}
-          <div className="bg-orange-50 p-6 rounded-xl">
-            <h3 className="text-orange-600 font-semibold mb-4">Payment Details</h3>
-            <div className="grid md:grid-cols-3 gap-4">
-              <div><label>UPI ID</label><br/><input className="input focus:outline-none border-none p-1" value={formData.paymentDetails.upi} onChange={(e)=>handleNestedChange("paymentDetails","upi",e.target.value)}/></div>
-              <div><label>Account Number</label><br/><input className="input focus:outline-none border-none p-1" value={formData.paymentDetails.account_number} onChange={(e)=>handleNestedChange("paymentDetails","account_number",e.target.value)}/></div>
-              <div><label>IFSC Code</label><br/><input className="input focus:outline-none border-none p-1" value={formData.paymentDetails.ifs_Code} onChange={(e)=>handleNestedChange("paymentDetails","ifs_Code",e.target.value)}/></div>
+          <div>
+            <h3 className="font-bold text-gray-800 mb-4">Payment Details</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              {["upi","account_number","ifs_Code"].map((p) => (
+                <div key={p}>
+                  <label className={labelStyle}>{p.replace("_"," ").toUpperCase()}</label>
+                  <input className={inputStyle} value={formData.paymentDetails[p]} onChange={(e)=>handleNestedChange("paymentDetails",p,e.target.value)}/>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Buttons */}
-          <div className="flex gap-4">
-            <button type="button" onClick={onClose} className="w-1/2 bg-gray-200 py-3 rounded-xl">Cancel</button>
-            <button type="submit" disabled={loading} className="w-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-xl">
-              {loading ? "Saving..." : "Update Restaurant"}
-            </button>
-          </div>
+          <button disabled={loading} className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg hover:opacity-90">
+            {loading ? "Saving..." : "Update Profile"}
+          </button>
 
         </form>
       </div>

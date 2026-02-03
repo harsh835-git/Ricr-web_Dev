@@ -60,7 +60,7 @@ const UserSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
                 className={`flex gap-3 items-center px-4 py-3 rounded-xl duration-300 text-sm font-semibold h-12 w-full text-nowrap transition-all
               ${
                 active === item.key
-                  ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-md"
+                  ? "bg-linear-to-r from-orange-500 to-red-500 text-white shadow-md"
                   : " text-gray-600 hover:bg-orange-100 hover:text-orange-600"
               }
             `}

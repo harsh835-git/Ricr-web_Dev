@@ -46,11 +46,11 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 to-red-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-orange-100 to-red-100 px-4">
       <div className="w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden">
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-center py-6">
+        <div className="bg-linear-to-r from-orange-500 to-red-500 text-white text-center py-6">
           <h1 className="text-3xl font-extrabold">📞 Contact GrubGo</h1>
           <p className="text-sm mt-1">We’d love to hear from you</p>
         </div>
@@ -145,7 +145,7 @@ const Contact = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-1/2 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold hover:scale-105 transition"
+              className="w-1/2 py-3 rounded-xl bg-linear-to-r from-orange-500 to-red-500 text-white font-bold hover:scale-105 transition"
             >
               {isLoading ? "Sending..." : "Send Message 🚀"}
             </button>

@@ -2,11 +2,11 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 to-red-100 px-4 p-5">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-orange-100 to-red-100 px-4 p-5">
       <div className="w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden">
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-center py-8">
+        <div className="bg-linear-to-r from-orange-500 to-red-500 text-white text-center py-8">
           <h1 className="text-4xl font-extrabold">🍔 About GrubGo</h1>
           <p className="mt-2 text-sm tracking-wide">
             Fast • Fresh • Delivered to Your Doorstep

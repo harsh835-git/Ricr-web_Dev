@@ -6,6 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaCartShopping } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdLogout } from "react-icons/md";
+import { MdOutlineRestaurantMenu } from "react-icons/md";
 import api from "../../config/Api";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
@@ -17,8 +18,9 @@ const ResturantSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) =>
   const menuItems = [
     { key: "overview", title: "Resturant Overview", icons: <TbChartTreemap /> },
     { key: "profile", title: "Restaurant Profile", icons: <CgProfile /> },
-    { key: "orders", title: "Restaurant Orders", icons: <FaCartShopping /> },
-    { key: "transactions", title: "Restaurant transactions", icons: <GrTransaction /> },
+    { key: "orders", title: "Manage Orders", icons: <FaCartShopping /> },
+    { key: "menu", title: "Manage Menu", icons: <MdOutlineRestaurantMenu /> },
+    { key: "transactions", title: "Manage transactions", icons: <GrTransaction /> },
     { key: "helpdesk", title: "Support", icons: <RiCustomerService2Fill /> },
   ];
 
@@ -38,11 +40,11 @@ const ResturantSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) =>
   };
 
   return (
-    <div className="h-full bg-white flex flex-col justify-between shadow-xl ">
+    <div className="h-full bg-white flex flex-col justify-between shadow-xl overflow-hidden">
 
       {/* Header */}
       <div>
-        <div className="flex items-center gap-3 px-4 h-16 border-b border-gray-200">
+        <div className="flex items-center gap-3 px-2 h-16 border-b border-gray-200">
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
             className="p-2 rounded-md hover:bg-orange-100 transition"
@@ -51,8 +53,8 @@ const ResturantSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) =>
           </button>
 
           {!isCollapsed && (
-            <span className="font-bold text-lg text-gray-800 tracking-wide">
-              Restaurant Manager Dashboard
+            <span className="font-bold text-gray-800 text-nowrap">
+            Manager Dashboard
             </span>
           )}
         </div>
@@ -67,7 +69,7 @@ const ResturantSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) =>
               ${
                 active === item.key
                   ? "bg-orange-500 text-white shadow-md"
-                  : "text-gray-700 hover:bg-orange-100 hover:text-orange-600"
+                  : "text-gray-700 hover:bg-orange-100 hover:text-orange-600 text-nowrap"
               }`}
             >
               <span className="text-lg">{item.icons}</span>

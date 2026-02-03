@@ -21,7 +21,7 @@ app.use(morgan("dev"));
 app.use("/auth", AuthRouter);
 app.use("/public", PublicRouter);
 app.use("/user", UserRouter);
-app.use("/Restaurant", RestaurantRouter);
+app.use("/restaurant", RestaurantRouter);
 
 app.get("/", (req, res) => {
     console.log("Serve is working");
@@ -45,8 +45,8 @@ app.listen(port, async () => {
         console.log("Cloudinary api is Working : ", res);
 
     } catch (error) {
-        console.log("Error connecting Api:",error);
-        
+        console.log("Error connecting Api:", error);
+
 
 
     }

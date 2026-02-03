@@ -5,9 +5,10 @@ import ResturantProfile from "../../components/ResturantManagerDashboard/Restura
 import ResturantOrders from "../../components/ResturantManagerDashboard/ResturantOrders";
 import ResturantTransaction from "../../components/ResturantManagerDashboard/ResturantTransaction";
 import ResturantOverview from "../../components/ResturantManagerDashboard/ResturantOverview";
-
+import ResturantMenu from "../../components/ResturantManagerDashboard/ResturantMenu";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+
 
 const RestaurantDashboard = () => {
   const { isLogin, role } = useAuth();
@@ -60,6 +61,7 @@ const RestaurantDashboard = () => {
         {active === "overview" && <ResturantOverview />}
         {active === "profile" && <ResturantProfile />}
         {active === "orders" && <ResturantOrders />}
+        {active === "menu" && <ResturantMenu />}
         {active === "transactions" && <ResturantTransaction />}
       </div>
     </div>

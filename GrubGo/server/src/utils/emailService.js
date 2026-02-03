@@ -13,7 +13,7 @@ export const sendOTPEmail = async (to, otp) => {
 
             <!-- Header -->
             <tr>
-              <td style="background:linear-gradient(135deg,#ff7a18,#ff3d00); padding:30px; text-align:center;">
+              <td style="background:linear-linear(135deg,#ff7a18,#ff3d00); padding:30px; text-align:center;">
                 <h1 style="margin:0; color:#fff; font-size:28px;">🍔 GrubGo</h1>
                 <p style="margin:5px 0 0; color:#ffe9dc; font-size:14px;">
                   Restaurant Partner Portal

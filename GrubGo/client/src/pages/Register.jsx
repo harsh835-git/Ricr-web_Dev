@@ -77,7 +77,7 @@ const Registration = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 to-red-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-orange-100 to-red-100 px-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden m-6">
         {/* Header */}
         <div className="bg-linear-to-r from-orange-500 to-red-500 text-white text-center py-6">
@@ -195,7 +195,7 @@ const Registration = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-lg hover:scale-105 transition"
+            className="w-full py-3 rounded-xl bg-linear-to-r from-orange-500 to-red-500 text-white font-bold text-lg hover:scale-105 transition"
           >
             {isLoading ? "Creating Account..." : "Start Ordering 🍕"}
           </button>
