@@ -1,6 +1,9 @@
 import Restaurant from "../models/restaurantModel.js";
 import bcrypt from "bcrypt";
 import { genAdminToken } from "../utils/authToken.js";
+import Menu from "../models/menuSchema.js";
+import { UploadMultipleToCloudinary } from "../utils/imageUploader.js";
+
 
 export const RestaurantRegister = async (req, res, next) => {
     try {
@@ -138,46 +141,108 @@ export const RestaurantChangePhoto = async (req, res, next) => {
 };
 
 export const restaurantResetPassword = async (req, res, next) => {
-    
-  try {
-    const { oldPassword, newPassword } = req.body;
 
-    const restaurantId = req.user._id;   
+    try {
+        const { oldPassword, newPassword } = req.body;
 
-    if (!oldPassword || !newPassword) {
-      return res.status(400).json({ message: "All fields required" });
+        const restaurantId = req.user._id;
+
+        if (!oldPassword || !newPassword) {
+            return res.status(400).json({ message: "All fields required" });
+        }
+
+        const restaurant = await Restaurant.findById(restaurantId);
+
+        if (!restaurant) {
+
+            return res.status(404).json({ message: "Restaurant not found" });
+        }
+
+        const isMatch = await bcrypt.compare(oldPassword, restaurant.passWord);
+
+        if (!isMatch) {
+            return res.status(401).json({ message: "Old password incorrect" });
+        }
+
+        restaurant.passWord = await bcrypt.hash(newPassword, 10);
+        await restaurant.save();
+
+        res.status(200).json({ message: "Password updated successfully" });
+    } catch (error) {
+        next(error);
     }
-
-    const restaurant = await Restaurant.findById(restaurantId);
-
-    if (!restaurant) {
-        
-      return res.status(404).json({ message: "Restaurant not found" });
-    }
-
-    const isMatch = await bcrypt.compare(oldPassword, restaurant.passWord);
-
-    if (!isMatch) {
-      return res.status(401).json({ message: "Old password incorrect" });
-    }
-
-    restaurant.passWord = await bcrypt.hash(newPassword, 10);
-    await restaurant.save();
-
-    res.status(200).json({ message: "Password updated successfully" });
-  } catch (error) {
-    next(error);
-  }
 };
 
 
 export const RestaurantAddMenuItem = async (req, res, next) => {
-  try {
-    console.log("I am adding the Menu");
+    try {
+        const {
+            itemName,
+            description,
+            price,
+            type,
+            preparationTime,
+            availability,
+            servingSize,
+            cuisine,
+        } = req.body;
+        const CurrentUser = req.user;
 
-    console.log("Body", req.body);
-    console.log("Files", req.files);
-  } catch (error) {
-    next(error);
-  }
+        if (
+            !itemName ||
+            !description ||
+            !price ||
+            !type ||
+            !preparationTime ||
+            !availability ||
+            !servingSize ||
+            !cuisine
+        ) {
+            const error = new Error("All Fields are Required");
+            error.statusCode = 400;
+            return next(error);
+        }
+
+        const images = await UploadMultipleToCloudinary(req.files);
+        console.log(images);
+
+        const newMenuItem = await Menu.create({
+            itemName,
+            description,
+            price,
+            type,
+            preparationTime,
+            availability,
+            servingSize,
+            cuisine,
+            images,
+            resturantID: CurrentUser._id,
+        });
+
+        res.status(201).json({
+            message: "Menu Item Added Successfully",
+            data: newMenuItem,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const GetRestaurantMenuItem = async (req, res, next) => {
+    try {
+        const CurrentUser = req.user;
+
+        const menuItems = await Menu.find({ resturantID: CurrentUser._id });
+
+
+        res.status(200).json({
+            message: "Menu Items Fetched Successfully",
+            data: menuItems,
+        });
+
+        console.log("Body", req.body);
+        console.log("Files", req.files);
+    } catch (error) {
+        next(error);
+    }
 };

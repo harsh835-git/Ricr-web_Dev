@@ -1,5 +1,5 @@
 import express from "express";
-import { UpdateRestaurantProfile, RestaurantChangePhoto, restaurantResetPassword, RestaurantAddMenuItem } from "../controllers/RestaurantController.js";
+import { UpdateRestaurantProfile, RestaurantChangePhoto, restaurantResetPassword, RestaurantAddMenuItem, GetRestaurantMenuItem } from "../controllers/RestaurantController.js";
 import { Protect, ManagerProtect } from "../middlewares/authMiddleware.js";
 
 
@@ -12,12 +12,11 @@ const uploads = multer();
 router.put("/update", Protect, UpdateRestaurantProfile);
 router.patch("/changePhoto", Protect, uploads.single("image"), RestaurantChangePhoto);
 router.patch("/resetPassword", Protect, restaurantResetPassword);
-router.post(
-    "/addMenuItem",
+router.get(
+    "/menuItems",
     Protect,
     ManagerProtect,
-    uploads.array("itemImages", 5),
-    RestaurantAddMenuItem,
+    GetRestaurantMenuItem,
 );
 
 export default router;
