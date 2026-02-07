@@ -7,6 +7,7 @@ const EditManagerModal = ({ onClose }) => {
   const { user, setUser, setIsLogin } = useAuth();
   const [loading, setLoading] = useState(false);
 
+  // Added || "" to every nested property to prevent "Uncontrolled" warnings
   const [formData, setFormData] = useState({
     fullName: user?.fullName || "",
     email: user?.email || "",
@@ -15,7 +16,6 @@ const EditManagerModal = ({ onClose }) => {
     dob: user?.dob || "",
     cuisine: user?.cuisine || "",
     restaurantName: user?.restaurantName || "",
-
     address: user?.address || "",
     city: user?.city || "",
     pin: user?.pin || "",
@@ -82,37 +82,40 @@ const EditManagerModal = ({ onClose }) => {
 
     try {
       const res = await api.put("/Restaurant/update", formData);
-      sessionStorage.setItem("CravingUser", JSON.stringify(res.data.data));
-      setUser(res.data.data);
-      setIsLogin(true);
-      toast.success("Profile updated", { id: toastId });
-      setTimeout(() => onClose(), 1000);
+      
+      // Safety check: ensure the response has data
+      if (res.data && res.data.data) {
+        const updatedUser = res.data.data;
+        sessionStorage.setItem("CravingUser", JSON.stringify(updatedUser));
+        setUser(updatedUser); 
+        setIsLogin(true);
+        toast.success("Profile updated", { id: toastId });
+        setTimeout(() => onClose(), 1000);
+      } else {
+        throw new Error("Invalid response format");
+      }
     } catch (err) {
       toast.error(err.response?.data?.message || "Update failed", {
         id: toastId,
       });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
-  const inputStyle =
-    "w-full px-3 py-2 mt-1 rounded-lg border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400";
-
+  const inputStyle = "w-full px-3 py-2 mt-1 rounded-lg border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400";
   const labelStyle = "text-sm font-semibold text-gray-700";
 
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur flex justify-center items-start z-50 pt-24 p-4">
       <div className="bg-white w-full max-w-6xl rounded-xl shadow-xl overflow-y-auto max-h-[90vh]">
-
-        {/* THEME HEADER */}
         <div className="flex justify-between items-center px-6 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-md sticky top-0 z-10">
           <h2 className="text-lg font-bold">Edit Restaurant Profile</h2>
           <button onClick={onClose} className="text-xl hover:scale-110">✕</button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-10">
-
-          {/* Owner & Restaurant */}
+          {/* Section: Owner & Restaurant */}
           <div>
             <h3 className="font-bold text-gray-800 mb-4">Owner & Restaurant</h3>
             <div className="grid md:grid-cols-2 gap-6">
@@ -120,25 +123,14 @@ const EditManagerModal = ({ onClose }) => {
                 <label className={labelStyle}>Owner Name</label>
                 <input className={inputStyle} name="fullName" value={formData.fullName} onChange={handleInputChange}/>
               </div>
-
               <div>
                 <label className={labelStyle}>Restaurant Name</label>
                 <input className={inputStyle} name="restaurantName" value={formData.restaurantName} onChange={handleInputChange}/>
               </div>
-
-              <div>
-                <label className={labelStyle}>Mobile Number</label>
-                <input className={inputStyle} name="mobileNumber" value={formData.mobileNumber} onChange={handleInputChange}/>
-              </div>
-
-              <div>
-                <label className={labelStyle}>Cuisine Type</label>
-                <input className={inputStyle} name="cuisine" value={formData.cuisine} onChange={handleInputChange}/>
-              </div>
             </div>
           </div>
 
-          {/* Address */}
+          {/* Section: Address */}
           <div>
             <h3 className="font-bold text-gray-800 mb-4">Address</h3>
             <div className="grid md:grid-cols-3 gap-6">
@@ -155,37 +147,26 @@ const EditManagerModal = ({ onClose }) => {
                 <input className={inputStyle} name="pin" value={formData.pin} onChange={handleInputChange}/>
               </div>
             </div>
-
             <button type="button" onClick={fetchLocation} className="mt-4 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-lg">
               Use Current Location
             </button>
-
             <p className="mt-2 text-sm text-gray-600">
-              Latitude: {formData.geoLocation.lat} | Longitude: {formData.geoLocation.lon}
+              Lat: {formData.geoLocation.lat} | Lon: {formData.geoLocation.lon}
             </p>
           </div>
 
-          {/* Documents */}
+          {/* Section: Documents */}
           <div>
             <h3 className="font-bold text-gray-800 mb-4">Business Documents</h3>
             <div className="grid md:grid-cols-2 gap-6">
-              {["uidai","pan","fssai","gst","rc","dl"].map((doc) => (
+              {Object.keys(formData.documents).map((doc) => (
                 <div key={doc}>
                   <label className={labelStyle}>{doc.toUpperCase()}</label>
-                  <input className={inputStyle} value={formData.documents[doc]} onChange={(e)=>handleNestedChange("documents",doc,e.target.value)}/>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Payment */}
-          <div>
-            <h3 className="font-bold text-gray-800 mb-4">Payment Details</h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              {["upi","account_number","ifs_Code"].map((p) => (
-                <div key={p}>
-                  <label className={labelStyle}>{p.replace("_"," ").toUpperCase()}</label>
-                  <input className={inputStyle} value={formData.paymentDetails[p]} onChange={(e)=>handleNestedChange("paymentDetails",p,e.target.value)}/>
+                  <input 
+                    className={inputStyle} 
+                    value={formData.documents[doc]} 
+                    onChange={(e) => handleNestedChange("documents", doc, e.target.value)}
+                  />
                 </div>
               ))}
             </div>
@@ -194,7 +175,6 @@ const EditManagerModal = ({ onClose }) => {
           <button disabled={loading} className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg hover:opacity-90">
             {loading ? "Saving..." : "Update Profile"}
           </button>
-
         </form>
       </div>
     </div>

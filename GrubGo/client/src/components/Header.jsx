@@ -66,7 +66,7 @@ const Header = () => {
               className="font-bold font-serif text-white text-xl cursor-pointer"
               onClick={handleNavigate}
             >
-              Hi, {user.fullName}!
+              Hi, {user?.fullName || "Guest"}!
             </div>
           ) : (
             <div>
