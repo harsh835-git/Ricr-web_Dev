@@ -19,6 +19,7 @@ const ResturantMenu = () => {
     }
   };
 
+  
   useEffect(() => {
     if (!isAddItemModalOpen) fetchMenuItem();
   }, [isAddItemModalOpen]);
