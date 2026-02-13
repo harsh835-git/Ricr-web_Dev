@@ -1,5 +1,5 @@
 import React from "react";
-import horizontalLogo from "../assets/horizontalLogo.png";
+import horizontalLogo from "../assets/GrubgoLogo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 
@@ -37,7 +37,7 @@ const Header = () => {
           <img
             src={horizontalLogo}
             alt=""
-            className="h-12 rounded-3xl shadow"
+            className="h-12 rounded-3xl "
           />
         </Link>
         <div className="flex gap-4">
@@ -58,6 +58,12 @@ const Header = () => {
             className="text-decoration-none text-white hover:text-(--color-accent) font-serif"
           >
             Contact
+          </Link>
+          <Link
+            to={"/OrderNow"}
+            className="text-decoration-none text-white hover:text-(--color-accent) font-serif"
+          >
+            OrderNow
           </Link>
         </div>
         <div>
