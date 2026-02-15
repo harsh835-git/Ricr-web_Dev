@@ -32,7 +32,7 @@ const seedAdmin = async () => {
 
     console.log("Admin Name:", AdminUser.fullName);
     console.log("Admin Email:", AdminUser.email);
-    console.log("Admin Password:", DummyAdmin.password);
+    console.log("Admin password:", DummyAdmin.password);
   } catch (error) {
     console.log(error);
 

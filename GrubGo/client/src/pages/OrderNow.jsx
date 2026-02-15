@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import api from "../config/Api";
 import Loading from "../components/Loading";
 import { useEffect } from "react";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 
 const OrderNow = () => {
   const [loading, setLoading] = useState(false);
@@ -33,41 +33,64 @@ const OrderNow = () => {
 
   if (loading) {
     return (
-      <div className="h-[80vh]">
+      <div className="h-[80vh] flex items-center justify-center">
         <Loading />
       </div>
     );
   }
+
   return (
-    <>
-      <div className="grid grid-cols-4 gap-4 mt-4 mx-10">
+    <div className="px-6 md:px-10 mt-6">
+    
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {restaurant &&
           restaurant.map((EachRestaurant, idx) => (
             <div
-              className="h-100 border border-gray-100 rounded-xl p-2 group cursor-pointer hover:scale-103 hover:shadow-xl hover:border-(--color-secondary) duration-100"
               key={idx}
               onClick={handleRestaurantClick}
+              className="bg-white rounded-2xl shadow-md overflow-hidden group cursor-pointer hover:shadow-2xl hover:-translate-y-1 transition duration-300 border border-gray-100"
             >
-              <img
-                src={EachRestaurant.photo.url}
-                alt=""
-                className="w-full h-[50%] object-cover rounded-t-xl"
-              />
-              <div className="text-2xl font-semibold text-(--color-secondary)">
-                {EachRestaurant.restaurantName}
+              {/* Image */}
+              <div className="h-48 w-full overflow-hidden">
+                <img
+                  src={EachRestaurant.photo.url}
+                  alt={EachRestaurant.restaurantName}
+                  className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
+                />
               </div>
-              <div>{EachRestaurant.cuisine}</div>
-              <div>{EachRestaurant.address}</div>
-              <div>{EachRestaurant.city}</div>
-              <div>{EachRestaurant.pin}</div>
-              <div>{EachRestaurant.mobileNumber}</div>
-              <div className="flex float-end items-center text-(--color-secondary) gap-2 group-hover:border-b-2 w-fit">
-                Explore Menu <FaArrowRight />
+
+              {/* Content */}
+              <div className="p-4 space-y-2">
+                <h3 className="text-xl font-bold text-(--color-secondary)">
+                  {EachRestaurant.restaurantName}
+                </h3>
+
+                <p className="text-sm text-gray-600">
+                  🍴 {EachRestaurant.cuisine}
+                </p>
+
+                <p className="text-sm text-gray-600 flex items-start gap-1">
+                  <FaMapMarkerAlt className="mt-1 text-(--color-secondary)" />
+                  {EachRestaurant.address}, {EachRestaurant.city} -{" "}
+                  {EachRestaurant.pin}
+                </p>
+
+                <p className="text-sm text-gray-600 flex items-center gap-2">
+                  <FaPhoneAlt className="text-(--color-secondary)" />
+                  {EachRestaurant.mobileNumber}
+                </p>
+
+                <div className="pt-3 flex justify-end">
+                  <div className="flex items-center gap-2 text-(--color-secondary) font-semibold group-hover:border-b-2 border-(--color-secondary)">
+                    Explore Menu <FaArrowRight />
+                  </div>
+                </div>
               </div>
             </div>
           ))}
       </div>
-    </>
+    </div>
   );
 };
 

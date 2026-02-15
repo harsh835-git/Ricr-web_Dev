@@ -7,9 +7,9 @@ import { UploadMultipleToCloudinary } from "../utils/imageUploader.js";
 
 export const RestaurantRegister = async (req, res, next) => {
     try {
-        const { fullName, email, mobileNumber, passWord, restaurantName } = req.body;
+        const { fullName, email, mobileNumber, password, restaurantName } = req.body;
 
-        if (!fullName || !email || !mobileNumber || !passWord || !restaurantName) {
+        if (!fullName || !email || !mobileNumber || !password || !restaurantName) {
             const error = new Error("All fields required");
             error.statusCode = 400;
             return next(error);
@@ -25,7 +25,7 @@ export const RestaurantRegister = async (req, res, next) => {
 
         // Encrypt password
         const salt = await bcrypt.genSalt(10);
-        const hashPassword = await bcrypt.hash(passWord, salt);
+        const hashPassword = await bcrypt.hash(password, salt);
 
         const photoURL = `https://placehold.co/600x400?text=${restaurantName
             .charAt(0)
@@ -36,7 +36,7 @@ export const RestaurantRegister = async (req, res, next) => {
             restaurantName,
             email: email.toLowerCase(),
             mobileNumber,
-            passWord: hashPassword,
+            password: hashPassword,
             photo: { url: photoURL },
         });
 
@@ -51,9 +51,9 @@ export const RestaurantRegister = async (req, res, next) => {
 
 export const RestaurantLogin = async (req, res, next) => {
     try {
-        const { email, passWord } = req.body;
+        const { email, password } = req.body;
 
-        if (!email || !passWord) {
+        if (!email || !password) {
             const error = new Error("All fields required");
             error.statusCode = 400;
             return next(error);
@@ -66,9 +66,9 @@ export const RestaurantLogin = async (req, res, next) => {
             return next(error);
         }
 
-        const isVerified = await bcrypt.compare(passWord, restaurant.passWord);
+        const isVerified = await bcrypt.compare(password, restaurant.password);
         if (!isVerified) {
-            const error = new Error("Password did not match");
+            const error = new Error("password did not match");
             error.statusCode = 401;
             return next(error);
         }
@@ -158,16 +158,16 @@ export const restaurantResetPassword = async (req, res, next) => {
             return res.status(404).json({ message: "Restaurant not found" });
         }
 
-        const isMatch = await bcrypt.compare(oldPassword, restaurant.passWord);
+        const isMatch = await bcrypt.compare(oldPassword, restaurant.password);
 
         if (!isMatch) {
             return res.status(401).json({ message: "Old password incorrect" });
         }
 
-        restaurant.passWord = await bcrypt.hash(newPassword, 10);
+        restaurant.password = await bcrypt.hash(newPassword, 10);
         await restaurant.save();
 
-        res.status(200).json({ message: "Password updated successfully" });
+        res.status(200).json({ message: "password updated successfully" });
     } catch (error) {
         next(error);
     }

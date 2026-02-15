@@ -12,11 +12,11 @@ import toast from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const ResturantSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
+const RestaurantSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) => {
   const navigate = useNavigate();
 
   const menuItems = [
-    { key: "overview", title: "Resturant Overview", icons: <TbChartTreemap /> },
+    { key: "overview", title: "Restaurant Overview", icons: <TbChartTreemap /> },
     { key: "profile", title: "Restaurant Profile", icons: <CgProfile /> },
     { key: "orders", title: "Manage Orders", icons: <FaCartShopping /> },
     { key: "menu", title: "Manage Menu", icons: <MdOutlineRestaurantMenu /> },
@@ -95,4 +95,4 @@ const ResturantSideBar = ({ active, setActive, isCollapsed, setIsCollapsed }) =>
   );
 };
 
-export default ResturantSideBar;
+export default RestaurantSideBar;

@@ -1,7 +1,7 @@
 import sendEmail from "../config/email.js";
 
 export const sendOTPEmail = async (to, otp) => {
-  const subject = "🔐 GrubGo OTP – Reset Your Password";
+  const subject = "🔐 GrubGo OTP – Reset Your password";
 
   const message = `
   <body style="margin:0; padding:0; background:#fef7f2; font-family: 'Segoe UI', Arial, sans-serif;">
@@ -24,7 +24,7 @@ export const sendOTPEmail = async (to, otp) => {
             <!-- Body -->
             <tr>
               <td style="padding:40px 30px; color:#333;">
-                <h2 style="margin-top:0; color:#ff3d00;">Reset Your Password</h2>
+                <h2 style="margin-top:0; color:#ff3d00;">Reset Your password</h2>
 
                 <p style="font-size:16px; line-height:1.6;">
                   Hi Partner 👋,<br/>

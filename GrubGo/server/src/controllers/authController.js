@@ -7,14 +7,14 @@ export const UserRegister = async (req, res, next) => {
     try {
         console.log(req.body);
 
-        const { fullName, email, mobileNumber, passWord, role } = req.body;
+        const { fullName, email, mobileNumber, password, role } = req.body;
 
-        if (!fullName || !email || !mobileNumber || !passWord || !role) {
+        if (!fullName || !email || !mobileNumber || !password || !role) {
             const error = new Error("All fields required");
             error.statusCode = 400;
             return next(error);
         }
-        console.log(fullName, email, mobileNumber, passWord);
+        console.log(fullName, email, mobileNumber, password);
 
         // check duplicated user
         const existingUser = await User.findOne({ email });
@@ -27,7 +27,7 @@ export const UserRegister = async (req, res, next) => {
 
         // encrypt the password
         const salt = await bcrypt.genSalt(10)
-        const hashPassword = await bcrypt.hash(passWord, salt);
+        const hashPassword = await bcrypt.hash(password, salt);
 
         // save data to databse
         console.log("wor hashing done.hashpassowrd ", hashPassword);
@@ -41,7 +41,7 @@ export const UserRegister = async (req, res, next) => {
             fullName,
             email: email.toLowerCase(),
             mobileNumber,
-            passWord: hashPassword,
+            password: hashPassword,
             role,
             photo,
         })
@@ -59,9 +59,9 @@ export const UserRegister = async (req, res, next) => {
 
 export const UserLogin = async (req, res, next) => {
     try {
-        const { email, passWord } = req.body;
+        const { email, password } = req.body;
 
-        if (!email || !passWord) {
+        if (!email || !password) {
             const error = new Error("All fields required");
             error.statusCode = 400;
             return next(error);
@@ -77,9 +77,9 @@ export const UserLogin = async (req, res, next) => {
 
         // verify pssowrd
 
-        const isVerified = await bcrypt.compare(passWord, existingUser.passWord);
+        const isVerified = await bcrypt.compare(password, existingUser.password);
         if (!isVerified) {
-            const error = new Error("PassWord didnt match");
+            const error = new Error("password didnt match");
             error.statusCode = 401;
             return next(error);
         }
@@ -206,7 +206,7 @@ export const UserVerifyOtp = async (req, res, next) => {
             return next(error);
         }
 
-        //verify the Password
+        //verify the password
         const isVerified = await bcrypt.compare(otp, existingUserOTP.otp);
         if (!isVerified) {
             const error = new Error("OTP Match Error, Please Retry");
@@ -227,7 +227,7 @@ export const UserVerifyOtp = async (req, res, next) => {
         genOtpToken(existingUser, res);
 
         //send message to Frontend
-        res.status(200).json({ message: "OTP Verified. Create New Password Now" });
+        res.status(200).json({ message: "OTP Verified. Create New password Now" });
         //End
     } catch (error) {
         next(error);
@@ -256,7 +256,7 @@ export const UserForgetPassword = async (req, res, next) => {
         res
             .status(200)
             .clearCookie("otpToken")
-            .json({ message: "Password Changed. Please login again" });
+            .json({ message: "password Changed. Please login again" });
     } catch (error) {
         next(error);
     }

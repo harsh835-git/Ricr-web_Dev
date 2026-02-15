@@ -12,6 +12,9 @@ import Footer from "./components/Footer";
 import RiderDashboard from "./pages/dashboards/RiderDashboard";
 import ResturantDashboard from "./pages/dashboards/Restaurantdashboard";
 import AdminDashboard from "./pages/dashboards/AdminDashboard";
+import OrderNow from "./pages/OrderNow";
+
+
 
 const App = () => {
   return (
@@ -27,8 +30,10 @@ const App = () => {
         <Route path="/Register" element={<Register />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
         <Route path="/rider-dashboard" element={<RiderDashboard />} />
-        <Route path="/resturant-dashboard" element={<ResturantDashboard />} />
+        <Route path="/restaurant-dashboard" element={<ResturantDashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+         <Route path="/OrderNow" element={<OrderNow />} />
+
       </Routes>
       <Footer />
     </BrowserRouter>

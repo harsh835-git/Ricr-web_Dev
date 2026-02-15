@@ -19,7 +19,7 @@ const ForgetPasswordModal = ({ onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.newPassword !== formData.cfNewPassword) {
-      toast.error("New Password and Confirm Password Shoulb be same");
+      toast.error("New password and Confirm password Shoulb be same");
       setLoading(false);
       return;
     }
@@ -33,7 +33,7 @@ const ForgetPasswordModal = ({ onClose }) => {
             setLoading(false);
             return;
           }
-          toast.success("Password Updated Successfully");
+          toast.success("password Updated Successfully");
           onClose();
         } else {
           toast.success("OTP Verified");
@@ -60,7 +60,7 @@ const ForgetPasswordModal = ({ onClose }) => {
       <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
         <div className="bg-linear-to-r from-orange-500 to-red-500 px-6 py-4 flex justify-between items-center text-white">
-          <h2 className="text-lg font-bold">🔐 Reset Password</h2>
+          <h2 className="text-lg font-bold">🔐 Reset password</h2>
           <button onClick={onClose} className="text-xl hover:scale-110">
             ✕
           </button>
@@ -105,12 +105,12 @@ const ForgetPasswordModal = ({ onClose }) => {
             </div>
           )}
 
-          {/* New Password */}
+          {/* New password */}
           {isOtpSent && isOtpVerified && (
             <>
               <div>
                 <label className="text-sm font-semibold text-gray-700">
-                  New Password
+                  New password
                 </label>
                 <div className="flex items-center border rounded-xl px-3 mt-1">
                   <FaLock className="text-gray-400" />
@@ -127,7 +127,7 @@ const ForgetPasswordModal = ({ onClose }) => {
 
               <div>
                 <label className="text-sm font-semibold text-gray-700">
-                  Confirm Password
+                  Confirm password
                 </label>
                 <div className="flex items-center border rounded-xl px-3 mt-1">
                   <FaLock className="text-gray-400" />
@@ -159,7 +159,7 @@ const ForgetPasswordModal = ({ onClose }) => {
               </>
             ) : isOtpSent ? (
               isOtpVerified ? (
-                "Update Password"
+                "Update password"
               ) : (
                 "Verify OTP"
               )

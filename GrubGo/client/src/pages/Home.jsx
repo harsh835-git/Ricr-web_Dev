@@ -16,7 +16,7 @@ const Home = () => {
           </p>
 
           <Link
-            to="/login"
+            to="/OrderNow"
             className="inline-block bg-white text-orange-600 font-bold px-8 py-3 rounded-xl hover:scale-105 transition"
           >
             Order Now 🚀

@@ -13,7 +13,7 @@ const Login = () => {
 
   const [formData, setFormData] = useState({
     email: "",
-    passWord: "",
+    password: "",
   });
 
 
@@ -36,8 +36,8 @@ const Login = () => {
       Error.email = "Enter a valid email address";
     }
 
-    if (formData.passWord.length < 6) {
-      Error.passWord = "Password must be at least 6 characters";
+    if (formData.password.length < 6) {
+      Error.password = "password must be at least 6 characters";
     }
 
     setValidationError(Error);
@@ -66,7 +66,7 @@ const Login = () => {
       switch (res.data.data.role) {
         case "manager": {
           setRole("manager");
-          navigate("/resturant-dashboard");
+          navigate("/restaurant-dashboard");
           break;
         }
         case "partner": {
@@ -120,11 +120,11 @@ const Login = () => {
           <InputField
             emoji="🔒"
             type="password"
-            placeholder="Password"
-            name="passWord"
-            value={formData.passWord}
+            placeholder="password"
+            name="password"
+            value={formData.password}
             onChange={handleChange}
-            error={validationError.passWord}
+            error={validationError.password}
             disabled={isLoading}
           />
 
@@ -154,7 +154,7 @@ const Login = () => {
                 setIsForgetPasswordModalOpen(true);
               }}
             >
-              Forget Password?
+              Forget password?
             </button>
           </div>
         </form>

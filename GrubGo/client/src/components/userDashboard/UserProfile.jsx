@@ -98,7 +98,7 @@ const UserProfile = () => {
                   className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-semibold shadow"
                   onClick={() => setIsResetPasswordModalOpen(true)}
                 >
-                  Reset Password
+                  Reset password
                 </button>
               </div>
             </div>

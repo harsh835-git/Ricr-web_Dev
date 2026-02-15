@@ -20,7 +20,7 @@ const restaurantSchema = mongoose.Schema(
       required: true,
     },
 
-    passWord: {
+    password: {
       type: String,
       required: true,
     },

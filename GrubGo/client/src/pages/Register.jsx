@@ -7,7 +7,7 @@ const Registration = () => {
     fullName: "",
     email: "",
     mobileNumber: "",
-    passWord: "",
+    password: "",
     confirmPassWord: "",
     role: "",
   });
@@ -25,7 +25,7 @@ const Registration = () => {
       fullName: "",
       email: "",
       mobileNumber: "",
-      passWord: "",
+      password: "",
       confirmPassWord: "",
       role: "",
     });
@@ -44,10 +44,10 @@ const Registration = () => {
       Error.email = "Invalid email address";
     if (!/^[6-9]\d{9}$/.test(formData.mobileNumber))
       Error.mobileNumber = "Invalid mobile number";
-    if (formData.passWord.length < 6) Error.passWord = "Minimum 6 characters";
+    if (formData.password.length < 6) Error.password = "Minimum 6 characters";
     if (!formData.confirmPassWord)
       Error.confirmPassWord = "Confirm your password";
-    else if (formData.passWord !== formData.confirmPassWord)
+    else if (formData.password !== formData.confirmPassWord)
       Error.confirmPassWord = "Passwords do not match";
 
     if (!formData.role) {
@@ -106,7 +106,7 @@ const Registration = () => {
                   onChange={handleChange}
                   className="accent-orange-500"
                 />
-                Resturant Manager
+                Restaurant Manager
               </label>
 
               <label className="flex items-center gap-2">
@@ -174,17 +174,17 @@ const Registration = () => {
 
           <InputField
             emoji="🔒"
-            placeholder="Password"
-            name="passWord"
+            placeholder="password"
+            name="password"
             type="password"
-            value={formData.passWord}
+            value={formData.password}
             onChange={handleChange}
-            error={validationError.passWord}
+            error={validationError.password}
           />
 
           <InputField
             emoji="🔒"
-            placeholder="Confirm Password"
+            placeholder="Confirm password"
             name="confirmPassWord"
             type="password"
             value={formData.confirmPassWord}

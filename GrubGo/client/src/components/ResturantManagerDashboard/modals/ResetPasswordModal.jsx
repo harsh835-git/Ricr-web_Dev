@@ -34,11 +34,11 @@ const ResetPasswordModal = ({ onClose }) => {
         newPassword,
       });
 
-      toast.success(res.data.message || "Password updated successfully");
+      toast.success(res.data.message || "password updated successfully");
       onClose();
     } catch (error) {
       console.log(error);
-      toast.error(error?.response?.data?.message || "Password update failed");
+      toast.error(error?.response?.data?.message || "password update failed");
     } finally {
       setLoading(false);
     }
@@ -55,7 +55,7 @@ const ResetPasswordModal = ({ onClose }) => {
 
         
         <div className="flex justify-between items-center px-6 py-4 border-b bg-orange-50">
-          <h2 className="text-xl font-bold text-orange-600">🔒 Reset Password</h2>
+          <h2 className="text-xl font-bold text-orange-600">🔒 Reset password</h2>
           <button
             onClick={onClose}
             className="w-9 h-9 rounded-full bg-orange-100 hover:bg-orange-200 flex items-center justify-center text-xl"
@@ -66,10 +66,10 @@ const ResetPasswordModal = ({ onClose }) => {
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
 
-          {/* Old Password */}
+          {/* Old password */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1">
-              Old Password
+              Old password
             </label>
             <input
               type="password"
@@ -81,10 +81,10 @@ const ResetPasswordModal = ({ onClose }) => {
             />
           </div>
 
-          {/* New Password */}
+          {/* New password */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1">
-              New Password
+              New password
             </label>
             <input
               type="password"
@@ -96,10 +96,10 @@ const ResetPasswordModal = ({ onClose }) => {
             />
           </div>
 
-          {/* Confirm Password */}
+          {/* Confirm password */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1">
-              Confirm New Password
+              Confirm New password
             </label>
             <input
               type="password"
@@ -131,7 +131,7 @@ const ResetPasswordModal = ({ onClose }) => {
                   <span className="animate-spin">⟳</span> Updating...
                 </>
               ) : (
-                "Update Password"
+                "Update password"
               )}
             </button>
           </div>

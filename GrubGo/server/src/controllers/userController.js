@@ -192,7 +192,7 @@ export const UserResetPassword = async (req, res, next) => {
 
     const isVerified = await bcrypt.compare(oldPassword, currentUser.password);
     if (!isVerified) {
-      const error = new Error("Old Password didn't match");
+      const error = new Error("Old password didn't match");
       error.statusCode = 401;
       return next(error);
     }
@@ -204,7 +204,7 @@ export const UserResetPassword = async (req, res, next) => {
 
     await currentUser.save();
 
-    res.status(200).json({ message: "Password Reset Successful" });
+    res.status(200).json({ message: "password Reset Successful" });
   } catch (error) {
     next(error);
   }

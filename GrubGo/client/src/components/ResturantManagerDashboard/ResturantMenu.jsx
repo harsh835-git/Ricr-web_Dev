@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import AddMenuItemModal from "./modals/AddMenuItemModal";
 import api from "../../config/Api";
 import toast from "react-hot-toast";
-
+import EditItemModal from "./modals/EditItemModal";
 const ResturantMenu = () => {
   const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
+  const [isEditItemModalOpen, setIsEditItemModalOpen] = useState(false);
 
   const [menuItems, setMenuItems] = useState();
 
@@ -19,10 +20,9 @@ const ResturantMenu = () => {
     }
   };
 
-  
   useEffect(() => {
-    if (!isAddItemModalOpen) fetchMenuItem();
-  }, [isAddItemModalOpen]);
+    if (!isAddItemModalOpen && !isEditItemModalOpen) fetchMenuItem();
+  }, [isAddItemModalOpen, isEditItemModalOpen]);
   return (
     <>
       <div className="bg-gray-50 rounded-lg p-6 h-full overflow-y-auto">
