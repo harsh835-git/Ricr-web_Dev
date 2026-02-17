@@ -47,8 +47,7 @@ export const GetAllRestaurants = async (req, res, next) => {
 
 export const GetRestaurantMenuData = async (req, res, next) => {
   try {
-    const { id, page } = req.params;
-    console.log(page);
+       const { id } = req.params;
 
     if (!id) {
       const error = new Error("All feilds required");
@@ -60,8 +59,6 @@ export const GetRestaurantMenuData = async (req, res, next) => {
       restaurantID: id,
     })
       .sort({ updatedAt: -1 })
-      .skip(1)
-      .limit(2)
       .populate("restaurantID");
 
     res

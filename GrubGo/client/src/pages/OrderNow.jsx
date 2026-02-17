@@ -5,8 +5,10 @@ import api from "../config/Api";
 import Loading from "../components/Loading";
 import { useEffect } from "react";
 import { FaArrowRight, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const OrderNow = () => {
+   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [restaurant, setRestaurant] = useState();
 
@@ -27,8 +29,9 @@ const OrderNow = () => {
     fetctAllRestaurants();
   }, []);
 
-  const handleRestaurantClick = () => {
+  const handleRestaurantClick = (restaurantinfo) => {
     console.log("Restaurant Clicked");
+      navigate("/restaurantMenu", { state: restaurantinfo });
   };
 
   if (loading) {
@@ -48,7 +51,7 @@ const OrderNow = () => {
           restaurant.map((EachRestaurant, idx) => (
             <div
               key={idx}
-              onClick={handleRestaurantClick}
+               onClick={() => handleRestaurantClick(EachRestaurant)}
               className="bg-white rounded-2xl shadow-md overflow-hidden group cursor-pointer hover:shadow-2xl hover:-translate-y-1 transition duration-300 border border-gray-100"
             >
               {/* Image */}
