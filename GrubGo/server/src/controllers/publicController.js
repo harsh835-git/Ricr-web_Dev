@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Contact from "../models/contactModel.js";
 import Menu from "../models/menuSchema.js";
 import User from "../models/userModel.js";
@@ -37,7 +38,7 @@ export const GetAllRestaurants = async (req, res, next) => {
     );
 
     res.status(200).json({
-      message: "Restaurants fetched successfully",
+      message: "Restaurants fetched Successfully",
       data: restaurants,
     });
   } catch (error) {
@@ -49,17 +50,19 @@ export const GetRestaurantMenuData = async (req, res, next) => {
   try {
        const { id } = req.params;
 
-    if (!id) {
-      const error = new Error("All feilds required");
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      const error = new Error("All fields required");
       error.statusCode = 400;
       return next(error);
     }
 
+   
+    
     const restaurantMenuData = await Menu.find({
-      restaurantID: id,
+      restaurantID:id,
     })
       .sort({ updatedAt: -1 })
-      .populate("restaurantID");
+     // .populate("restaurantID");
 
     res
       .status(200)

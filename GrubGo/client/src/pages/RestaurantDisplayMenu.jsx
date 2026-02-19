@@ -9,7 +9,7 @@ const RestaurantDisplayMenu = () => {
   const { isLogin, role } = useAuth();
   const navigate = useNavigate();
   const data = useLocation().state;
-  // console.log("Resturant Menu Page", data);
+  // console.log("restaurant Menu Page", data);
 
   const [loading, setLoading] = useState(false);
   const [menuItems, setMenuItems] = useState();
@@ -37,7 +37,7 @@ const RestaurantDisplayMenu = () => {
 
   const handleAddToCart = (NewItem) => {
     if (cart) {
-      if (cart.resturantID === NewItem.resturantID._id) {
+      if (cart.restaurantID === NewItem.restaurantID) {
         setCart((prev) => ({
           ...prev,
           cartItem: [...prev.cartItem, { ...NewItem, quantity: 1 }],
@@ -49,7 +49,7 @@ const RestaurantDisplayMenu = () => {
       }
     } else {
       setCart({
-        resturantID: NewItem.resturantID._id,
+        restaurantID: NewItem.restaurantID,
         cartItem: [{ ...NewItem, quantity: 1 }],
         cartValue: Number(NewItem.price),
       });
@@ -105,7 +105,7 @@ const RestaurantDisplayMenu = () => {
                   <div className="flex justify-between border-red-500 w-full">
                     <div>
                       <div className="text-(--color-primary) text-lg font-bold">
-                        {EachItem.itemName}
+                        {EachItem.ItemName}
                       </div>
                       <div className="text-sm text-gray-600 mt-1">
                         {EachItem.description}

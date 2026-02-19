@@ -7,7 +7,7 @@ const menuSchema = mongoose.Schema(
       ref: "User",
       required: true,
     },
-    ItemName: {
+    itemName: {
       type: String,
       required: true,
     },
