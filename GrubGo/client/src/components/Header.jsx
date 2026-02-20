@@ -13,6 +13,7 @@ const Header = () => {
         navigate("/restaurant-dashboard");
         break;
       }
+      
       case "partner": {
         navigate("/rider-dashboard");
         break;
