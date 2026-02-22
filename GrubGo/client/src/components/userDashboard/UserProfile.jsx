@@ -62,6 +62,7 @@ const UserProfile = () => {
                 htmlFor="imageUpload"
                 className="absolute bottom-2 right-2 bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-full cursor-pointer shadow-lg"
               >
+                
                 <FaCamera />
               </label>
 
