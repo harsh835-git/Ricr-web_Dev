@@ -8,7 +8,7 @@ export const NewContact = async (req, res, next) => {
     const { fullName, email, mobileNumber, message } = req.body;
 
     if (!fullName || !email || !mobileNumber || !message) {
-      const error = new Error("All feilds required");
+      const error = new Error("All fields required");
       error.statusCode = 400;
       return next(error);
     }
