@@ -23,7 +23,6 @@ export const UserRegister = async (req, res, next) => {
             error.statusCode = 409;
             return next(error);
         }
-        
         console.log("Sending Data to DB");
 
         // encrypt the password
