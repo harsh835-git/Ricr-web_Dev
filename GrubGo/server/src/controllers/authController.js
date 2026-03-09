@@ -25,6 +25,7 @@ export const UserRegister = async (req, res, next) => {
         }
         console.log("Sending Data to DB");
 
+        
         // encrypt the password
         const salt = await bcrypt.genSalt(10)
         const hashPassword = await bcrypt.hash(password, salt);
