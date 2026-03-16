@@ -7,6 +7,7 @@ import {
   RiderAcceptOrder
 } from "../controllers/riderController.js";
 
+
 const router = express.Router();
 
 router.post("/availableOrder", Protect, PartnerProtect, RiderGetAvailableOrder);
